@@ -34,6 +34,10 @@
     font-style: normal;
 }
 /*============ Estilos generales*/
+.nav-tabs{
+	background-color: #8C583A;
+}
+
 body, html{
 	background-color: #fff;
 	width: 100%;

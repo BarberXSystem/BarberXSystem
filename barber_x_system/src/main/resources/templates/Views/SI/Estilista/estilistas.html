@@ -6,6 +6,7 @@
 	<link rel="stylesheet" th:href="@{/css/bootstrap2.min.css}">
 	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 	<link rel="stylesheet" th:href="@{/css/main.css}">
+	<link rel="shotcut icon" th:href="@{/img/logo.png}">
 	<script src="https://kit.fontawesome.com/eb1bb051d4.js"></script>
 </head>
 <body>
@@ -73,7 +74,7 @@
 											<td th:text="${e.idEstilista}"></td>
 											<td th:text="${e.usuario.username}"></td>
 											<td th:text="${e.usuario.nombres+' '+e.usuario.apellidos}"></td>
-											<td><a href="#" th:onclick="'javascript:confirmDelete(\'' + ${e.idEstilista} + '\' );'" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
+											<td><a href="#" th:onclick="'javascript:confirmDelete(\'' + ${e.idEstilista} + '\' );'" class="btn btn-danger btn-raised btn-xs" style="background-color: #8C0303;"><i class="zmdi zmdi-delete"></i></a></td>
 										</tr>
 									</tbody>
 								</table>
