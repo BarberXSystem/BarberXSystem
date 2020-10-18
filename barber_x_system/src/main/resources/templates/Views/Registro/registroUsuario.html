@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title>LogIn</title>
+	<title>Registro | BarberXsystem</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
@@ -9,55 +9,91 @@
 	<script src="https://kit.fontawesome.com/eb1bb051d4.js"></script>
 </head>
 <body class="" style="overflow: auto;">
-	<div class="container">
-		<div class="row">
-			<div class="col-xs-12 col-md-10 col-md-offset-1">
+	<div class="container py-4">
+		
+		<div class="row justify-content-center">
+			<div class="col-8">
 				<div class="page-header">
 		  			<h1 class="text-titles"><i class="zmdi zmdi-account zmdi-hc-fw"></i>Registro <small>Usuario</small></h1>
 				</div>
-<!-- 				<p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse voluptas reiciendis tempora voluptatum eius porro ipsa quae voluptates officiis sapiente sunt dolorem, velit quos a qui nobis sed, dignissimos possimus!</p> -->
+	<!-- 				<p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse voluptas reiciendis tempora voluptatum eius porro ipsa quae voluptates officiis sapiente sunt dolorem, velit quos a qui nobis sed, dignissimos possimus!</p> -->
 			</div>
-		</div>
-	</div>
-	<div class="container">
-		<div class="row">
-			<div class="col-xs-12 col-md-10 col-md-offset-1">
-			    <form action="" class="">
+			<div class="col-8">
+				<div class="alert alert-success alert-dismissible fade show mt-2" role="alert" th:if="${success}">
+				  <i class="far fa-check-circle mr-1"></i>
+				  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				    <span aria-hidden="true">&times;</span>
+				  </button>
+				  <strong th:text="${success}"></strong>
+				</div>
+				<div class="alert alert-danger alert-dismissible fade show mt-2" role="alert" th:if="${error}">
+				  <i class="far fa-times-circle mr-1"></i>
+				  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				    <span aria-hidden="true">&times;</span>
+				  </button>
+				  <strong th:text="${error}"></strong>
+				</div>
+				<div class="alert alert-warning alert-dismissible fade show mt-2" role="alert" th:if="${warning}">
+				  <i class="fas fa-exclamation-circle mr-1"></i>
+				  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				    <span aria-hidden="true">&times;</span>
+				  </button>
+				  <strong th:text="${warning}"></strong>
+				</div>
+				<div class="alert alert-info alert-dismissible fade show mt-2" role="alert" th:if="${info}">
+				  <i class="fas fa-info-circle mr-1"></i>
+				  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				    <span aria-hidden="true">&times;</span>
+				  </button>
+				  <strong th:text="${info}"></strong>
+				</div>
+			</div>
+			<div class="col-8">
+			    <form th:action="@{/registro/nuevo}" th:object="${usuario}" method="post">
 					<div class="form-group label-floating">
 					  <label class="control-label">Nombres</label>
-					  <input class="form-control" type="text" required>
+					  <input class="form-control" th:field="*{nombres}" type="text" required>
 					</div>
 					<div class="form-group label-floating">
 					  <label class="control-label">Apellidos</label>
-					  <input class="form-control" type="text" required>
+					  <input class="form-control" th:field="*{apellidos}" type="text" required>
 					</div>
 					<div class="form-group">
 				        <label class="control-label">Tipo de documento</label>
-				        <select class="form-control" required>
-				          <option>Cedula de ciudadania</option>
-				          <option>Cedula de extranjeria</option>
-				          <option>Pasaporte</option>
+				        <select class="form-control" th:field="*{tipoDoc}" required>
+				          <option th:value="'CC'" th:text="'Cedula de ciudadania'"/>
+				          <option th:value="'CE'" th:text="'Cedula de extranjeria'"/>
+				          <option th:value="'PA'" th:text="'Pasaporte'"/>
 				        </select>
 				    </div>
 					<div class="form-group label-floating">
 					  <label class="control-label">Numero de documento</label>
-					  <input class="form-control" type="text" required>
+					  <input class="form-control" th:field="*{numeroDoc}" type="text" required>
 					</div>
 					<div class="form-group label-floating">
 					  <label class="control-label">Direccion</label>
-					  <input class="form-control" type="text" required>
+					  <input class="form-control" th:field="*{direccion}" type="text" required>
 					</div>
 					<div class="form-group label-floating">
 					  <label class="control-label">Correo electronico</label>
-					  <input class="form-control" type="text" required>
+					  <input class="form-control" th:field="*{email}" type="email" required>
 					</div>
 					<div class="form-group label-floating">
 					  <label class="control-label">Telefono</label>
-					  <input class="form-control" type="text" required>
+					  <input class="form-control" th:field="*{telefono}" type="text" required>
+					</div>
+					<div class="form-group label-floating">
+					  <label class="control-label">Contraseña</label>
+					  <input class="form-control" th:field="*{password}" type="password" required>
+					</div>
+					<div class="form-group label-floating">
+					  <label class="control-label">Confirmar contraseña</label>
+					  <input class="form-control" th:field="*{confirmPassword}" type="password" required>
 					</div>
 				    <p class="text-center">
-				    	<button href="#!" class="btn btn-info btn-raised btn-sm"><i class="zmdi zmdi-floppy"></i> Registrarme</button>
+				    	<button type="submit" class="btn btn-info btn-raised btn-sm"><i class="zmdi zmdi-floppy"></i> Registrarme</button>
 				    </p>
+				    <a th:href="@{/login}" class="nav-link text-center">Cancelar</a>
 			    </form>
 			</div>
 		</div>

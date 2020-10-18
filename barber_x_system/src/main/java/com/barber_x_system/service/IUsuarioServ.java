@@ -12,5 +12,9 @@ public interface IUsuarioServ {
 	
 	//METODOS AUXILIARES
 	public Usuario buscarPorId(Long idUsuario);
+	public Usuario buscarPorNumeroDoc(String numeroDoc);
+	public boolean existePorNumeroDoc(String username);
+	public boolean existePorEmail(String username);
+	public boolean passMatch(Usuario usuario);
 
 }

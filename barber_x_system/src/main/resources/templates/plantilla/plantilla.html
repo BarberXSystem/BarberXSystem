@@ -4,6 +4,8 @@
 	<title>Admin</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" th:href="@{/css/bootstrap2.min.css}">
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 	<link rel="stylesheet" th:href="@{/css/main.css}">
 	<script src="https://kit.fontawesome.com/eb1bb051d4.js"></script>
 </head>
@@ -14,12 +16,12 @@
 		<div class="full-box dashboard-sideBar-ct">
 			<!--SideBar Title -->
 			<div class="full-box text-uppercase text-center text-titles dashboard-sideBar-title">
-				BARBER X SYSTEM <i class="zmdi zmdi-close btn-menu-dashboard visible-xs"></i>
+				BARBER X SYSTEM <i class="zmdi zmdi-close btn-menu-dashboard d-block d-sm-none"></i>
 			</div>
 			<!-- SideBar User info -->
 			<div class="full-box dashboard-sideBar-UserInfo">
 				<figure class="full-box">
-					<img src=".//img/avatar.jpg" alt="UserIcon">
+					<img th:src="@{/img/avatar.jpg}" alt="UserIcon">
 					<figcaption class="text-center text-titles">User Name</figcaption>
 				</figure>
 				<ul class="full-box list-unstyled text-center">
@@ -44,62 +46,65 @@
 				</li>
 				<li>
 					<a href="#!" class="btn-sideBar-SubMenu">
-						<i class="zmdi zmdi-case zmdi-hc-fw"></i> Administration <i class="zmdi zmdi-caret-down pull-right"></i>
+						<i class="zmdi zmdi-case zmdi-hc-fw"></i> Administración <i class="zmdi zmdi-caret-down pull-right"></i>
 					</a>
 					<ul class="list-unstyled full-box">
 						<li>
-							<a href="period.html"><i class="zmdi zmdi-timer zmdi-hc-fw"></i> Period</a>
+							<a th:href="@{/producto/}"><i class="fas fa-shapes mx-1"></i> Productos</a>
 						</li>
 						<li>
-							<a href="subject.html"><i class="zmdi zmdi-book zmdi-hc-fw"></i> Subject</a>
+							<a th:href="@{/servicio/}"><i class="fas fa-plug mx-1"></i> Servicios</a>
 						</li>
+<!-- 						<li> -->
+<!-- 							<a href="section.html"><i class="zmdi zmdi-graduation-cap zmdi-hc-fw"></i> Section</a> -->
+<!-- 						</li> -->
 						<li>
-							<a href="section.html"><i class="zmdi zmdi-graduation-cap zmdi-hc-fw"></i> Section</a>
-						</li>
-						<li>
-							<a href="salon.html"><i class="zmdi zmdi-font zmdi-hc-fw"></i> Salon</a>
+							<a th:href="@{/cita/}"><i class="far fa-calendar-check mx-1"></i> Citas</a>
 						</li>
 					</ul>
 				</li>
 				<li>
 					<a href="#!" class="btn-sideBar-SubMenu">
-						<i class="zmdi zmdi-account-add zmdi-hc-fw"></i> Users <i class="zmdi zmdi-caret-down pull-right"></i>
+						<i class="zmdi zmdi-account-add zmdi-hc-fw"></i> Usuarios <i class="zmdi zmdi-caret-down pull-right"></i>
 					</a>
 					<ul class="list-unstyled full-box">
 						<li>
-							<a href="admin.html"><i class="zmdi zmdi-account zmdi-hc-fw"></i> Admin</a>
+							<a th:href="@{/admin/}"><i class="zmdi zmdi-account zmdi-hc-fw"></i> Admin</a>
 						</li>
 						<li>
-							<a href="teacher.html"><i class="zmdi zmdi-male-alt zmdi-hc-fw"></i> Teacher</a>
+							<a th:href="@{/usuario/}"><i class="zmdi zmdi-male-alt zmdi-hc-fw"></i> Clientes</a>
 						</li>
 						<li>
-							<a href="student.html"><i class="zmdi zmdi-face zmdi-hc-fw"></i> Student</a>
+							<a th:href="@{/estilista/}"><i class="zmdi zmdi-face zmdi-hc-fw"></i> Estilistas</a>
 						</li>
 						<li>
-							<a href="representative.html"><i class="zmdi zmdi-male-female zmdi-hc-fw"></i> Representative</a>
+							<a th:href="@{/rol/}"><i class="fas fa-lock mx-1"></i> Permisos</a>
 						</li>
 					</ul>
 				</li>
 				<li>
 					<a href="#!" class="btn-sideBar-SubMenu">
-						<i class="zmdi zmdi-card zmdi-hc-fw"></i> Payments <i class="zmdi zmdi-caret-down pull-right"></i>
+						<i class="zmdi zmdi-card zmdi-hc-fw"></i> Ventas <i class="zmdi zmdi-caret-down pull-right"></i>
 					</a>
 					<ul class="list-unstyled full-box">
 						<li>
-							<a href="registration.html"><i class="zmdi zmdi-money-box zmdi-hc-fw"></i> Registration</a>
+							<a href="registration.html"><i class="zmdi zmdi-money zmdi-hc-fw"></i> Registrar</a>
 						</li>
 						<li>
-							<a href="payments.html"><i class="zmdi zmdi-money zmdi-hc-fw"></i> Payments</a>
+							<a href="payments.html"><i class="fas fa-bars mx-1"></i> Ver todas</a>
 						</li>
 					</ul>
 				</li>
 				<li>
 					<a href="#!" class="btn-sideBar-SubMenu">
-						<i class="zmdi zmdi-shield-security zmdi-hc-fw"></i> Settings School <i class="zmdi zmdi-caret-down pull-right"></i>
+						<i class="far fa-calendar-alt mx-1"></i> Citas <i class="zmdi zmdi-caret-down pull-right"></i>
 					</a>
 					<ul class="list-unstyled full-box">
 						<li>
-							<a href="school.html"><i class="zmdi zmdi-balance zmdi-hc-fw"></i> School Data</a>
+							<a th:href="@{/cita/cliente/}"><i class="fas fa-plus mx-1"></i> Agendar nueva</a>
+						</li>
+						<li>
+							<a href="school.html"><i class="fas fa-times mx-1"></i> Cancelar cita</a>
 						</li>
 					</ul>
 				</li>
@@ -112,7 +117,7 @@
 		<!-- NavBar -->
 		<nav class="full-box dashboard-Navbar" th:fragment="navbar">
 			<ul class="full-box list-unstyled text-right">
-				<li class="pull-left">
+				<li class="float-left">
 					<a href="#!" class="btn-menu-dashboard"><i class="zmdi zmdi-more-vert"></i></a>
 				</li>
 				<li>

@@ -2,6 +2,7 @@ package com.barber_x_system.service;
 
 import java.util.List;
 import com.barber_x_system.entity.Rol;
+import com.barber_x_system.entity.Usuario;
 
 public interface IRolServ {
 	
@@ -12,5 +13,7 @@ public interface IRolServ {
 	
 	//METODOS AUXILIARES
 	public Rol buscarPorId(Long idRol);
+	public Rol buscarPorUsuarioAndRol(Usuario usuario, String rol);
+	public boolean existePorUsuarioAndRol(Usuario usuario, String rol);
 
 }

@@ -7,4 +7,7 @@ import com.barber_x_system.entity.Usuario;
 @Repository
 public interface UsuarioRepository extends CrudRepository<Usuario, Long> {
 
+	public boolean existsByNumeroDoc(String numeroDoc);
+	public boolean existsByEmail(String email);
+	public Usuario findByNumeroDoc(String numeroDoc);
 }

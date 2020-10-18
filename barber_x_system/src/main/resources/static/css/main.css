@@ -19,8 +19,8 @@
          url('../fonts/robotocondensed-light.woff') format('woff'),
          url('../fonts/robotocondensed-light.ttf') format('truetype'),
          url('../fonts/robotocondensed-light.svg#roboto_condensedlight') format('svg');
-/*     font-weight: normal; */
-/*     font-style: normal; */
+    font-weight: normal;
+    font-style: normal;
 }
 @font-face {
     font-family: 'RobotoCondensed';
@@ -30,8 +30,8 @@
          url('../fonts/robotocondensed-regular.woff') format('woff'),
          url('../fonts/robotocondensed-regular.ttf') format('truetype'),
          url('../fonts/robotocondensed-regular.svg#roboto_condensedregular') format('svg');
-/*     font-weight: normal; */
-/*     font-style: normal; */
+    font-weight: normal;
+    font-style: normal;
 }
 /*============ Estilos generales*/
 body, html{
@@ -99,7 +99,8 @@ body, html{
 .dashboard-sideBar-ct{
 	position: relative;
 	height: 100%;
-	background-color: rgba(0, 0, 0, .77);
+/* 	background-color: rgba(0, 0, 0, .77); */
+	background-color: #093A40;
 	padding: 0 10px;
 	padding-bottom: 30px;
 }

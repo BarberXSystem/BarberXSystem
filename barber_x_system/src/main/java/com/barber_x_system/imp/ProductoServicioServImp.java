@@ -33,4 +33,19 @@ public class ProductoServicioServImp implements IProductoServicioServ{
 		return prodServRepo.findById(idProductoServ).orElse(null);
 	}
 
+	@Override
+	public boolean existePorNombre(String nombre) {
+		return prodServRepo.existsByNombre(nombre);
+	}
+
+	@Override
+	public List<ProductoServicio> buscarProductos() {
+		return prodServRepo.findByCategoria("PRODUCTO");
+	}
+
+	@Override
+	public List<ProductoServicio> buscarServicios() {
+		return prodServRepo.findByCategoria("SERVICIO");
+	}
+
 }

@@ -2,6 +2,7 @@ package com.barber_x_system.service;
 
 import java.util.List;
 import com.barber_x_system.entity.Administrador;
+import com.barber_x_system.entity.Usuario;
 
 public interface IAdminServ {
 	
@@ -12,5 +13,6 @@ public interface IAdminServ {
 	
 	//METODOS AUXILIARES
 	public Administrador buscarPorId(Long idAdmin);
+	public Administrador buscarPorUsuario(Usuario usuario);
 
 }

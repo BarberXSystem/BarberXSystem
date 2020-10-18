@@ -20,6 +20,12 @@ public class UsuarioServImp implements IUsuarioServ{
 
 	@Override
 	public void guardar(Usuario usuario) {
+		usuario.setNombres(usuario.getNombres().toUpperCase());
+		usuario.setApellidos(usuario.getApellidos().toUpperCase());
+		usuario.setDireccion(usuario.getDireccion().toUpperCase());
+		usuario.setEmail(usuario.getEmail().toUpperCase());
+		usuario.setUsername(usuario.getNumeroDoc());
+		
 		usuarioRepo.save(usuario);
 	}
 
@@ -31,6 +37,29 @@ public class UsuarioServImp implements IUsuarioServ{
 	@Override
 	public Usuario buscarPorId(Long idUsuario) {
 		return usuarioRepo.findById(idUsuario).orElse(null);
+	}
+
+	@Override
+	public boolean existePorNumeroDoc(String username) {
+		return usuarioRepo.existsByNumeroDoc(username);
+	}
+
+	@Override
+	public boolean existePorEmail(String email) {
+		return usuarioRepo.existsByEmail(email);
+	}
+
+	@Override
+	public boolean passMatch(Usuario usuario) {
+		if (usuario.getPassword().equals(usuario.getConfirmPassword())) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public Usuario buscarPorNumeroDoc(String numeroDoc) {
+		return usuarioRepo.findByNumeroDoc(numeroDoc);
 	}
 
 }

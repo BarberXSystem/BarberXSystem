@@ -8,6 +8,7 @@
 	<script src="https://kit.fontawesome.com/eb1bb051d4.js"></script>
 </head>
 <body class="cover" style="background-image: url(./img/loginFont.jpg);">
+	
 	<form action="home.html" method="" autocomplete="off" class="full-box logInForm">
 		<p class="text-center text-muted"><i class="zmdi zmdi-account-circle zmdi-hc-5x"></i></p>
 		<p class="text-center text-muted text-uppercase">Inicia sesión con tu cuenta</p>
@@ -25,8 +26,9 @@
 			<input type="submit" value="Iniciar sesión" class="btn btn-raised btn-danger">
 		</div>
 		<div class="text-center">
-			<a href="" class="">Registrarse</a>
-		</div>		
+			<a th:href="@{/registro/nuevo}" class="">Registrarse</a>
+		</div>
+		
 	</form>
 	<!--====== Scripts -->
 	<script th:src="@{/js/jquery-3.1.1.min.js}"></script>

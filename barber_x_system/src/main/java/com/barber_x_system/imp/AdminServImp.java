@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.barber_x_system.entity.Administrador;
+import com.barber_x_system.entity.Usuario;
 import com.barber_x_system.repository.AdminRepository;
 import com.barber_x_system.service.IAdminServ;
 
@@ -32,6 +33,11 @@ public class AdminServImp implements IAdminServ{
 	@Override
 	public Administrador buscarPorId(Long idAdmin) {
 		return adminRepo.findById(idAdmin).orElse(null);
+	}
+
+	@Override
+	public Administrador buscarPorUsuario(Usuario usuario) {
+		return adminRepo.findByUsuario(usuario);
 	}
 
 }

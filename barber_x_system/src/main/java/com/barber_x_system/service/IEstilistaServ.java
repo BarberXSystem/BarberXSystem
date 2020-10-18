@@ -2,6 +2,7 @@ package com.barber_x_system.service;
 
 import java.util.List;
 import com.barber_x_system.entity.Estilista;
+import com.barber_x_system.entity.Usuario;
 
 public interface IEstilistaServ {
 	
@@ -12,4 +13,5 @@ public interface IEstilistaServ {
 	
 	//METODOS AUXILIARES
 	public Estilista buscarPorId(Long idEstilista);
+	public Estilista buscarPorUsuario(Usuario usuario);
 }

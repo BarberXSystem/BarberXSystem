@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.barber_x_system.entity.Rol;
+import com.barber_x_system.entity.Usuario;
 import com.barber_x_system.repository.RolRepository;
 import com.barber_x_system.service.IRolServ;
 
@@ -31,6 +32,16 @@ public class RolServImp implements IRolServ{
 	@Override
 	public Rol buscarPorId(Long idRol) {
 		return rolRepo.findById(idRol).orElse(null);
+	}
+
+	@Override
+	public boolean existePorUsuarioAndRol(Usuario usuario, String rol) {
+		return rolRepo.existsByUsuarioAndRol(usuario, rol);
+	}
+
+	@Override
+	public Rol buscarPorUsuarioAndRol(Usuario usuario, String rol) {
+		return rolRepo.findByUsuarioAndRol(usuario, rol);
 	}
 
 }

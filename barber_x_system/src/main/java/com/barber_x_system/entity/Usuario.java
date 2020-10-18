@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "usuarios")
@@ -40,6 +41,9 @@ public class Usuario implements Serializable{
 	private String username;
 	
 	private String password;
+	
+	@Transient
+	private String confirmPassword;
 	
 	private boolean enabled;
 	
@@ -135,6 +139,14 @@ public class Usuario implements Serializable{
 		this.password = password;
 	}
 
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+
 	public boolean isEnabled() {
 		return enabled;
 	}
@@ -147,8 +159,8 @@ public class Usuario implements Serializable{
 	public String toString() {
 		return "Usuario [idUsuario=" + idUsuario + ", numeroDoc=" + numeroDoc + ", tipoDoc=" + tipoDoc + ", nombres="
 				+ nombres + ", apellidos=" + apellidos + ", foto=" + foto + ", direccion=" + direccion + ", telefono="
-				+ telefono + ", email=" + email + ", username=" + username + ", password=" + password + ", enabled="
-				+ enabled + "]";
+				+ telefono + ", email=" + email + ", username=" + username + ", password=" + password
+				+ ", confirmPassword=" + confirmPassword + ", enabled=" + enabled + "]";
 	}
-
+	
 }

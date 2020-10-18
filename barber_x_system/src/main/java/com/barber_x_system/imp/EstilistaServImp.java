@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.barber_x_system.entity.Estilista;
+import com.barber_x_system.entity.Usuario;
 import com.barber_x_system.repository.EstilistaRepository;
 import com.barber_x_system.service.IEstilistaServ;
 
@@ -33,6 +34,11 @@ public class EstilistaServImp implements IEstilistaServ{
 	@Override
 	public Estilista buscarPorId(Long idEstilista) {
 		return estilistaRepo.findById(idEstilista).orElse(null);
+	}
+
+	@Override
+	public Estilista buscarPorUsuario(Usuario usuario) {
+		return estilistaRepo.findByUsuario(usuario);
 	}
 
 }

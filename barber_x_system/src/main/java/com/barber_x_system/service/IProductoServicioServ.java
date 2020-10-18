@@ -12,4 +12,7 @@ public interface IProductoServicioServ {
 	
 	//METODOS AUXILIARES
 	public ProductoServicio buscarPorId(Long idProductoServ);
+	public boolean existePorNombre(String nombre);
+	public List<ProductoServicio> buscarProductos();
+	public List<ProductoServicio> buscarServicios();
 }
