@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Servicios | BarberXsystem</title>
+	<link rel="stylesheet" th:href="@{/css/bootstrap2.min.css}">
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/css/main.css}">
+	<link rel="shotcut icon" th:href="@{/img/logo.png}">
+	<script src="https://kit.fontawesome.com/eb1bb051d4.js"></script>
+</head>
+<body>
+	<section th:replace="plantilla/plantilla :: sidebar"></section>
+	<section class="full-box dashboard-contentPage">
+		<nav th:replace="plantilla/plantilla :: navbar"></nav>
+		<div class="container-fluid">
+			<div class="col px-0">
+				<div class="alert alert-success alert-dismissible show mt-2" role="alert" th:if="${success}">
+				  <i class="far fa-check-circle mr-1"></i>
+				  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				    <span aria-hidden="true">&times;</span>
+				  </button>
+				  <strong th:text="${success}"></strong>
+				</div>
+				<div class="alert alert-danger alert-dismissible show mt-2" role="alert" th:if="${error}">
+				  <i class="far fa-times-circle mr-1"></i>
+				  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				    <span aria-hidden="true">&times;</span>
+				  </button>
+				  <strong th:text="${error}"></strong>
+				</div>
+				<div class="alert alert-warning alert-dismissible show mt-2" role="alert" th:if="${warning}">
+				  <i class="fas fa-exclamation-circle mr-1"></i>
+				  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				    <span aria-hidden="true">&times;</span>
+				  </button>
+				  <strong th:text="${warning}"></strong>
+				</div>
+				<div class="alert alert-info alert-dismissible show mt-2" role="alert" th:if="${info}">
+				  <i class="fas fa-info-circle mr-1"></i>
+				  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				    <span aria-hidden="true">&times;</span>
+				  </button>
+				  <strong th:text="${info}"></strong>
+				</div>
+			</div>
+		</div>
+		<div class="container-fluid">
+			<div class="page-header">
+			  <h1 class="text-titles"><i class="zmdi zmdi-font zmdi-hc-fw"></i> Servicios <small>Servicios de peluqueria</small></h1>
+			</div>
+			<p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse voluptas reiciendis tempora voluptatum eius porro ipsa quae voluptates officiis sapiente sunt dolorem, velit quos a qui nobis sed, dignissimos possimus!</p>
+		</div>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-12">
+					<ul class="nav nav-tabs" style="margin-bottom: 15px;">
+					  	<li><a href="#new" data-toggle="tab">Agregar nuevo</a></li>
+					  	<li class="active"><a href="#list" data-toggle="tab">Listado</a></li>
+					</ul>
+					<div id="myTabContent" class="tab-content">
+						<div class="tab-pane in" id="new">
+							<div class="container-fluid">
+								<div class="row justify-content-center">
+									<div class="col-10">
+									    <form th:action="@{/servicio/nuevo}" th:object="${servicio}" method="post">
+											<div class="form-group label-floating">
+											  <label class="control-label">Nombres</label>
+											  <input class="form-control" th:field="*{nombre}" type="text" required>
+											</div>
+											<div class="form-group label-floating">
+											  <label class="control-label">Precio</label>
+											  <input class="form-control" th:field="*{precioVenta}" type="text" required>
+											</div>
+											<div class="form-group label-floating">
+											  <label class="control-label">Descripción</label>
+											  <textarea class="form-control" th:field="*{descripcion}" type="text" required></textarea>
+											</div>
+										    <p class="text-center">
+										    	<button type="submit" class="btn btn-info btn-raised btn-sm"><i class="zmdi zmdi-floppy"></i> Agregar servicio</button>
+										    </p>
+										    <p class="text-center">
+										    	<a href="#" class="" th:onclick="goBack()">Cancelar</a>
+										    </p>
+			    						</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					  	<div class="tab-pane active" id="list">
+							<div class="table-responsive">
+								<table class="table table-hover text-center">
+									<thead>
+										<tr>
+											<th class="text-center">ID</th>
+											<th class="text-center">Nombre</th>
+											<th class="text-center">Precio</th>
+											<th class="text-center">Descripcion</th>
+											<th class="text-center">Editar</th>
+											<th class="text-center">Eliminar</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="s:${servicios}">
+											<td th:text="${s.idProductoServ}"></td>
+											<td th:text="${s.nombre}"></td>
+											<td th:text="${'$'+s.precioVenta}"></td>
+											<td th:text="${s.descripcion}"></td>
+											<td><a th:href="@{/producto-servicio/editar/}+${s.idProductoServ}" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a></td>
+											<td><a href="#" th:onclick="'javascript:confirmDelete(\'' + ${s.idProductoServ} + '\' );'" class="btn btn-danger btn-raised btn-xs" style="background-color: #8C0303;"><i class="zmdi zmdi-delete"></i></a></td>
+										</tr>
+									</tbody>
+								</table>
+		<!-- 						<ul class="pagination pagination-sm"> -->
+		<!-- 						  	<li class="disabled"><a href="#!">«</a></li> -->
+		<!-- 						  	<li class="active"><a href="#!">1</a></li> -->
+		<!-- 						  	<li><a href="#!">2</a></li> -->
+		<!-- 						  	<li><a href="#!">3</a></li> -->
+		<!-- 						  	<li><a href="#!">4</a></li> -->
+		<!-- 						  	<li><a href="#!">5</a></li> -->
+		<!-- 						  	<li><a href="#!">»</a></li> -->
+		<!-- 						</ul> -->
+							</div>
+					  	</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<footer th:replace="plantilla/plantilla :: footer-scripts"></footer>
+
+	<div th:include="Views/SI/ProductoServicio/modalDeleteProdServ.html" th:remove="tag"></div>
+
+	<script>
+		function goBack() {
+		  window.history.back();
+		}
+	
+		function confirmDelete(id){
+	    	$('#modal-delete-prod-serv').modal('show');
+	    	$("#idProdServMD").val(id);
+	    }
+	    
+	    function deleteProdServ(){
+	    	var id = $("#idProdServMD").val();
+	        window.location = "/producto-servicio/eliminar/"+id;
+	    }
+	</script>
+	
+</body>
+</html>

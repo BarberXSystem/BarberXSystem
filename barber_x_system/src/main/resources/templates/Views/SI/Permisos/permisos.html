@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Permisos | BarberXsystem</title>
+	<link rel="stylesheet" th:href="@{/css/bootstrap2.min.css}">
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/css/main.css}">
+	<link rel="shotcut icon" th:href="@{/img/logo.png}">
+	<script src="https://kit.fontawesome.com/eb1bb051d4.js"></script>
+</head>
+<body>
+	<section th:replace="plantilla/plantilla :: sidebar"></section>
+	<section class="full-box dashboard-contentPage">
+		<nav th:replace="plantilla/plantilla :: navbar"></nav>
+		<div class="container-fluid">
+			<div class="col px-0">
+				<div class="alert alert-success alert-dismissible show mt-2" role="alert" th:if="${success}">
+				  <i class="far fa-check-circle mr-1"></i>
+				  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				    <span aria-hidden="true">&times;</span>
+				  </button>
+				  <strong th:text="${success}"></strong>
+				</div>
+				<div class="alert alert-danger alert-dismissible show mt-2" role="alert" th:if="${error}">
+				  <i class="far fa-times-circle mr-1"></i>
+				  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				    <span aria-hidden="true">&times;</span>
+				  </button>
+				  <strong th:text="${error}"></strong>
+				</div>
+				<div class="alert alert-warning alert-dismissible show mt-2" role="alert" th:if="${warning}">
+				  <i class="fas fa-exclamation-circle mr-1"></i>
+				  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				    <span aria-hidden="true">&times;</span>
+				  </button>
+				  <strong th:text="${warning}"></strong>
+				</div>
+				<div class="alert alert-info alert-dismissible show mt-2" role="alert" th:if="${info}">
+				  <i class="fas fa-info-circle mr-1"></i>
+				  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				    <span aria-hidden="true">&times;</span>
+				  </button>
+				  <strong th:text="${info}"></strong>
+				</div>
+			</div>
+		</div>
+		<div class="container-fluid">
+			<div class="page-header">
+			  <h1 class="text-titles"><i class="zmdi zmdi-font zmdi-hc-fw"></i> Permisos <small>Usuario</small></h1>
+			</div>
+			<p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse voluptas reiciendis tempora voluptatum eius porro ipsa quae voluptates officiis sapiente sunt dolorem, velit quos a qui nobis sed, dignissimos possimus!</p>
+		</div>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-12">
+					<ul class="nav nav-tabs" style="margin-bottom: 15px;">
+					  	<li><a href="#new" data-toggle="tab">Agregar permiso</a></li>
+					  	<li class="active"><a href="#list" data-toggle="tab">Ver todos</a></li>
+					</ul>
+					<div id="myTabContent" class="tab-content">
+						<div class="tab-pane in" id="new">
+							<div class="container-fluid">
+								<div class="row">
+									<div class="col-md-10 col-md-offset-1">
+									    <form>
+											<div class="form-group label-floating">
+											  <label class="control-label">Numero de documento</label>
+											  <input class="form-control" type="text" id="numeroDoc" name="numeroDoc" required>
+											</div>
+											<div class="form-group label-floating">
+										      <label class="control-label">Tipo de permiso</label>
+										        <select class="form-control" id="rol" name="rol" required>
+										          <option th:value="''" th:text="''"/>
+										          <option th:value="'ROLE_ADMIN'" th:text="'Administrador'"/>
+										          <option th:value="'ROLE_ESTILISTA'" th:text="'Estilista'"/>
+										        </select>
+										    </div>
+										    <p class="text-center">
+										    	<button type="button" th:onclick="confirmAdd()"  class="btn btn-info btn-raised btn-sm">
+										    		<i class="zmdi zmdi-floppy mr-1"></i> 
+										    		Agregar permiso
+									    		</button>
+										    </p>
+										    <p class="text-center">
+										    	<a href="#" class="" th:onclick="goBack()">Cancelar</a>
+										    </p>
+									    </form>
+									</div>
+								</div>
+							</div>
+						</div>
+					  	<div class="tab-pane active" id="list">
+							<div class="table-responsive">
+								<table class="table table-hover text-center">
+									<thead>
+										<tr>
+											<th class="text-center">ID</th>
+											<th class="text-center">Username</th>
+											<th class="text-center">Usuario</th>
+											<th class="text-center">Rol</th>
+											<th class="text-center">Eliminar</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="r:${roles}">
+											<td th:text="${r.idRol}"></td>
+											<td th:text="${r.usuario.username}"></td>
+											<td th:text="${r.usuario.nombres+' '+r.usuario.apellidos}"></td>
+											<td th:text="${r.rol}"></td>
+											<td><a href="#" th:onclick="'javascript:confirmDelete(\'' + ${r.idRol} + '\' );'" class="btn btn-danger btn-raised btn-xs" style="background-color: #8C0303;"><i class="zmdi zmdi-delete"></i></a></td>
+										</tr>
+									</tbody>
+								</table>
+		<!-- 						<ul class="pagination pagination-sm"> -->
+		<!-- 						  	<li class="disabled"><a href="#!">«</a></li> -->
+		<!-- 						  	<li class="active"><a href="#!">1</a></li> -->
+		<!-- 						  	<li><a href="#!">2</a></li> -->
+		<!-- 						  	<li><a href="#!">3</a></li> -->
+		<!-- 						  	<li><a href="#!">4</a></li> -->
+		<!-- 						  	<li><a href="#!">5</a></li> -->
+		<!-- 						  	<li><a href="#!">»</a></li> -->
+		<!-- 						</ul> -->
+							</div>
+					  	</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<footer th:replace="plantilla/plantilla :: footer-scripts"></footer>
+	
+	<div th:include="Views/SI/Permisos/modalDeleteRol.html" th:remove="tag"></div>
+	
+	<script>
+		function goBack() {
+		  window.history.back();
+		}
+	
+		function confirmAdd(){
+	    	var numeroDoc = $("#numeroDoc").val();
+	    	var rol = $("#rol").val();
+	    	
+	    	if(numeroDoc !== '' && rol !== ''){
+				$('#modal-add-permiso').modal('show');
+			}
+	    	
+	    	$('#modal-add-permiso #rolMA').val(rol);
+	    	$('#modal-add-permiso #numeroDocMA').val(numeroDoc);
+	    }
+		
+		function confirmDelete(id){
+	    	$('#modal-delete-rol').modal('show');
+	    	$("#idRolMD").val(id);
+	    }
+	    
+	    function deleteRol(){
+	    	var id = $("#idRolMD").val();
+	        window.location = "/rol/eliminar/"+id;
+	    }
+	</script>
+	
+	<div th:include="Views/SI/Permisos/modalAddPermiso.html" th:remove="tag"></div>
+</body>
+</html>
