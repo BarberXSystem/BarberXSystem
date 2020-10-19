@@ -1,7 +1,9 @@
 package com.barber_x_system.service;
 
+import java.util.Date;
 import java.util.List;
 import com.barber_x_system.entity.Cita;
+import com.barber_x_system.entity.Estilista;
 
 public interface ICitaServ {
 	
@@ -12,4 +14,8 @@ public interface ICitaServ {
 	
 	//METODOS AUXILIARES
 	public Cita buscarPorId(Long idCita);
+	public List<Cita> buscarPorFechaAndEstilista(Date fecha, Estilista estilista);
+	
+	//METODOS LOGICOS DEL SISTEMA
+	public List<String> turnosDisponibles(Date fecha, Estilista estilista);
 }

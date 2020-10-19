@@ -1,15 +1,19 @@
 package com.barber_x_system.controller;
 
+import java.security.Principal;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-//@RequestMapping()
 public class HomeController {
 	
-	@GetMapping({"/", "/login"})
-	public String home() {
-		return "login";
+	@GetMapping({"/", "/home", "/index"})
+	public String index(Principal principal) {
+		if (principal != null) {
+			return "redirect:/dashboard/";
+		}
+		return "index";
 	}
 	
 	@GetMapping("/prueba")

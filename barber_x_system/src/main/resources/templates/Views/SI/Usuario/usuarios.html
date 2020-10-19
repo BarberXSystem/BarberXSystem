@@ -72,9 +72,10 @@
 											  <label class="control-label">Apellidos</label>
 											  <input class="form-control" th:field="*{apellidos}" type="text" required>
 											</div>
-											<div class="form-group">
+											<div class="form-group label-floating">
 										        <label class="control-label">Tipo de documento</label>
 										        <select class="form-control" th:field="*{tipoDoc}" required>
+										          <option th:value="''" th:text="''"/>
 										          <option th:value="'CC'" th:text="'Cedula de ciudadania'"/>
 										          <option th:value="'CE'" th:text="'Cedula de extranjeria'"/>
 										          <option th:value="'PA'" th:text="'Pasaporte'"/>

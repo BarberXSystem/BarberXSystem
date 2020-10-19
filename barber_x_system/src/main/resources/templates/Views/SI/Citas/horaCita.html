@@ -47,7 +47,7 @@
 		</div>
 		<div class="container-fluid">
 			<div class="page-header">
-			  <h1 class="text-titles"><i class="zmdi zmdi-font zmdi-hc-fw"></i> Agendar cita <small>Consultar disponibilidad</small></h1>
+			  <h1 class="text-titles"><i class="zmdi zmdi-font zmdi-hc-fw"></i> Agendar cita <small>Seleccionar hora</small></h1>
 			</div>
 			<p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse voluptas reiciendis tempora voluptatum eius porro ipsa quae voluptates officiis sapiente sunt dolorem, velit quos a qui nobis sed, dignissimos possimus!</p>
 		</div>
@@ -55,25 +55,23 @@
 			<div class="row">
 				<div class="col-xs-12">
 					<ul class="nav nav-tabs" style="margin-bottom: 15px;">
-					  	<li class="active"><a href="#list" data-toggle="tab">Consultar disponibilidad</a></li>
+					  	<li class="active"><a href="#list" data-toggle="tab">Seleccionar hora</a></li>
 					</ul>
 					<div id="myTabContent" class="tab-content">
 						<div class="tab-pane active in" id="new">
 							<div class="container-fluid">
 								<div class="row justify-content-center">
 									<div class="col-10">
-									    <form th:action="@{/cita/cliente/disponibilidad}" th:object="${cita}" method="post">
+									    <form th:action="@{/cita/cliente/hora}" th:object="${cita}" method="post">
 									    	<input type="hidden" th:field="*{usuario.idUsuario}">
+									    	<input type="hidden" th:field="*{fecha}">
+									    	<input type="hidden" th:field="*{estilista.idEstilista}">
 											<div class="form-group label-floating">
-											  <label class="control-label">Seleccione estilista</label>
-											  <select class="form-control" th:field="*{estilista.idEstilista}">
+											  <label class="control-label">Seleccione turno</label>
+											  <select class="form-control" th:field="*{hora}">
 											  	<option th:text="''" th:value="''"/>
-											  	<option th:each="e:${estilistas}" th:text="${e.usuario.nombres+' '+e.usuario.apellidos}" th:value="${e.idEstilista}"/>
+											  	<option th:each="t:${turnos}" th:text="${t}" th:value="${t}"/>
 											  </select>
-											</div>
-											<div class="form-group">
-											  <label class="control-label">Fecha</label>
-											  <input class="form-control" type="date" th:field="*{fecha}" required>
 											</div>
 										    <p class="text-center">
 										    	<button type="submit" class="btn btn-info btn-raised btn-sm"><i class="zmdi zmdi-floppy"></i> SIGUIENTE</button>

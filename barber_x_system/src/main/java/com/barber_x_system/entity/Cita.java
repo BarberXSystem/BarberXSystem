@@ -29,11 +29,14 @@ public class Cita implements Serializable{
 	@JoinColumn(name = "id_usuario")
 	private Usuario usuario;
 	
+	@ManyToOne
+	@JoinColumn(name = "id_estilista")
+	private Estilista estilista;
+	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date fecha;
 	
-	@DateTimeFormat(pattern = "hh:mm")
-	private Date hora;
+	private String hora;
 	
 	private String estado;
 	
@@ -57,6 +60,14 @@ public class Cita implements Serializable{
 		this.usuario = usuario;
 	}
 
+	public Estilista getEstilista() {
+		return estilista;
+	}
+
+	public void setEstilista(Estilista estilista) {
+		this.estilista = estilista;
+	}
+
 	public Date getFecha() {
 		return fecha;
 	}
@@ -65,11 +76,11 @@ public class Cita implements Serializable{
 		this.fecha = fecha;
 	}
 
-	public Date getHora() {
+	public String getHora() {
 		return hora;
 	}
 
-	public void setHora(Date hora) {
+	public void setHora(String hora) {
 		this.hora = hora;
 	}
 
@@ -83,8 +94,8 @@ public class Cita implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Cita [idCita=" + idCita + ", usuario=" + usuario + ", fecha=" + fecha + ", hora=" + hora + ", estado="
-				+ estado + "]";
+		return "Cita [idCita=" + idCita + ", usuario=" + usuario + ", estilista=" + estilista + ", fecha=" + fecha
+				+ ", hora=" + hora + ", estado=" + estado + "]";
 	}
 
 }

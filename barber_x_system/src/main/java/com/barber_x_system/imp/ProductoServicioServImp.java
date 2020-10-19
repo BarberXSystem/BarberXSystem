@@ -20,6 +20,9 @@ public class ProductoServicioServImp implements IProductoServicioServ{
 
 	@Override
 	public void guardar(ProductoServicio productoServ) {
+		productoServ.setDescripcion(productoServ.getDescripcion().toUpperCase());
+		productoServ.setNombre(productoServ.getNombre().toUpperCase());
+		
 		prodServRepo.save(productoServ);
 	}
 

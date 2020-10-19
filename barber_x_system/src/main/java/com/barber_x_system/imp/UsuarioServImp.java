@@ -2,6 +2,7 @@ package com.barber_x_system.imp;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.barber_x_system.entity.Usuario;
 import com.barber_x_system.repository.UsuarioRepository;
@@ -12,6 +13,9 @@ public class UsuarioServImp implements IUsuarioServ{
 	
 	@Autowired
 	public UsuarioRepository usuarioRepo;
+	
+	@Autowired
+	private BCryptPasswordEncoder passEncoder;
 
 	@Override
 	public List<Usuario> listar() {
@@ -25,6 +29,9 @@ public class UsuarioServImp implements IUsuarioServ{
 		usuario.setDireccion(usuario.getDireccion().toUpperCase());
 		usuario.setEmail(usuario.getEmail().toUpperCase());
 		usuario.setUsername(usuario.getNumeroDoc());
+		
+		String encodedPass = passEncoder.encode(usuario.getPassword());
+		usuario.setPassword(encodedPass);
 		
 		usuarioRepo.save(usuario);
 	}
