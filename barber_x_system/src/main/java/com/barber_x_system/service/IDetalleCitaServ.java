@@ -8,6 +8,7 @@ public interface IDetalleCitaServ {
 	//METODOS CRUD
 	public List<DetalleCita> listar();
 	public void guardar(DetalleCita detalle);
+	public void guardarLista(List<DetalleCita> detalles);
 	public void eliminar(Long idDetalle);
 	
 	//METODOS AUXILIARES

@@ -47,7 +47,7 @@
 		</div>
 		<div class="container-fluid">
 			<div class="page-header">
-			  <h1 class="text-titles"><i class="zmdi zmdi-font zmdi-hc-fw"></i> Citas <small>Mis citas</small></h1>
+			  <h1 class="text-titles"><i class="zmdi zmdi-font zmdi-hc-fw"></i> Agendar cita <small>Consultar disponibilidad</small></h1>
 			</div>
 			<p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse voluptas reiciendis tempora voluptatum eius porro ipsa quae voluptates officiis sapiente sunt dolorem, velit quos a qui nobis sed, dignissimos possimus!</p>
 		</div>
@@ -55,28 +55,54 @@
 			<div class="row">
 				<div class="col-xs-12">
 					<ul class="nav nav-tabs" style="margin-bottom: 15px;">
-					  	<li class="active"><a href="#list" data-toggle="tab">Ver mis citas</a></li>
+					  	<li class="active"><a href="#list" data-toggle="tab">Consultar disponibilidad</a></li>
 					</ul>
 					<div id="myTabContent" class="tab-content">
-					  	<div class="tab-pane active" id="list">
+						<div class="tab-pane active in" id="new">
+							<div class="container-fluid">
+								<div class="row justify-content-center">
+									<div class="col-10">
+									    <form th:action="@{/cita/cliente/disponibilidad}" th:object="${cita}" method="post">
+									    	<input type="hidden" th:field="*{usuario.idUsuario}">
+											<div class="form-group label-floating">
+											  <label class="control-label">Seleccione estilista</label>
+											  <select class="form-control" th:field="*{estilista.idEstilista}">
+											  	<option th:text="''" th:value="''"/>
+											  	<option th:each="e:${estilistas}" th:text="${e.usuario.nombres+' '+e.usuario.apellidos}" th:value="${e.idEstilista}"/>
+											  </select>
+											</div>
+											<div class="form-group">
+											  <label class="control-label">Fecha</label>
+											  <input class="form-control" type="date" th:field="*{fecha}" required>
+											</div>
+										    <p class="text-center">
+										    	<button type="submit" class="btn btn-info btn-raised btn-sm"><i class="zmdi zmdi-floppy"></i> SIGUIENTE</button>
+										    </p>
+										    <p class="text-center">
+										    	<a th:href="@{/cita/cliente/cancelar}" class="text-center">Cancelar</a>
+										    </p>
+			    						</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					  	<div class="tab-pane" id="list">
 							<div class="table-responsive">
 								<table class="table table-hover text-center">
 									<thead>
 										<tr>
 											<th class="text-center">ID</th>
-											<th class="text-center">Estilista</th>
-											<th class="text-center">Fecha</th>
-											<th class="text-center">Hora</th>
+											<th class="text-center">Username</th>
+											<th class="text-center">Usuario</th>
 											<th class="text-center">Eliminar</th>
 										</tr>
 									</thead>
 									<tbody>
-										<tr th:each="c:${citas}">
-											<td th:text="${c.idCita}"></td>
-											<td th:text="${c.estilista.usuario.nombres}"></td>
-											<td th:text="${c.fecha}"></td>
-											<td th:text="${c.hora}"></td>
-											<td><a href="#" th:onclick="'javascript:confirmDelete(\'' + ${c.idCita} + '\' );'" class="btn btn-danger btn-raised btn-xs" style="background-color: #8C0303;"><i class="zmdi zmdi-delete"></i></a></td>
+										<tr th:each="a:${admins}">
+											<td th:text="${a.idAdmin}"></td>
+											<td th:text="${a.usuario.username}"></td>
+											<td th:text="${a.usuario.nombres+' '+a.usuario.apellidos}"></td>
+											<td><a href="#" th:onclick="'javascript:confirmDelete(\'' + ${a.idAdmin} + '\' );'" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
 										</tr>
 									</tbody>
 								</table>

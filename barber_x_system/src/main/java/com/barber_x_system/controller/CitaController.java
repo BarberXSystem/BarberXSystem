@@ -4,18 +4,23 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.barber_x_system.entity.Cita;
 import com.barber_x_system.entity.DetalleCita;
 import com.barber_x_system.entity.Estilista;
+import com.barber_x_system.entity.ProductoServicio;
 import com.barber_x_system.entity.Usuario;
 import com.barber_x_system.service.ICitaServ;
+import com.barber_x_system.service.IDetalleCitaServ;
 import com.barber_x_system.service.IEstilistaServ;
 import com.barber_x_system.service.IProductoServicioServ;
 import com.barber_x_system.service.IUsuarioServ;
@@ -36,6 +41,9 @@ public class CitaController {
 	@Autowired
 	private IProductoServicioServ prodServService;
 	
+	@Autowired
+	private IDetalleCitaServ detalleService;
+	
 	private Cita cita = new Cita();
 	
 	private List<DetalleCita> serviciosAgregados = new ArrayList<DetalleCita>();
@@ -45,8 +53,15 @@ public class CitaController {
 		return "/Views/SI/Citas/citas";
 	}
 	
-	@GetMapping("/cliente/")
+	@GetMapping("/cliente/citas")
 	public String citasCliente(Model model, Principal principal) {
+		List<Cita> misCitas = citaService.buscarPorUsuario(usuarioService.buscarPorNumeroDoc(principal.getName()));
+		model.addAttribute("citas", misCitas);
+		return "/Views/SI/Citas/citasCliente";
+	}
+	
+	@GetMapping("/cliente/")
+	public String nuevaCita(Model model, Principal principal) {
 		this.serviciosAgregados = new ArrayList<DetalleCita>();
 		Usuario usuario = usuarioService.buscarPorNumeroDoc(principal.getName());
 		this.cita = new Cita();
@@ -55,7 +70,7 @@ public class CitaController {
 		
 		model.addAttribute("estilistas", estilistaServ.listar());
 		model.addAttribute("cita", citaAux);
-		return "/Views/SI/Citas/citasCliente";
+		return "/Views/SI/Citas/solicitarCita";
 	}
 	
 	@PostMapping("/cliente/disponibilidad")
@@ -98,14 +113,77 @@ public class CitaController {
 			return "redirect:/cita/cliente/";
 		}
 		
+		long i = 1;
+		for (DetalleCita detalleCita : serviciosAgregados) {
+			detalleCita.setIdDetalle(i);
+			i++;
+		}
+		
 		model.addAttribute("servicios", prodServService.buscarServicios());
 		model.addAttribute("agregados", this.serviciosAgregados);
+		model.addAttribute("detalle", new DetalleCita());
 		return "/Views/SI/Citas/serviciosCita";
 	}
 	
-	@PostMapping("/cliente/solicitar")
+	@GetMapping("/cliente/servicio/detalle/{id}")
+	public ResponseEntity<ProductoServicio> detalleServicio(@PathVariable("id") Long idServicio) {
+		try {
+			return new ResponseEntity<ProductoServicio>(prodServService.buscarPorId(idServicio), HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<ProductoServicio>(HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@PostMapping("/cliente/servicio/agregar-item")
+	public String agregarItem(@ModelAttribute DetalleCita detalle) {
+		ProductoServicio servicio = prodServService.buscarPorId(detalle.getProdServ().getIdProductoServ());
+		detalle.setProdServ(servicio);
+		
+		if (itemIsAdded(detalle) != null) {
+			DetalleCita detalleAux = itemIsAdded(detalle);
+			Long indice = detalleAux.getIdDetalle();
+			detalleAux.setCantidad(detalle.getCantidad() + detalleAux.getCantidad());
+			this.serviciosAgregados.add(detalleAux);
+			this.serviciosAgregados.remove(Integer.parseInt(indice.toString()));
+			return "redirect:/cita/cliente/servicios";
+		}
+		
+		this.serviciosAgregados.add(detalle);
+		return "redirect:/cita/cliente/servicios";
+	}
+	
+	@GetMapping("/cliente/servicio/quitar-item/{item}")
+	public String quitarItem(@PathVariable("item") Long item) {
+		this.serviciosAgregados.remove(Integer.parseInt(item.toString()));
+		return "redirect:/cita/cliente/servicios";
+	}
+	
+	public DetalleCita itemIsAdded(DetalleCita detalle) {
+		
+		for (DetalleCita detalleCita : this.serviciosAgregados) {
+			if (detalleCita.getProdServ().getIdProductoServ().equals(detalle.getProdServ().getIdProductoServ())) {
+				return detalleCita;
+			}
+		}
+		return null;
+	}
+	
+	@GetMapping("/cliente/solicitar")
 	public String servicios(RedirectAttributes attr) {
-		attr.addFlashAttribute("success", "Cita solicitada correctamente!");
+		
+		if (this.serviciosAgregados.isEmpty()) {
+			attr.addFlashAttribute("warning", "Debe agregarse al menos un servicio para poder agendar la cita!");
+			return "redirect:/cita/cliente/servicios";
+		}
+		
+		this.cita.setEstado("PROGRAMADA");
+		citaService.guardar(this.cita);
+		for (DetalleCita detalleCita : serviciosAgregados) {
+			detalleCita.setIdDetalle(null);
+			detalleCita.setCita(this.cita);
+		}
+		detalleService.guardarLista(this.serviciosAgregados);
+		attr.addFlashAttribute("success", "Cita programada correctamente!");
 		return "redirect:/cita/cliente/";
 	}
 	

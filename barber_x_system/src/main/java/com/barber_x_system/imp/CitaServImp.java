@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.barber_x_system.entity.Cita;
 import com.barber_x_system.entity.Estilista;
+import com.barber_x_system.entity.Usuario;
 import com.barber_x_system.repository.CitaRepository;
 import com.barber_x_system.service.ICitaServ;
 
@@ -62,7 +63,6 @@ public class CitaServImp implements ICitaServ{
 		turnosDisponibles.add("6:30 PM / 7:00 PM");
 		turnosDisponibles.add("7:00 PM / 7:30 PM");
 		turnosDisponibles.add("7:30 PM / 8:00 PM");
-		
 		turnosDisponibles.add("8:00 PM / 8:30 PM");
 		turnosDisponibles.add("8:30 PM / 9:00 PM");
 		turnosDisponibles.add("9:00 PM / 9:30 PM");
@@ -70,7 +70,7 @@ public class CitaServImp implements ICitaServ{
 		
 		if (!citasDelDia.isEmpty()) {
 			for (Cita cita : citasDelDia) {
-				if (turnosDisponibles.contains(cita.getHora())) {
+				if (turnosDisponibles.contains(cita.getHora()) || cita.getEstado().equals("FINALIZADA")) {
 					turnosDisponibles.remove(cita.getHora());
 				}
 			}
@@ -85,6 +85,11 @@ public class CitaServImp implements ICitaServ{
 	@Override
 	public List<Cita> buscarPorFechaAndEstilista(Date fecha, Estilista estilista) {
 		return citaRepo.findByFechaAndEstilista(fecha, estilista);
+	}
+
+	@Override
+	public List<Cita> buscarPorUsuario(Usuario usuario) {
+		return citaRepo.findByUsuario(usuario);
 	}
 
 }

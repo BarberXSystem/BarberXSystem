@@ -33,4 +33,9 @@ public class DetalleCitaServImp implements IDetalleCitaServ{
 		return detalleRepo.findById(idDetalle).orElse(null);
 	}
 
+	@Override
+	public void guardarLista(List<DetalleCita> detalles) {
+		detalleRepo.saveAll(detalles);
+	}
+
 }

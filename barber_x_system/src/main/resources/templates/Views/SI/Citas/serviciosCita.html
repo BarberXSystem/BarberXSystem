@@ -63,7 +63,7 @@
 								<div class="row justify-content-center">
 									<div class="col-5">
 										<h2 class="text-titles text-center">Disponibles</h2>
-									    <table class="table table-borderless table-hover">
+									    <table class="table table-borderless table-hover text-center">
 										  <thead>
 										    <tr>
 										      <th scope="col">ID</th>
@@ -76,10 +76,11 @@
 										    <tr th:each="s:${servicios}">
 										      <th scope="row" th:text="${s.idProductoServ}"></th>
 										      <td th:text="${s.nombre}"></td>
-										      <td th:text="${s.precioVenta}"></td>
+										      <td th:text="${'$'+s.precioVenta}"></td>
 										      <td class="text-center">
-										      	<a href="" class="text-success">
+										      	<a href="#modal-cantidad-serv" data-toggle="modal" class="text-success btn-cant-serv">
 										      		<i class="fas fa-plus-circle"></i>
+										      		<input type="hidden" th:value="${s.idProductoServ}" id="idServicio" name="idServicio">
 										      	</a>
 										      </td>
 										    </tr>
@@ -88,7 +89,7 @@
 									</div>
 									<div class="col-5">
 										<h2 class="text-titles text-center">Agregados</h2>
-									    <table class="table table-borderless table-hover">
+									    <table class="table table-borderless table-hover text-center">
 										  <thead>
 										    <tr>
 										      <th scope="col">ID</th>
@@ -103,7 +104,7 @@
 										      <td th:text="${a.prodServ.nombre}"></td>
 										      <td th:text="${a.cantidad}"></td>
 										      <td class="text-center">
-										      	<a href="" class="text-danger">
+										      	<a th:href="@{/cita/cliente/servicio/quitar-item/}+${a.idDetalle - 1}" class="text-danger">
 										      		<i class="fas fa-times-circle"></i>
 										      	</a>
 										      </td>
@@ -114,7 +115,7 @@
 								</div>
 								<hr>
 								<p class="text-center">
-							    	<button type="submit" class="btn btn-info btn-raised btn-sm"><i class="zmdi zmdi-floppy"></i> SOLICITAR CITA</button>
+							    	<button type="button" data-target="#confirmCita" data-toggle="modal" class="btn btn-info btn-raised btn-sm"><i class="zmdi zmdi-floppy"></i> SOLICITAR CITA</button>
 							    </p>
 							    <p class="text-center">
 							    	<a th:href="@{/cita/cliente/cancelar}">CANCELAR</a>
@@ -128,19 +129,29 @@
 	</section>
 	<footer th:replace="plantilla/plantilla :: footer-scripts"></footer>
 	
-	<div th:include="Views/SI/Admin/modalDeleteAdmin.html" th:remove="tag"></div>
-	
+	<div th:include="Views/SI/Citas/modalCantidadServicio.html" th:remove="tag"></div>
+	<div th:include="Views/SI/Citas/modalConfirmCita.html" th:remove="tag"></div>
+	x
 	<script>
-		
-		function confirmDelete(id){
-	    	$('#modal-delete-admin').modal('show');
-	    	$("#idAdminMD").val(id);
-	    }
 	    
-	    function deleteAdmin(){
-	    	var id = $("#idAdminMD").val();
-	        window.location = "/admin/eliminar/"+id;
-	    }
+ 		$('document').ready(function(){
+			
+			$('[data-toggle="tooltip"]').tooltip();
+			
+			$('.table .btn-cant-serv').on('click', function(){
+				var idServicio = $(this).parent().find('#idServicio').val();
+				
+				$.ajax({
+					type: 'GET',
+					url: '/cita/cliente/servicio/detalle/'+idServicio,
+					success: function(servicio){
+						$('#modal-cantidad-serv #nombreServicio').text(servicio.nombre);
+						$('#modal-cantidad-serv #idServicioMC').val(idServicio);
+					}
+				});
+			});	
+			
+		});
 	</script>
 </body>
 </html>
