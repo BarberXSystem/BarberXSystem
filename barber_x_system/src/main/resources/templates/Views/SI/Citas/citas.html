@@ -6,6 +6,7 @@
 	<link rel="stylesheet" th:href="@{/css/bootstrap2.min.css}">
 	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 	<link rel="stylesheet" th:href="@{/css/main.css}">
+	<link rel="shotcut icon" th:href="@{/img/logo.png}">
 	<script src="https://kit.fontawesome.com/eb1bb051d4.js"></script>
 </head>
 <body>
@@ -46,7 +47,7 @@
 		</div>
 		<div class="container-fluid">
 			<div class="page-header">
-			  <h1 class="text-titles"><i class="zmdi zmdi-font zmdi-hc-fw"></i> Citas <small>Administrador de citas</small></h1>
+			  <h1 class="text-titles"><i class="zmdi zmdi-font zmdi-hc-fw"></i> Citas <small>Todas la citas</small></h1>
 			</div>
 			<p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse voluptas reiciendis tempora voluptatum eius porro ipsa quae voluptates officiis sapiente sunt dolorem, velit quos a qui nobis sed, dignissimos possimus!</p>
 		</div>
@@ -54,9 +55,7 @@
 			<div class="row">
 				<div class="col-xs-12">
 					<ul class="nav nav-tabs" style="margin-bottom: 15px;">
-					  	<li class="active"><a href="#list" data-toggle="tab">Ver todos</a></li>
-					  	<li class=""><a href="#list" data-toggle="tab">Pendientes</a></li>
-					  	<li class=""><a href="#list" data-toggle="tab">Canceladas</a></li>
+					  	<li class="active"><a href="#list" data-toggle="tab">Todas las citas</a></li>
 					</ul>
 					<div id="myTabContent" class="tab-content">
 					  	<div class="tab-pane active" id="list">
@@ -65,29 +64,22 @@
 									<thead>
 										<tr>
 											<th class="text-center">ID</th>
-											<th class="text-center">Username</th>
-											<th class="text-center">Usuario</th>
-											<th class="text-center">Eliminar</th>
+											<th class="text-center">Estilista</th>
+											<th class="text-center">Fecha</th>
+											<th class="text-center">Hora</th>
+											<th class="text-center">Estado</th>
 										</tr>
 									</thead>
 									<tbody>
-										<tr th:each="a:${admins}">
-											<td th:text="${a.idAdmin}"></td>
-											<td th:text="${a.usuario.username}"></td>
-											<td th:text="${a.usuario.nombres+' '+a.usuario.apellidos}"></td>
-											<td><a href="#" th:onclick="'javascript:confirmDelete(\'' + ${a.idAdmin} + '\' );'" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
+										<tr th:each="t:${todas}">
+											<td th:text="${t.idCita}"></td>
+											<td th:text="${t.estilista.usuario.nombres}"></td>
+											<td th:text="${t.fecha}"></td>
+											<td th:text="${t.hora}"></td>
+											<td th:text="${t.estado}"></td>
 										</tr>
 									</tbody>
 								</table>
-		<!-- 						<ul class="pagination pagination-sm"> -->
-		<!-- 						  	<li class="disabled"><a href="#!">«</a></li> -->
-		<!-- 						  	<li class="active"><a href="#!">1</a></li> -->
-		<!-- 						  	<li><a href="#!">2</a></li> -->
-		<!-- 						  	<li><a href="#!">3</a></li> -->
-		<!-- 						  	<li><a href="#!">4</a></li> -->
-		<!-- 						  	<li><a href="#!">5</a></li> -->
-		<!-- 						  	<li><a href="#!">»</a></li> -->
-		<!-- 						</ul> -->
 							</div>
 					  	</div>
 					</div>

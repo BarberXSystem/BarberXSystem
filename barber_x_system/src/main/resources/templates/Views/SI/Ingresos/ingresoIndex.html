@@ -2,10 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
-	<title>Administradores | BarberXsystem</title>
+	<title>Ingresos | BarberXsystem</title>
 	<link rel="stylesheet" th:href="@{/css/bootstrap2.min.css}">
 	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 	<link rel="stylesheet" th:href="@{/css/main.css}">
+	<link rel="shotcut icon" th:href="@{/img/logo.png}">
 	<script src="https://kit.fontawesome.com/eb1bb051d4.js"></script>
 </head>
 <body>
@@ -46,7 +47,7 @@
 		</div>
 		<div class="container-fluid">
 			<div class="page-header">
-			  <h1 class="text-titles"><i class="zmdi zmdi-font zmdi-hc-fw"></i> Usuarios <small>Administradores</small></h1>
+			  <h1 class="text-titles"><i class="zmdi zmdi-font zmdi-hc-fw"></i> Ingresos <small>Nuevo ingreso</small></h1>
 			</div>
 			<p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse voluptas reiciendis tempora voluptatum eius porro ipsa quae voluptates officiis sapiente sunt dolorem, velit quos a qui nobis sed, dignissimos possimus!</p>
 		</div>
@@ -54,41 +55,70 @@
 			<div class="row">
 				<div class="col-xs-12">
 					<ul class="nav nav-tabs" style="margin-bottom: 15px;">
-					  	<li class="active"><a href="#list" data-toggle="tab">Ver todos</a></li>
+					  	<li class="active"><a href="#list" data-toggle="tab">Nuevo ingreso</a></li>
 					</ul>
-					<div id="myTabContent" class="tab-content">
-					  	<div class="tab-pane active" id="list">
-							<div class="table-responsive">
-								<table class="table table-hover text-center">
-									<thead>
-										<tr>
-											<th class="text-center">ID</th>
-											<th class="text-center">Username</th>
-											<th class="text-center">Usuario</th>
-											<th class="text-center">Eliminar</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr th:each="a:${admins}">
-											<td th:text="${a.idAdmin}"></td>
-											<td th:text="${a.usuario.username}"></td>
-											<td th:text="${a.usuario.nombres+' '+a.usuario.apellidos}"></td>
-											<td><a href="#" th:onclick="'javascript:confirmDelete(\'' + ${a.idAdmin} + '\' );'" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
-										</tr>
-									</tbody>
-								</table>
-		<!-- 						<ul class="pagination pagination-sm"> -->
-		<!-- 						  	<li class="disabled"><a href="#!">«</a></li> -->
-		<!-- 						  	<li class="active"><a href="#!">1</a></li> -->
-		<!-- 						  	<li><a href="#!">2</a></li> -->
-		<!-- 						  	<li><a href="#!">3</a></li> -->
-		<!-- 						  	<li><a href="#!">4</a></li> -->
-		<!-- 						  	<li><a href="#!">5</a></li> -->
-		<!-- 						  	<li><a href="#!">»</a></li> -->
-		<!-- 						</ul> -->
-							</div>
-					  	</div>
-					</div>
+				</div>
+				<div class="col-6">
+					<h2 class="text-titles text-center">Servicios / Productos</h2>
+					<table class="table table-borderless table-hover text-center">
+						  <thead>
+						    <tr>
+						      <th scope="col">ID</th>
+						      <th scope="col">Servicio / Producto</th>
+						      <th scope="col">Precio</th>
+						      <th scope="col">Agregar</th>
+						    </tr>
+						  </thead>
+						  <tbody>
+						    <tr th:each="ps:${prodsServs}">
+						      <th scope="row" th:text="${ps.idProductoServ}"></th>
+						      <td th:text="${ps.nombre}"></td>
+						      <td th:text="${ps.precioVenta}"></td>
+						      <td>
+						      	<a href="" class="text-success p-0">
+						      		<i class="fas fa-plus-circle"></i>
+						      	</a>
+						      </td>
+						    </tr>
+						  </tbody>
+					</table>
+				</div>
+				<div class="col-6">
+					<h2 class="text-titles text-center">Total</h2>
+					<div class="jumbotron"></div>
+				</div>
+				<div class="col">
+					<h2 class="text-titles text-center">Detalles agregados</h2>
+					<table class="table table-borderless table-hover text-center">
+						  <thead>
+						    <tr>
+						      <th scope="col">ID</th>
+						      <th scope="col">Servicio / Producto</th>
+						      <th scope="col">Precio</th>
+						      <th scope="col">Cantidad</th>
+						      <th scope="col">Subtotal</th>
+						      <th scope="col">Quitar</th>
+						    </tr>
+						  </thead>
+						  <tbody>
+						    <tr>
+						      <th scope="row">1</th>
+						      <td>Mark</td>
+						      <td>Otto</td>
+						      <td>@mdo</td>
+						      <td>@mdo</td>
+						      <td>@mdo</td>
+						    </tr>
+						    <tr>
+						      <th scope="row">2</th>
+						      <td>Jacob</td>
+						      <td>Thornton</td>
+						      <td>@fat</td>
+						      <td>@fat</td>
+						      <td>@fat</td>
+						    </tr>
+						  </tbody>
+					</table>
 				</div>
 			</div>
 		</div>

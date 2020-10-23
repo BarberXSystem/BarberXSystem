@@ -2,7 +2,7 @@
 	<meta charset="UTF-8">
 </head>
 <!-- Modal -->
-<div class="modal" id="confirmCita" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal" id="confirmCancelarCita" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -15,8 +15,8 @@
         ¿Esta seguro de programar la cita?
       </div>
       <div class="modal-footer">
-      	<form class="justify-content-center d-flex" th:action="@{/cita/cliente/solicitar}" method="post">
-        	<input type="hidden" id="idServicio" name="idServicio">
+      	<form class="justify-content-center d-flex" th:action="@{/cita/cancelar}" method="post">
+        	<input type="hidden" id="idCita" name="idCita">
         	<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
         	<button type="submit" class="btn btn-primary">Aceptar</button>
         </form>

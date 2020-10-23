@@ -1,8 +1,7 @@
 package com.barber_x_system.entity;
 
 import java.io.Serializable;
-import java.util.Date;
-
+import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,8 +32,12 @@ public class Cita implements Serializable{
 	@JoinColumn(name = "id_estilista")
 	private Estilista estilista;
 	
+	@ManyToOne
+	@JoinColumn(name = "id_servicio")
+	private ProductoServicio servicio;
+	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date fecha;
+	private LocalDate fecha;
 	
 	private String hora;
 	
@@ -68,11 +71,19 @@ public class Cita implements Serializable{
 		this.estilista = estilista;
 	}
 
-	public Date getFecha() {
+	public ProductoServicio getServicio() {
+		return servicio;
+	}
+
+	public void setServicio(ProductoServicio servicio) {
+		this.servicio = servicio;
+	}
+
+	public LocalDate getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Date fecha) {
+	public void setFecha(LocalDate fecha) {
 		this.fecha = fecha;
 	}
 
@@ -94,8 +105,8 @@ public class Cita implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Cita [idCita=" + idCita + ", usuario=" + usuario + ", estilista=" + estilista + ", fecha=" + fecha
-				+ ", hora=" + hora + ", estado=" + estado + "]";
+		return "Cita [idCita=" + idCita + ", usuario=" + usuario + ", estilista=" + estilista + ", servicio=" + servicio
+				+ ", fecha=" + fecha + ", hora=" + hora + ", estado=" + estado + "]";
 	}
 
 }

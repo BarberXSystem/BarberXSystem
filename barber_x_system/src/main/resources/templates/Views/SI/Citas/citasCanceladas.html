@@ -47,7 +47,7 @@
 		</div>
 		<div class="container-fluid">
 			<div class="page-header">
-			  <h1 class="text-titles"><i class="zmdi zmdi-font zmdi-hc-fw"></i> Citas <small>Mis citas</small></h1>
+			  <h1 class="text-titles"><i class="zmdi zmdi-font zmdi-hc-fw"></i> Citas <small>Canceladas</small></h1>
 			</div>
 			<p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse voluptas reiciendis tempora voluptatum eius porro ipsa quae voluptates officiis sapiente sunt dolorem, velit quos a qui nobis sed, dignissimos possimus!</p>
 		</div>
@@ -55,7 +55,7 @@
 			<div class="row">
 				<div class="col-xs-12">
 					<ul class="nav nav-tabs" style="margin-bottom: 15px;">
-					  	<li class="active"><a href="#list" data-toggle="tab">Ver mis citas</a></li>
+					  	<li class="active"><a href="#list" data-toggle="tab">Citas canceladas</a></li>
 					</ul>
 					<div id="myTabContent" class="tab-content">
 					  	<div class="tab-pane active" id="list">
@@ -65,32 +65,21 @@
 										<tr>
 											<th class="text-center">ID</th>
 											<th class="text-center">Estilista</th>
-											<th class="text-center">Servicio</th>
+											<th class="text-center">Cliente</th>
 											<th class="text-center">Fecha</th>
 											<th class="text-center">Hora</th>
-											<th class="text-center">Estado</th>
 										</tr>
 									</thead>
 									<tbody>
-										<tr th:each="c:${citas}">
+										<tr th:each="c:${canceladas}">
 											<td th:text="${c.idCita}"></td>
 											<td th:text="${c.estilista.usuario.nombres+' '+c.estilista.usuario.apellidos}"></td>
-											<td th:text="${c.servicio.nombre}"></td>
+											<td th:text="${c.usuario.nombres+' '+c.usuario.apellidos}"></td>
 											<td th:text="${c.fecha}"></td>
 											<td th:text="${c.hora}"></td>
-											<td th:text="${c.estado}"></td>
 										</tr>
 									</tbody>
 								</table>
-		<!-- 						<ul class="pagination pagination-sm"> -->
-		<!-- 						  	<li class="disabled"><a href="#!">«</a></li> -->
-		<!-- 						  	<li class="active"><a href="#!">1</a></li> -->
-		<!-- 						  	<li><a href="#!">2</a></li> -->
-		<!-- 						  	<li><a href="#!">3</a></li> -->
-		<!-- 						  	<li><a href="#!">4</a></li> -->
-		<!-- 						  	<li><a href="#!">5</a></li> -->
-		<!-- 						  	<li><a href="#!">»</a></li> -->
-		<!-- 						</ul> -->
 							</div>
 					  	</div>
 					</div>

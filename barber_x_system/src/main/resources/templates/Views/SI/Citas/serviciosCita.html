@@ -57,101 +57,39 @@
 					<ul class="nav nav-tabs" style="margin-bottom: 15px;">
 					  	<li class="active"><a href="#list" data-toggle="tab">Servicios</a></li>
 					</ul>
-					<div id="myTabContent" class="tab-content">
-						<div class="tab-pane active in" id="new">
-							<div class="container-fluid">
-								<div class="row justify-content-center">
-									<div class="col-5">
-										<h2 class="text-titles text-center">Disponibles</h2>
-									    <table class="table table-borderless table-hover text-center">
-										  <thead>
-										    <tr>
-										      <th scope="col">ID</th>
-										      <th scope="col">Servicio</th>
-										      <th scope="col">Valor</th>
-										      <th scope="col" class="text-center">Agregar</th>
-										    </tr>
-										  </thead>
-										  <tbody>
-										    <tr th:each="s:${servicios}">
-										      <th scope="row" th:text="${s.idProductoServ}"></th>
-										      <td th:text="${s.nombre}"></td>
-										      <td th:text="${'$'+s.precioVenta}"></td>
-										      <td class="text-center">
-										      	<a href="#modal-cantidad-serv" data-toggle="modal" class="text-success btn-cant-serv">
-										      		<i class="fas fa-plus-circle"></i>
-										      		<input type="hidden" th:value="${s.idProductoServ}" id="idServicio" name="idServicio">
-										      	</a>
-										      </td>
-										    </tr>
-										  </tbody>
-										</table>
-									</div>
-									<div class="col-5">
-										<h2 class="text-titles text-center">Agregados</h2>
-									    <table class="table table-borderless table-hover text-center">
-										  <thead>
-										    <tr>
-										      <th scope="col">ID</th>
-										      <th scope="col">Servicio</th>
-										      <th scope="col">Cantidad</th>
-										      <th scope="col" class="text-center">Quitar</th>
-										    </tr>
-										  </thead>
-										  <tbody>
-										    <tr th:each="a:${agregados}">
-										      <th scope="row" th:text="${a.idDetalle}"></th>
-										      <td th:text="${a.prodServ.nombre}"></td>
-										      <td th:text="${a.cantidad}"></td>
-										      <td class="text-center">
-										      	<a th:href="@{/cita/cliente/servicio/quitar-item/}+${a.idDetalle - 1}" class="text-danger">
-										      		<i class="fas fa-times-circle"></i>
-										      	</a>
-										      </td>
-										    </tr>
-										  </tbody>
-										</table>
-									</div>
-								</div>
-								<hr>
-								<p class="text-center">
-							    	<button type="button" data-target="#confirmCita" data-toggle="modal" class="btn btn-info btn-raised btn-sm"><i class="zmdi zmdi-floppy"></i> SOLICITAR CITA</button>
-							    </p>
-							    <p class="text-center">
-							    	<a th:href="@{/cita/cliente/cancelar}">CANCELAR</a>
-							    </p>
-							</div>
+					<h1 class="text-titles text-center" th:text="${cita.estilista.usuario.nombres+' '+cita.estilista.usuario.apellidos}"></h1>
+					<h1 class="text-titles text-center text-secondary" th:text="${cita.hora}"></h1>
+					<h1 class="text-titles text-center text-secondary" th:text="${cita.fecha}"></h1>
+					<form class="justify-content-center d-flex" th:action="@{/cita/cliente/solicitar}">
+						<div class="form-group">
+							<label>Servicios</label>
+							<select class="custom-select custom-select-lg" id="servicio" name="servicio" required>
+								<option th:text="''" th:value="''">
+								<option th:each="s:${servicios}" th:text="${s.nombre}" th:value="${s.idProductoServ}">
+							</select>
+							<button type="button" th:onclick="confirmCita()" class="btn btn-info btn-raised btn-sm float-right"><i class="zmdi zmdi-floppy"></i> PROGRAMAR CITA</button>
 						</div>
-					</div>
+					</form>
+				    <hr>
+				    <p class="text-center">
+				    	<a th:href="@{/cita/cliente/cancelar}">CANCELAR</a>
+				    </p>
 				</div>
 			</div>
 		</div>
 	</section>
 	<footer th:replace="plantilla/plantilla :: footer-scripts"></footer>
 	
-	<div th:include="Views/SI/Citas/modalCantidadServicio.html" th:remove="tag"></div>
 	<div th:include="Views/SI/Citas/modalConfirmCita.html" th:remove="tag"></div>
-	x
+	
 	<script>
-	    
- 		$('document').ready(function(){
-			
-			$('[data-toggle="tooltip"]').tooltip();
-			
-			$('.table .btn-cant-serv').on('click', function(){
-				var idServicio = $(this).parent().find('#idServicio').val();
-				
-				$.ajax({
-					type: 'GET',
-					url: '/cita/cliente/servicio/detalle/'+idServicio,
-					success: function(servicio){
-						$('#modal-cantidad-serv #nombreServicio').text(servicio.nombre);
-						$('#modal-cantidad-serv #idServicioMC').val(idServicio);
-					}
-				});
-			});	
-			
-		});
+		function confirmCita(){
+			var idServicio = $("#servicio").val();
+			if(servicio != ''){
+				$('#confirmCita').modal('show');
+			}
+	    	$("#idServicio").val(idServicio);
+	    }
 	</script>
 </body>
 </html>

@@ -8,6 +8,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 	<link rel="stylesheet" th:href="@{/css/bootstrap2.min.css}">
 	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 	<link rel="stylesheet" th:href="@{/css/main.css}">
+	<link rel="shotcut icon" th:href="@{/img/logo.png}">
 	<script src="https://kit.fontawesome.com/eb1bb051d4.js"></script>
 </head>
 <body>
@@ -61,11 +62,14 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 						<li>
 							<a th:href="@{/servicio/}"><i class="fas fa-plug mx-1"></i> Servicios</a>
 						</li>
-<!-- 						<li> -->
-<!-- 							<a href="section.html"><i class="zmdi zmdi-graduation-cap zmdi-hc-fw"></i> Section</a> -->
-<!-- 						</li> -->
 						<li>
-							<a th:href="@{/cita/}"><i class="far fa-calendar-check mx-1"></i> Citas</a>
+							<a th:href="@{/cita/programadas}"><i class="far fa-calendar-check mx-1"></i> Citas programadas</a>
+						</li>
+						<li>
+							<a th:href="@{/cita/canceladas}"><i class="far fa-calendar-times mx-1"></i> Citas canceladas</a>
+						</li>
+						<li>
+							<a th:href="@{/cita/}"><i class="far fa-calendar-alt mx-1"></i> Todas las citas</a>
 						</li>
 					</ul>
 				</li>
@@ -94,10 +98,10 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 					</a>
 					<ul class="list-unstyled full-box">
 						<li>
-							<a href="registration.html"><i class="zmdi zmdi-money zmdi-hc-fw"></i> Registrar</a>
+							<a th:href="@{/ingreso/index}"><i class="zmdi zmdi-money zmdi-hc-fw"></i> Registrar</a>
 						</li>
 						<li>
-							<a href="payments.html"><i class="fas fa-bars mx-1"></i> Ver todas</a>
+							<a th:href="@{/ingreso/}"><i class="fas fa-bars mx-1"></i> Ver todas</a>
 						</li>
 					</ul>
 				</li>
@@ -107,10 +111,13 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 					</a>
 					<ul class="list-unstyled full-box">
 						<li>
-							<a th:href="@{/cita/cliente/}"><i class="fas fa-plus mx-1"></i> Agendar nueva</a>
+							<a th:href="@{/cita/cliente/}"><i class="far fa-calendar-plus mx-1"></i> Agendar nueva</a>
 						</li>
 						<li>
-							<a href="school.html"><i class="fas fa-times mx-1"></i> Cancelar cita</a>
+							<a th:href="@{/cita/cliente/citas}"><i class="fas fa-align-justify mx-1"></i> Mis citas</a>
+						</li>
+						<li>
+							<a th:href="@{/cita/cancelar}"><i class="fas fa-times mx-1"></i> Cancelar cita</a>
 						</li>
 					</ul>
 				</li>
