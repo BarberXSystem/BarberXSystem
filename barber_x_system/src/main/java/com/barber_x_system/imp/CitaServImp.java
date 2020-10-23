@@ -251,4 +251,68 @@ public class CitaServImp implements ICitaServ{
 		return citaRepo.findByUsuario(usuario);
 	}
 
+	@Override
+	public boolean validCancelCita(Cita cita) {
+		Calendar fechaActual = Calendar.getInstance();
+		String hora = cita.getHora();
+		int diaCita = cita.getFecha().getDayOfMonth();
+		
+		int diaActual = fechaActual.get(Calendar.DAY_OF_MONTH);
+		int horaActual = fechaActual.get(Calendar.HOUR_OF_DAY);
+		int minutoActual = fechaActual.get(Calendar.MINUTE);
+		
+		if (cita.getHora().equals("9:00 AM - 9:30 AM") && (diaActual < diaCita || (diaActual == diaCita && horaActual < 9 || minutoActual <= 30))) {
+			return true;
+		} else if (hora.equals("9:30 AM - 10:00 AM") && (diaActual < diaCita || (diaActual == diaCita && horaActual <= 9 || minutoActual <= 30))) {
+			return true;
+		} else if (hora.equals("10:00 AM - 10:30 AM") && (diaActual < diaCita || (diaActual == diaCita && horaActual < 10 || minutoActual <= 30))) {
+			return true;
+		} else if (hora.equals("10:30 AM - 11:00 AM") && (diaActual < diaCita || (diaActual == diaCita && horaActual <= 10 || minutoActual <= 30))) {
+			return true;
+		} else if (hora.equals("11:00 AM - 11:30 AM") && (diaActual < diaCita || (diaActual == diaCita && horaActual < 11 || minutoActual <= 30))) {
+			return true;
+		} else if (hora.equals("11:30 AM - 12:00 PM") && (diaActual < diaCita || (diaActual == diaCita && horaActual <= 11 || minutoActual <= 30))) {
+			return true;
+		} else if (hora.equals("12:00 PM - 12:30 PM") && (diaActual < diaCita || (diaActual == diaCita && horaActual < 12 || minutoActual <= 30))) {
+			return true;
+		} else if (hora.equals("1:00 PM - 1:30 PM") && (diaActual < diaCita || (diaActual == diaCita && horaActual <= 12 || minutoActual <= 30))) {
+			return true;
+		} else if (hora.equals("1:30 PM - 2:00 PM") && (diaActual < diaCita || (diaActual == diaCita && horaActual < 13 || minutoActual <= 30))) {
+			return true;
+		} else if (hora.equals("2:00 PM - 2:30 PM") && (diaActual < diaCita || (diaActual == diaCita && horaActual <= 13 || minutoActual <= 30))) {
+			return true;
+		} else if (hora.equals("2:30 PM - 3:00 PM") && (diaActual < diaCita || (diaActual == diaCita && horaActual < 14 || minutoActual <= 30))) {
+			return true;
+		} else if (hora.equals("3:00 PM - 3:30 PM") && (diaActual < diaCita || (diaActual == diaCita && horaActual <= 14 || minutoActual <= 30))) {
+			return true;
+		} else if (hora.equals("3:30 PM - 4:00 PM") && (diaActual < diaCita || (diaActual == diaCita && horaActual < 15 || minutoActual <= 30))) {
+			return true;
+		} else if (hora.equals("4:00 PM - 4:30 PM") && (diaActual < diaCita || (diaActual == diaCita && horaActual <= 15 || minutoActual <= 30))) {
+			return true;
+		} else if (hora.equals("4:30 PM - 5:00 PM") && (diaActual < diaCita || (diaActual == diaCita && horaActual < 16 || minutoActual <= 30))) {
+			return true;
+		} else if (hora.equals("5:00 PM - 5:30 PM") && (diaActual < diaCita || (diaActual == diaCita && horaActual <= 16 || minutoActual <= 30))) {
+			return true;
+		} else if (hora.equals("5:30 PM - 6:00 PM") && (diaActual < diaCita || (diaActual == diaCita && horaActual < 17 || minutoActual <= 30))) {
+			return true;
+		} else if (hora.equals("6:00 PM - 6:30 PM") && (diaActual < diaCita || (diaActual == diaCita && horaActual <= 17 || minutoActual <= 30))) {
+			return true;
+		} else if (hora.equals("6:30 PM - 7:00 PM") && (diaActual < diaCita || (diaActual == diaCita && horaActual < 18 || minutoActual <= 30))) {
+			return true;
+		} else if (hora.equals("7:00 PM - 7:30 PM") && (diaActual < diaCita || (diaActual == diaCita && horaActual <= 18 || minutoActual <= 30))) {
+			return true;
+		} else if (hora.equals("7:30 PM - 8:00 PM") && (diaActual < diaCita || (diaActual == diaCita && horaActual < 19 || minutoActual <= 30))) {
+			return true;
+		} else if (hora.equals("8:00 PM - 8:30 PM") && (diaActual < diaCita || (diaActual == diaCita && horaActual <= 19 || minutoActual <= 30))) {
+			return true;
+		} else if (hora.equals("8:30 PM - 9:00 PM") && (diaActual < diaCita || (diaActual == diaCita && horaActual < 20 || minutoActual <= 30))) {
+			return true;
+		} else if (hora.equals("9:00 PM - 9:30 PM") && (diaActual < diaCita || (diaActual == diaCita && horaActual <= 20 || minutoActual <= 30))) {
+			return true;
+		} else if (hora.equals("9:30 PM - 10:00 PM") && (diaActual < diaCita || (diaActual == diaCita && horaActual < 21 || minutoActual <= 30))) {
+			return true;
+		}
+		return false;
+	}
+
 }

@@ -179,7 +179,11 @@ public class CitaController {
 		} else if (cita.getEstado().equals("CANCELADA")) {
 			model.addAttribute("error", "La cita que desea cancelar ya se encuentra cancelada!");
 			return "/Views/SI/Citas/cancelarCita";
+		} else if (!citaService.validCancelCita(cita)){
+			model.addAttribute("error", "La cita que desea cancelar ya no se puede cancelar por tiempo!");
+			return "/Views/SI/Citas/cancelarCita";
 		}
+		
 		
 		cita.setEstado("CANCELADA");
 		citaService.guardar(cita);

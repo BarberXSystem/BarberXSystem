@@ -20,4 +20,5 @@ public interface ICitaServ {
 	
 	//METODOS LOGICOS DEL SISTEMA
 	public List<String> turnosDisponibles(LocalDate fecha, Estilista estilista);
+	public boolean validCancelCita(Cita cita);
 }
