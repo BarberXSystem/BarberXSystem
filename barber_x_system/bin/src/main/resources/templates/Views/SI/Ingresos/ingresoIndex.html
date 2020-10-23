@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Ingresos | BarberXsystem</title>
+	<link rel="stylesheet" th:href="@{/css/bootstrap2.min.css}">
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/css/main.css}">
+	<link rel="shotcut icon" th:href="@{/img/logo.png}">
+	<script src="https://kit.fontawesome.com/eb1bb051d4.js"></script>
+</head>
+<body>
+	<section th:replace="plantilla/plantilla :: sidebar"></section>
+	<section class="full-box dashboard-contentPage">
+		<nav th:replace="plantilla/plantilla :: navbar"></nav>
+		<div class="container-fluid">
+			<div class="col px-0">
+				<div class="alert alert-success alert-dismissible show mt-2" role="alert" th:if="${success}">
+				  <i class="far fa-check-circle mr-1"></i>
+				  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				    <span aria-hidden="true">&times;</span>
+				  </button>
+				  <strong th:text="${success}"></strong>
+				</div>
+				<div class="alert alert-danger alert-dismissible show mt-2" role="alert" th:if="${error}">
+				  <i class="far fa-times-circle mr-1"></i>
+				  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				    <span aria-hidden="true">&times;</span>
+				  </button>
+				  <strong th:text="${error}"></strong>
+				</div>
+				<div class="alert alert-warning alert-dismissible show mt-2" role="alert" th:if="${warning}">
+				  <i class="fas fa-exclamation-circle mr-1"></i>
+				  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				    <span aria-hidden="true">&times;</span>
+				  </button>
+				  <strong th:text="${warning}"></strong>
+				</div>
+				<div class="alert alert-info alert-dismissible show mt-2" role="alert" th:if="${info}">
+				  <i class="fas fa-info-circle mr-1"></i>
+				  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				    <span aria-hidden="true">&times;</span>
+				  </button>
+				  <strong th:text="${info}"></strong>
+				</div>
+			</div>
+		</div>
+		<div class="container-fluid">
+			<div class="page-header">
+			  <h1 class="text-titles"><i class="zmdi zmdi-font zmdi-hc-fw"></i> Ingresos <small>Nuevo ingreso</small></h1>
+			</div>
+			<p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse voluptas reiciendis tempora voluptatum eius porro ipsa quae voluptates officiis sapiente sunt dolorem, velit quos a qui nobis sed, dignissimos possimus!</p>
+		</div>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-12">
+					<ul class="nav nav-tabs" style="margin-bottom: 15px;">
+					  	<li class="active"><a href="#list" data-toggle="tab">Nuevo ingreso</a></li>
+					</ul>
+				</div>
+				<div class="col-6">
+					<h2 class="text-titles text-center">Servicios / Productos</h2>
+					<table class="table table-borderless table-hover text-center">
+						  <thead>
+						    <tr>
+						      <th scope="col">ID</th>
+						      <th scope="col">Servicio / Producto</th>
+						      <th scope="col">Precio</th>
+						      <th scope="col">Agregar</th>
+						    </tr>
+						  </thead>
+						  <tbody>
+						    <tr th:each="ps:${prodsServs}">
+						      <th scope="row" th:text="${ps.idProductoServ}"></th>
+						      <td th:text="${ps.nombre}"></td>
+						      <td th:text="${ps.precioVenta}"></td>
+						      <td>
+						      	<a href="" class="text-success p-0">
+						      		<i class="fas fa-plus-circle"></i>
+						      	</a>
+						      </td>
+						    </tr>
+						  </tbody>
+					</table>
+				</div>
+				<div class="col-6">
+					<h2 class="text-titles text-center">Total</h2>
+					<div class="jumbotron"></div>
+				</div>
+				<div class="col">
+					<h2 class="text-titles text-center">Detalles agregados</h2>
+					<table class="table table-borderless table-hover text-center">
+						  <thead>
+						    <tr>
+						      <th scope="col">ID</th>
+						      <th scope="col">Servicio / Producto</th>
+						      <th scope="col">Precio</th>
+						      <th scope="col">Cantidad</th>
+						      <th scope="col">Subtotal</th>
+						      <th scope="col">Quitar</th>
+						    </tr>
+						  </thead>
+						  <tbody>
+						    <tr>
+						      <th scope="row">1</th>
+						      <td>Mark</td>
+						      <td>Otto</td>
+						      <td>@mdo</td>
+						      <td>@mdo</td>
+						      <td>@mdo</td>
+						    </tr>
+						    <tr>
+						      <th scope="row">2</th>
+						      <td>Jacob</td>
+						      <td>Thornton</td>
+						      <td>@fat</td>
+						      <td>@fat</td>
+						      <td>@fat</td>
+						    </tr>
+						  </tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</section>
+	<footer th:replace="plantilla/plantilla :: footer-scripts"></footer>
+	
+	<div th:include="Views/SI/Admin/modalDeleteAdmin.html" th:remove="tag"></div>
+
+	<script>
+		function confirmDelete(id){
+	    	$('#modal-delete-admin').modal('show');
+	    	$("#idAdminMD").val(id);
+	    }
+	    
+	    function deleteAdmin(){
+	    	var id = $("#idAdminMD").val();
+	        window.location = "/admin/eliminar/"+id;
+	    }
+	</script>
+</body>
+</html>
