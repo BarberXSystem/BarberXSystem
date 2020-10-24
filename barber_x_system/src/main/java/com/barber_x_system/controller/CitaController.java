@@ -168,8 +168,10 @@ public class CitaController {
 	}
 	
 	@PostMapping("/cancelar")
-	public String cancelar(@RequestParam("idCita") Long idCita, Model model) {
+	public String cancelar(@RequestParam("idCita") Long idCita, Model model, Principal principal) {
 		Cita cita = citaService.buscarPorId(idCita);
+		Usuario usuario = usuarioService.buscarPorNumeroDoc(principal.getName());
+		
 		if (cita == null) {
 			model.addAttribute("error", "No se ha encontrado ninguna cita con el numero ingresado!");
 			return "/Views/SI/Citas/cancelarCita";
@@ -181,6 +183,9 @@ public class CitaController {
 			return "/Views/SI/Citas/cancelarCita";
 		} else if (!citaService.validCancelCita(cita)){
 			model.addAttribute("error", "La cita que desea cancelar ya no se puede cancelar por tiempo!");
+			return "/Views/SI/Citas/cancelarCita";
+		} else if (!citaService.validOwnCita(usuario, cita)) {
+			model.addAttribute("error", "La cita que desea cancelar no puede ser cancelada por usted!");
 			return "/Views/SI/Citas/cancelarCita";
 		}
 		
