@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+	<title>Admin</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" th:href="@{/css/bootstrap2.min.css}">
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/css/main.css}">
+	<link rel="shotcut icon" th:href="@{/img/logo.png}">
+	<script src="https://kit.fontawesome.com/eb1bb051d4.js"></script>
+</head>
+<body>
+	<!-- SideBar -->
+	<section class="full-box cover dashboard-sideBar" th:fragment="sidebar">
+		<div class="full-box dashboard-sideBar-bg btn-menu-dashboard"></div>
+		<div class="full-box dashboard-sideBar-ct">
+			<!--SideBar Title -->
+			<div class="full-box text-uppercase text-center text-titles dashboard-sideBar-title">
+				<span>
+					<img th:src="@{/img/logo.png}" class="img-fluid mr-2" width="35">
+					BARBER X SYSTEM 
+				</span>
+				
+				<i class="zmdi zmdi-close btn-menu-dashboard d-block d-sm-none"></i>
+			</div>
+			<!-- SideBar User info -->
+			<div class="full-box dashboard-sideBar-UserInfo">
+				<figure class="full-box">
+					<img th:src="@{/img/fotoDelMan.jpeg}" alt="UserIcon">
+					<figcaption class="text-center text-titles" sec:authentication="name"></figcaption>
+				</figure>
+				<ul class="full-box list-unstyled text-center">
+					<li>
+						<a href="#!">
+							<i class="zmdi zmdi-settings"></i>
+						</a>
+					</li>
+					<li>
+						<a href="#cerrarSesion" data-toggle="modal" class="nav-link">
+							<i class="zmdi zmdi-power"></i>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<!-- SideBar Menu -->
+			<ul class="list-unstyled full-box dashboard-sideBar-Menu">
+				<li>
+					<a th:href="@{/dashboard/}">
+						<i class="zmdi zmdi-view-dashboard zmdi-hc-fw"></i> Dashboard
+					</a>
+				</li>
+				<li>
+					<a href="#!" class="btn-sideBar-SubMenu">
+						<i class="zmdi zmdi-case zmdi-hc-fw"></i> Administración <i class="zmdi zmdi-caret-down pull-right"></i>
+					</a>
+					<ul class="list-unstyled full-box">
+						<li>
+							<a th:href="@{/producto/}"><i class="fas fa-shapes mx-1"></i> Productos</a>
+						</li>
+						<li>
+							<a th:href="@{/servicio/}"><i class="fas fa-plug mx-1"></i> Servicios</a>
+						</li>
+						<li>
+							<a th:href="@{/cita/programadas}"><i class="far fa-calendar-check mx-1"></i> Citas programadas</a>
+						</li>
+						<li>
+							<a th:href="@{/cita/canceladas}"><i class="far fa-calendar-times mx-1"></i> Citas canceladas</a>
+						</li>
+						<li>
+							<a th:href="@{/cita/}"><i class="far fa-calendar-alt mx-1"></i> Todas las citas</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#!" class="btn-sideBar-SubMenu">
+						<i class="zmdi zmdi-account-add zmdi-hc-fw"></i> Usuarios <i class="zmdi zmdi-caret-down pull-right"></i>
+					</a>
+					<ul class="list-unstyled full-box">
+						<li>
+							<a th:href="@{/admin/}"><i class="zmdi zmdi-account zmdi-hc-fw"></i> Admin</a>
+						</li>
+						<li>
+							<a th:href="@{/usuario/}"><i class="zmdi zmdi-male-alt zmdi-hc-fw"></i> Clientes</a>
+						</li>
+						<li>
+							<a th:href="@{/estilista/}"><i class="zmdi zmdi-face zmdi-hc-fw"></i> Estilistas</a>
+						</li>
+						<li>
+							<a th:href="@{/rol/}"><i class="fas fa-lock mx-1"></i> Permisos</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#!" class="btn-sideBar-SubMenu">
+						<i class="zmdi zmdi-card zmdi-hc-fw"></i> Ingresos <i class="zmdi zmdi-caret-down pull-right"></i>
+					</a>
+					<ul class="list-unstyled full-box">
+						<li>
+							<a th:href="@{/ingreso/index}"><i class="zmdi zmdi-money zmdi-hc-fw"></i> Registrar</a>
+						</li>
+						<li>
+							<a th:href="@{/ingreso/}"><i class="fas fa-bars mx-1"></i> Ver todas</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#!" class="btn-sideBar-SubMenu">
+						<i class="far fa-calendar-alt mx-1"></i> Citas <i class="zmdi zmdi-caret-down pull-right"></i>
+					</a>
+					<ul class="list-unstyled full-box">
+						<li>
+							<a th:href="@{/cita/cliente/}"><i class="far fa-calendar-plus mx-1"></i> Agendar nueva</a>
+						</li>
+						<li>
+							<a th:href="@{/cita/cliente/citas}"><i class="fas fa-align-justify mx-1"></i> Mis citas</a>
+						</li>
+						<li>
+							<a th:href="@{/cita/cancelar}"><i class="fas fa-times mx-1"></i> Cancelar cita</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</section>
+
+	<!-- Content page-->
+	<section class="full-box dashboard-contentPage">
+		<!-- NavBar -->
+		<nav class="full-box dashboard-Navbar" th:fragment="navbar">
+			<ul class="full-box list-unstyled text-right">
+				<li class="float-left">
+					<a href="#!" class="btn-menu-dashboard"><i class="zmdi zmdi-more-vert"></i></a>
+				</li>
+				<li>
+					<a href="#!" class="btn-search">
+						<i class="zmdi zmdi-search"></i>
+					</a>
+				</li>
+				<li>
+					<a href="#!" class="btn-modal-help">
+						<i class="zmdi zmdi-help-outline"></i>
+					</a>
+				</li>
+			</ul>
+		</nav>
+		<!-- Content page -->
+		
+	</section>
+	
+	<footer th:fragment="footer-scripts">
+		<!--====== Scripts -->
+		<script th:src="@{/js/jquery-3.1.1.min.js}"></script>
+		<script th:src="@{/js/bootstrap.min.js}"></script>
+		<script th:src="@{/js/material.min.js}"></script>
+		<script th:src="@{/js/ripples.min.js}"></script>
+		<script th:src="@{/js/sweetalert2.min.js}"></script>
+		<script th:src="@{/js/jquery.mCustomScrollbar.concat.min.js}"></script>
+		<script th:src="@{/js/main.js}"></script>
+		<script>
+			$.material.init();
+		</script>
+		<div th:include="plantilla/modalHelp.html" th:remove="tag"></div>
+		<div th:include="plantilla/modalLogout.html" th:remove="tag"></div>
+	</footer>
+</body>
+</html>
