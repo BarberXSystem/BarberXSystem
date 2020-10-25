@@ -3,6 +3,8 @@ package com.barber_x_system.imp;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.barber_x_system.entity.DetallePago;
 import com.barber_x_system.entity.ReciboPago;
 import com.barber_x_system.repository.ReciboPagoRepository;
 import com.barber_x_system.service.IReciboPago;
@@ -31,6 +33,17 @@ public class ReciboPagoServImp implements IReciboPago{
 	@Override
 	public ReciboPago buscarPorId(Long idRecibo) {
 		return reciboRepo.findById(idRecibo).orElse(null);
+	}
+
+	@Override
+	public Long calcularTotal(List<DetallePago> detalles) {
+		long total = 0;
+		
+		for (DetallePago detallePago : detalles) {
+			total += detallePago.getSubtotal();
+		}
+		
+		return total;
 	}
 
 }

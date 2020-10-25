@@ -1,6 +1,7 @@
 package com.barber_x_system.service;
 
 import java.util.List;
+import com.barber_x_system.entity.DetallePago;
 import com.barber_x_system.entity.ReciboPago;
 
 public interface IReciboPago {
@@ -12,5 +13,8 @@ public interface IReciboPago {
 	
 	//METODOS AUXILIARES
 	public ReciboPago buscarPorId(Long idRecibo);
+	
+	//METODOS LOGICOS DEL SISTEMA
+	public Long calcularTotal(List<DetallePago> detalles);
 	
 }

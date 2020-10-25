@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
-	<title>Citas | BarberXsystem</title>
+	<title>Detalles ingresos | BarberXsystem</title>
 	<link rel="stylesheet" th:href="@{/css/bootstrap2.min.css}">
 	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 	<link rel="stylesheet" th:href="@{/css/main.css}">
@@ -47,14 +47,14 @@
 		</div>
 		<div class="container-fluid">
 			<div class="page-header">
-			  <h1 class="text-titles"><i class="zmdi zmdi-font zmdi-hc-fw"></i> Citas <small>Mis citas</small></h1>
+			  <h1 class="text-titles"><i class="zmdi zmdi-font zmdi-hc-fw"></i> Ingresos <small>Todos los ingresos</small></h1>
 			</div>
 		</div>
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-xs-12">
 					<ul class="nav nav-tabs" style="margin-bottom: 15px;">
-					  	<li class="active"><a href="#list" data-toggle="tab">Ver mis citas</a></li>
+					  	<li class="active"><a href="#list" data-toggle="tab">Todos los ingresos</a></li>
 					</ul>
 					<div id="myTabContent" class="tab-content">
 					  	<div class="tab-pane active" id="list">
@@ -63,34 +63,24 @@
 									<thead>
 										<tr>
 											<th class="text-center">ID</th>
-											<th class="text-center">Estilista</th>
-											<th class="text-center">Servicio</th>
-											<th class="text-center">Fecha</th>
-											<th class="text-center">Hora</th>
-											<th class="text-center">Estado</th>
+											<th class="text-center">Producto / Servicio</th>
+											<th class="text-center">Precio</th>
+											<th class="text-center">Cantidad</th>
+											<th class="text-center">Subtotal</th>
 										</tr>
 									</thead>
 									<tbody>
-										<tr th:each="c:${citas}">
-											<td th:text="${c.idCita}"></td>
-											<td th:text="${c.estilista.usuario.nombres+' '+c.estilista.usuario.apellidos}"></td>
-											<td th:text="${c.servicio.nombre}"></td>
-											<td th:text="${#calendars.format(c.fecha, 'dd/MMM/yyyy')}"></td>
-											<td th:text="${c.hora}"></td>
-											<td th:text="${c.estado}"></td>
+										<tr th:each="d:${detalles}">
+											<td th:text="${d.prodServ.idProductoServ}"></td>
+											<td th:text="${d.prodServ.nombre}"></td>
+											<td th:text="${'$'+d.prodServ.precioVenta}"></td>
+											<td th:text="${d.cantidad}"></td>
+											<td th:text="${'$'+d.subtotal}"></td>
 										</tr>
 									</tbody>
 								</table>
-		<!-- 						<ul class="pagination pagination-sm"> -->
-		<!-- 						  	<li class="disabled"><a href="#!">«</a></li> -->
-		<!-- 						  	<li class="active"><a href="#!">1</a></li> -->
-		<!-- 						  	<li><a href="#!">2</a></li> -->
-		<!-- 						  	<li><a href="#!">3</a></li> -->
-		<!-- 						  	<li><a href="#!">4</a></li> -->
-		<!-- 						  	<li><a href="#!">5</a></li> -->
-		<!-- 						  	<li><a href="#!">»</a></li> -->
-		<!-- 						</ul> -->
 							</div>
+							<button class="btn btn-secondary btn-raised" th:onclick="goBack()">Volver</button>
 					  	</div>
 					</div>
 				</div>
@@ -102,15 +92,9 @@
 	<div th:include="Views/SI/Admin/modalDeleteAdmin.html" th:remove="tag"></div>
 
 	<script>
-		function confirmDelete(id){
-	    	$('#modal-delete-admin').modal('show');
-	    	$("#idAdminMD").val(id);
-	    }
-	    
-	    function deleteAdmin(){
-	    	var id = $("#idAdminMD").val();
-	        window.location = "/admin/eliminar/"+id;
-	    }
+		function goBack() {
+		  window.history.back();
+		}
 	</script>
 </body>
 </html>

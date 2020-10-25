@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.barber_x_system.entity.DetallePago;
+import com.barber_x_system.entity.ReciboPago;
 import com.barber_x_system.repository.DetallePagoRepository;
 import com.barber_x_system.service.IDetallePagoServ;
 
@@ -33,6 +34,16 @@ public class DetallePagoServImp implements IDetallePagoServ{
 	@Override
 	public DetallePago buscarPorId(Long idDetalle) {
 		return detalleRepo.findById(idDetalle).orElse(null);
+	}
+
+	@Override
+	public void guardarLista(List<DetallePago> detalles) {
+		detalleRepo.saveAll(detalles);
+	}
+
+	@Override
+	public List<DetallePago> buscarPorRecibo(ReciboPago recibo) {
+		return detalleRepo.findByRecibo(recibo);
 	}
 
 }

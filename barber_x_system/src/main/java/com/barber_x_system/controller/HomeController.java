@@ -15,10 +15,5 @@ public class HomeController {
 		}
 		return "index";
 	}
-	
-	@GetMapping("/prueba")
-	public String prueba() {
-		return "/Views/Registro/registroSuccess";
-	}
 
 }

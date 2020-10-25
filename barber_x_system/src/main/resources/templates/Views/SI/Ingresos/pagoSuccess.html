@@ -47,52 +47,35 @@
 		</div>
 		<div class="container-fluid">
 			<div class="page-header">
-			  <h1 class="text-titles"><i class="zmdi zmdi-font zmdi-hc-fw"></i> Citas <small>Mis citas</small></h1>
+			  <h1 class="text-titles"><i class="zmdi zmdi-font zmdi-hc-fw"></i> Ingresos <small>Cobro de ingreso</small></h1>
 			</div>
 		</div>
 		<div class="container-fluid">
-			<div class="row">
+			<div class="row justify-content-center">
 				<div class="col-xs-12">
 					<ul class="nav nav-tabs" style="margin-bottom: 15px;">
-					  	<li class="active"><a href="#list" data-toggle="tab">Ver mis citas</a></li>
+					  	<li class="active"><a href="#list" data-toggle="tab">Ingreso agregado correctamente</a></li>
 					</ul>
-					<div id="myTabContent" class="tab-content">
-					  	<div class="tab-pane active" id="list">
-							<div class="table-responsive">
-								<table class="table table-hover text-center">
-									<thead>
-										<tr>
-											<th class="text-center">ID</th>
-											<th class="text-center">Estilista</th>
-											<th class="text-center">Servicio</th>
-											<th class="text-center">Fecha</th>
-											<th class="text-center">Hora</th>
-											<th class="text-center">Estado</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr th:each="c:${citas}">
-											<td th:text="${c.idCita}"></td>
-											<td th:text="${c.estilista.usuario.nombres+' '+c.estilista.usuario.apellidos}"></td>
-											<td th:text="${c.servicio.nombre}"></td>
-											<td th:text="${#calendars.format(c.fecha, 'dd/MMM/yyyy')}"></td>
-											<td th:text="${c.hora}"></td>
-											<td th:text="${c.estado}"></td>
-										</tr>
-									</tbody>
-								</table>
-		<!-- 						<ul class="pagination pagination-sm"> -->
-		<!-- 						  	<li class="disabled"><a href="#!">«</a></li> -->
-		<!-- 						  	<li class="active"><a href="#!">1</a></li> -->
-		<!-- 						  	<li><a href="#!">2</a></li> -->
-		<!-- 						  	<li><a href="#!">3</a></li> -->
-		<!-- 						  	<li><a href="#!">4</a></li> -->
-		<!-- 						  	<li><a href="#!">5</a></li> -->
-		<!-- 						  	<li><a href="#!">»</a></li> -->
-		<!-- 						</ul> -->
-							</div>
-					  	</div>
+				</div>
+				<div class="col-6">
+					<h1 class="text-titles">Ingreso agregado correctamente!</h1>
+					<hr>
+					<div class="jumbotron">
+						<h2 class="text-titles d-flex justify-content-between">
+							<span>Total</span>
+							<span th:text="${'$'+recibo.total}"></span>
+						</h2>
+						<hr>
+						<h2 class="text-titles d-flex justify-content-between">
+							<span>Efectivo</span>
+							<span th:text="${'$'+recibo.efectivo}"></span>
+						</h2>
+						<h2 class="text-titles d-flex justify-content-between">
+							<span>Cambio</span>
+							<span th:text="${'$'+recibo.cambio}"></span>
+						</h2>
 					</div>
+					<a th:href="@{/ingreso/index}" class="btn btn-secondary btn-raised">Volver a nuevo ingreso</a>
 				</div>
 			</div>
 		</div>

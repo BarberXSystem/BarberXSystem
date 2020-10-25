@@ -2,7 +2,6 @@ package com.barber_x_system.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -39,7 +37,7 @@ public class ReciboPago implements Serializable{
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date fecha;
 
-	@DateTimeFormat(pattern = "hh:mm")
+	@DateTimeFormat(pattern = "HH:mm")
 	private Date hora;
 	
 	private Long total;

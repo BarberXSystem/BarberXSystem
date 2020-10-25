@@ -1,8 +1,8 @@
 package com.barber_x_system.imp;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,8 +38,9 @@ public class CitaServImp implements ICitaServ{
 		return citaRepo.findById(idCita).orElse(null);
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
-	public List<String> turnosDisponibles(LocalDate fecha, Estilista estilista) {
+	public List<String> turnosDisponibles(Date fecha, Estilista estilista) {
 		List<Cita> citasDelDia = citaRepo.findByFechaAndEstilista(fecha, estilista);
 		List<String> turnosDisponibles = new ArrayList<String>();
 		
@@ -49,7 +50,7 @@ public class CitaServImp implements ICitaServ{
 		int horaActual = fechaActual.get(Calendar.HOUR_OF_DAY);
 		int minutoActual = fechaActual.get(Calendar.MINUTE);
 		
-		int diaCita = fecha.getDayOfMonth();
+		int diaCita = fecha.getDate();
 		
 		if ((diaActual == diaCita && horaActual == 8 && (minutoActual >= 0 && minutoActual <= 30))
 				|| (diaActual == diaCita && horaActual < 8)
@@ -242,7 +243,7 @@ public class CitaServImp implements ICitaServ{
 	}
 
 	@Override
-	public List<Cita> buscarPorFechaAndEstilista(LocalDate fecha, Estilista estilista) {
+	public List<Cita> buscarPorFechaAndEstilista(Date fecha, Estilista estilista) {
 		return citaRepo.findByFechaAndEstilista(fecha, estilista);
 	}
 
@@ -251,11 +252,12 @@ public class CitaServImp implements ICitaServ{
 		return citaRepo.findByUsuario(usuario);
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public boolean validCancelCita(Cita cita) {
 		Calendar fechaActual = Calendar.getInstance();
 		String hora = cita.getHora();
-		int diaCita = cita.getFecha().getDayOfMonth();
+		int diaCita = cita.getFecha().getDate();
 		
 		int diaActual = fechaActual.get(Calendar.DAY_OF_MONTH);
 		int horaActual = fechaActual.get(Calendar.HOUR_OF_DAY);

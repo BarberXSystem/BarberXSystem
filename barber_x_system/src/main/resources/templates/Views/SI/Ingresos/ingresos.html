@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
-	<title>Citas | BarberXsystem</title>
+	<title>Ingresos | BarberXsystem</title>
 	<link rel="stylesheet" th:href="@{/css/bootstrap2.min.css}">
 	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 	<link rel="stylesheet" th:href="@{/css/main.css}">
@@ -49,7 +49,6 @@
 			<div class="page-header">
 			  <h1 class="text-titles"><i class="zmdi zmdi-font zmdi-hc-fw"></i> Ingresos <small>Todos los ingresos</small></h1>
 			</div>
-			<p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse voluptas reiciendis tempora voluptatum eius porro ipsa quae voluptates officiis sapiente sunt dolorem, velit quos a qui nobis sed, dignissimos possimus!</p>
 		</div>
 		<div class="container-fluid">
 			<div class="row">
@@ -64,19 +63,23 @@
 									<thead>
 										<tr>
 											<th class="text-center">ID</th>
-											<th class="text-center">Estilista</th>
-											<th class="text-center">Cliente</th>
 											<th class="text-center">Fecha</th>
 											<th class="text-center">Hora</th>
+											<th class="text-center">Total</th>
+											<th class="text-center">Detalles</th>
 										</tr>
 									</thead>
 									<tbody>
-										<tr th:each="c:${canceladas}">
-											<td th:text="${c.idCita}"></td>
-											<td th:text="${c.estilista.usuario.nombres+' '+c.estilista.usuario.apellidos}"></td>
-											<td th:text="${c.usuario.nombres+' '+c.usuario.apellidos}"></td>
-											<td th:text="${c.fecha}"></td>
-											<td th:text="${c.hora}"></td>
+										<tr th:each="i:${ingresos}">
+											<td th:text="${i.idRecibo}"></td>
+											<td th:text="${#calendars.format(i.fecha, 'dd/MMM/yyyy')}"></td>
+											<td th:text="${#dates.format(i.hora, 'HH:mm')}"></td>
+											<td th:text="${'$'+i.total}"></td>
+											<td>
+												<a th:href="@{/ingreso/detalles/}+${i.idRecibo}">
+													<i class="fas fa-bars"></i>
+												</a>
+											</td>
 										</tr>
 									</tbody>
 								</table>
