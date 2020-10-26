@@ -12,6 +12,8 @@ public interface IProductoServicioServ {
 	
 	//METODOS AUXILIARES
 	public ProductoServicio buscarPorId(Long idProductoServ);
+	public List<ProductoServicio> buscarProductoNombre(String nombre);
+	public List<ProductoServicio> buscarServicioNombre(String nombre);
 	public boolean existePorNombre(String nombre);
 	public List<ProductoServicio> buscarProductos();
 	public List<ProductoServicio> buscarServicios();

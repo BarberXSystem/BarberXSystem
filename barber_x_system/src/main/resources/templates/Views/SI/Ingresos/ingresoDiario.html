@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
-	<title>Citas | BarberXsystem</title>
+	<title>Ingresos | BarberXsystem</title>
 	<link rel="stylesheet" th:href="@{/css/bootstrap2.min.css}">
 	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 	<link rel="stylesheet" th:href="@{/css/main.css}">
@@ -47,14 +47,32 @@
 		</div>
 		<div class="container-fluid">
 			<div class="page-header">
-			  <h1 class="text-titles"><i class="zmdi zmdi-font zmdi-hc-fw"></i> Citas <small>Todas la citas</small></h1>
+			  <h1 class="text-titles"><i class="zmdi zmdi-font zmdi-hc-fw"></i> Ingresos <small>Total diario</small></h1>
 			</div>
 		</div>
 		<div class="container-fluid">
-			<div class="row">
+			<div class="row justify-content-center">
+				<div class="col-6">
+					<div class="jumbotron">
+						<h2 class="text-titles justify-content-between d-flex">
+							<span>Productos</span>
+							<span th:text="${'$'+productos}"></span>
+						</h2>
+						<h2 class="text-titles justify-content-between d-flex">
+							<span>Servicios</span>
+							<span th:text="${'$'+servicios}"></span>
+						</h2>
+						<hr>
+						<h1 class="text-titles justify-content-between d-flex">
+							<span>Total</span>
+							<span th:text="${'$'+total}"></span>
+						</h1>
+					</div>
+				</div>
 				<div class="col-xs-12">
+					
 					<ul class="nav nav-tabs" style="margin-bottom: 15px;">
-					  	<li class="active"><a href="#list" data-toggle="tab">Todas las citas</a></li>
+					  	<li class="active"><a href="#list" data-toggle="tab">Todos los ingresos</a></li>
 					</ul>
 					<div id="myTabContent" class="tab-content">
 					  	<div class="tab-pane active" id="list">
@@ -63,19 +81,23 @@
 									<thead>
 										<tr>
 											<th class="text-center">ID</th>
-											<th class="text-center">Estilista</th>
-											<th class="text-center">Fecha</th>
 											<th class="text-center">Hora</th>
-											<th class="text-center">Estado</th>
+											<th class="text-center">Estilista</th>
+											<th class="text-center">Total</th>
+											<th class="text-center">Detalles</th>
 										</tr>
 									</thead>
 									<tbody>
-										<tr th:each="t:${todas}">
-											<td th:text="${t.idCita}"></td>
-											<td th:text="${t.estilista.usuario.nombres+' '+t.estilista.usuario.apellidos}"></td>
-											<td th:text="${#calendars.format(t.fecha, 'dd/MMM/yyyy')}"></td>
-											<td th:text="${t.hora}"></td>
-											<td th:text="${t.estado}"></td>
+										<tr th:each="i:${ingresosDiarios}">
+											<td th:text="${i.idRecibo}"></td>
+											<td th:text="${#dates.format(i.hora, 'HH:mm')}"></td>
+											<td th:text="${i.estilista.usuario.nombres+' '+i.estilista.usuario.apellidos}"></td>
+											<td th:text="${'$'+i.total}"></td>
+											<td>
+												<a th:href="@{/ingreso/detalles/}+${i.idRecibo}">
+													<i class="fas fa-bars"></i>
+												</a>
+											</td>
 										</tr>
 									</tbody>
 								</table>

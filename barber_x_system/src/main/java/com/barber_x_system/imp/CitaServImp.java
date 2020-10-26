@@ -52,175 +52,175 @@ public class CitaServImp implements ICitaServ{
 		
 		int diaCita = fecha.getDate();
 		
-		if ((diaActual == diaCita && horaActual == 8 && (minutoActual >= 0 && minutoActual <= 30))
+		if ((diaActual == diaCita && horaActual == 8 && (minutoActual >= 0 && minutoActual <= 59))
 				|| (diaActual == diaCita && horaActual < 8)
 				|| (diaCita > diaActual)) {
 			turnosDisponibles.add("9:00 AM - 9:30 AM");
 			
 		} 
 		
-		if ((diaActual == diaCita && horaActual == 9 && minutoActual == 0)
+		if ((diaActual == diaCita && horaActual == 9 && minutoActual < 30)
 				|| (diaActual == diaCita && horaActual < 9)
 				|| (diaCita > diaActual)) {
 			turnosDisponibles.add("9:30 AM - 10:00 AM");
 			
 		} 
 		
-		if ((diaActual == diaCita && horaActual == 9 && (minutoActual >= 0 && minutoActual <= 30))
+		if ((diaActual == diaCita && horaActual == 9 && (minutoActual >= 0 && minutoActual <= 59))
 				|| (diaActual == diaCita && horaActual < 9)
 				|| (diaCita > diaActual)) {
 			turnosDisponibles.add("10:00 AM - 10:30 AM");
 			
 		} 
 		
-		if ((diaActual == diaCita && horaActual == 10 && minutoActual == 0)
+		if ((diaActual == diaCita && horaActual == 10 && minutoActual < 30)
 				|| (diaActual == diaCita && horaActual < 10)
 				|| (diaCita > diaActual)) {
 			turnosDisponibles.add("10:30 AM - 11:00 AM");
 			
 		} 
 		
-		if ((diaActual == diaCita && horaActual == 10 && (minutoActual >= 0 && minutoActual <= 30))
+		if ((diaActual == diaCita && horaActual == 10 && (minutoActual >= 0 && minutoActual <= 59))
 				|| (diaActual == diaCita && horaActual < 10)
 				|| (diaCita > diaActual)) {
 			turnosDisponibles.add("11:00 AM - 11:30 AM");
 			
 		} 
 		
-		if ((diaActual == diaCita && horaActual == 11 && minutoActual == 0)
+		if ((diaActual == diaCita && horaActual == 11 && minutoActual < 30)
 				|| (diaActual == diaCita && horaActual < 11)
 				|| (diaCita > diaActual)) {
 			turnosDisponibles.add("11:30 AM - 12:00 PM");
 			
 		} 
 		
-		if ((diaActual == diaCita && horaActual == 11 && (minutoActual >= 0 && minutoActual <= 30))
+		if ((diaActual == diaCita && horaActual == 11 && (minutoActual >= 0 && minutoActual <= 59))
 				|| (diaActual == diaCita && horaActual < 11)
 				|| (diaCita > diaActual)) {
 			turnosDisponibles.add("12:00 PM - 12:30 PM");
 			
 		} 
 		
-		if ((diaActual == diaCita && horaActual == 12 && minutoActual == 0)
+		if ((diaActual == diaCita && horaActual == 12 && minutoActual < 30)
 				|| (diaActual == diaCita && horaActual < 12)
 				|| (diaCita > diaActual)) {
 			turnosDisponibles.add("1:00 PM - 1:30 PM");
 			
 		} 
 		
-		if ((diaActual == diaCita && horaActual == 13 && minutoActual == 0)
+		if ((diaActual == diaCita && horaActual == 13 && minutoActual < 30)
 				|| (diaActual == diaCita && horaActual < 13)
 				|| (diaCita > diaActual)) {
 			turnosDisponibles.add("1:30 PM - 2:00 PM");
 			
 		} 
 		
-		if ((diaActual == diaCita && horaActual == 13 && (minutoActual >= 0 && minutoActual <= 30))
+		if ((diaActual == diaCita && horaActual == 13 && (minutoActual >= 0 && minutoActual <= 59))
 				|| (diaActual == diaCita && horaActual < 13)
 				|| (diaCita > diaActual)) {
 			turnosDisponibles.add("2:00 PM - 2:30 PM");
 			
 		} 
 		
-		if ((diaActual == diaCita && horaActual == 14 && minutoActual == 0)
+		if ((diaActual == diaCita && horaActual == 14 && minutoActual < 30)
 				|| (diaActual == diaCita && horaActual < 14)
 				|| (diaCita > diaActual)) {
 			turnosDisponibles.add("2:30 PM - 3:00 PM");
 			
 		} 
 		
-		if ((diaActual == diaCita && horaActual == 14 && (minutoActual >= 0 && minutoActual <= 30))
+		if ((diaActual == diaCita && horaActual == 14 && (minutoActual >= 0 && minutoActual <= 59))
 				|| (diaActual == diaCita && horaActual < 14)
 				|| (diaCita > diaActual)) {
 			turnosDisponibles.add("3:00 PM - 3:30 PM");
 			
 		} 
 		
-		if ((diaActual == diaCita && horaActual == 15 && minutoActual == 0)
+		if ((diaActual == diaCita && horaActual == 15 && minutoActual < 30)
 				|| (diaActual == diaCita && horaActual < 15)
 				|| (diaCita > diaActual)) {
 			turnosDisponibles.add("3:30 PM - 4:00 PM");
 			
 		} 
 		
-		if ((diaActual == diaCita && horaActual == 15 && (minutoActual >= 0 && minutoActual <= 30))
+		if ((diaActual == diaCita && horaActual == 15 && (minutoActual >= 0 && minutoActual <= 59))
 				|| (diaActual == diaCita && horaActual < 15)
 				|| (diaCita > diaActual)) {
 			turnosDisponibles.add("4:00 PM - 4:30 PM");
 			
 		} 
 		
-		if ((diaActual == diaCita && horaActual == 16 && minutoActual == 0)
+		if ((diaActual == diaCita && horaActual == 16 && minutoActual < 30)
 				|| (diaActual == diaCita && horaActual < 16)
 				|| (diaCita > diaActual)) {
 			turnosDisponibles.add("4:30 PM - 5:00 PM");
 			
 		} 
 		
-		if ((diaActual == diaCita && horaActual == 16 && (minutoActual >= 0 && minutoActual <= 30))
+		if ((diaActual == diaCita && horaActual == 16 && (minutoActual >= 0 && minutoActual <= 59))
 				|| (diaActual == diaCita && horaActual < 16)
 				|| (diaCita > diaActual)) {
 			turnosDisponibles.add("5:00 PM - 5:30 PM");
 			
 		} 
 		
-		if ((diaActual == diaCita && horaActual == 17 && minutoActual == 0)
+		if ((diaActual == diaCita && horaActual == 17 && minutoActual < 30)
 				|| (diaActual == diaCita && horaActual < 17)
 				|| (diaCita > diaActual)) {
 			turnosDisponibles.add("5:30 PM - 6:00 PM");
 			
 		} 
 		
-		if ((diaActual == diaCita && horaActual == 17 && (minutoActual >= 0 && minutoActual <= 30))
+		if ((diaActual == diaCita && horaActual == 17 && (minutoActual >= 0 && minutoActual <= 59))
 				|| (diaActual == diaCita && horaActual < 17)
 				|| (diaCita > diaActual)) {
 			turnosDisponibles.add("6:00 PM - 6:30 PM");
 			
 		} 
 		
-		if ((diaActual == diaCita && horaActual == 18 && minutoActual == 0)
+		if ((diaActual == diaCita && horaActual == 18 && minutoActual < 30)
 				|| (diaActual == diaCita && horaActual < 18)
 				|| (diaCita > diaActual)) {
 			turnosDisponibles.add("6:30 PM - 7:00 PM");
 			
 		} 
 		
-		if ((diaActual == diaCita && horaActual == 18 && (minutoActual >= 0 && minutoActual <= 30))
+		if ((diaActual == diaCita && horaActual == 18 && (minutoActual >= 0 && minutoActual <= 59))
 				|| (diaActual == diaCita && horaActual < 18)
 				|| (diaCita > diaActual)) {
 			turnosDisponibles.add("7:00 PM - 7:30 PM");
 			
 		} 
 		
-		if ((diaActual == diaCita && horaActual == 19 && minutoActual == 0)
+		if ((diaActual == diaCita && horaActual == 19 && minutoActual < 30)
 				|| (diaActual == diaCita && horaActual < 19)
 				|| (diaCita > diaActual)) {
 			turnosDisponibles.add("7:30 PM - 8:00 PM");
 			
 		} 
 		
-		if ((diaActual == diaCita && horaActual == 19 && (minutoActual >= 0 && minutoActual <= 30))
+		if ((diaActual == diaCita && horaActual == 19 && (minutoActual >= 0 && minutoActual <= 59))
 				|| (diaActual == diaCita && horaActual < 19)
 				|| (diaCita > diaActual)) {
 			turnosDisponibles.add("8:00 PM - 8:30 PM");
 			
 		} 
 		
-		if ((diaActual == diaCita && horaActual == 20 && minutoActual == 0)
+		if ((diaActual == diaCita && horaActual == 20 && minutoActual < 30)
 				|| (diaActual == diaCita && horaActual < 20)
 				|| (diaCita > diaActual)) {
 			turnosDisponibles.add("8:30 PM - 9:00 PM");
 			
 		} 
 		
-		if ((diaActual == diaCita && horaActual == 20 && (minutoActual >= 0 && minutoActual <= 30))
+		if ((diaActual == diaCita && horaActual == 20 && (minutoActual >= 0 && minutoActual <= 59))
 				|| (diaActual == diaCita && horaActual < 20)
 				|| (diaCita > diaActual)) {
 			turnosDisponibles.add("9:00 PM - 9:30 PM");
 			
 		} 
 		
-		if ((diaActual == diaCita && horaActual == 21 && minutoActual == 0)
+		if ((diaActual == diaCita && horaActual == 21 && minutoActual < 30)
 				|| (diaActual == diaCita && horaActual < 21)
 				|| (diaCita > diaActual)) {
 			turnosDisponibles.add("9:30 PM - 10:00 PM");
@@ -349,6 +349,11 @@ public class CitaServImp implements ICitaServ{
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public List<Cita> buscarPorFechaAndEstado(Date fecha, String estado) {
+		return citaRepo.findByFechaAndEstado(fecha, estado);
 	}
 
 }

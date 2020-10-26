@@ -62,14 +62,14 @@
 							<div class="container-fluid">
 								<div class="row justify-content-center">
 									<div class="col-10">
-									    <form th:action="@{/registro/nuevo}" th:object="${usuario}" method="post">
+									    <form th:action="@{/usuario/nuevo}" th:object="${usuario}" method="post">
 											<div class="form-group label-floating">
 											  <label class="control-label">Nombres</label>
-											  <input class="form-control" th:field="*{nombres}" type="text" required>
+											  <input class="form-control" th:field="*{nombres}" pattern="[A-Za-z]{5,50}" title="Solo letras. Tamaño mínimo: 5. Tamaño máximo: 50" type="text" required>
 											</div>
 											<div class="form-group label-floating">
 											  <label class="control-label">Apellidos</label>
-											  <input class="form-control" th:field="*{apellidos}" type="text" required>
+											  <input class="form-control" th:field="*{apellidos}" pattern="[A-Za-z]{5,50}" title="Solo letras. Tamaño mínimo: 5. Tamaño máximo: 50" type="text" required>
 											</div>
 											<div class="form-group label-floating">
 										        <label class="control-label">Tipo de documento</label>
@@ -82,7 +82,7 @@
 										    </div>
 											<div class="form-group label-floating">
 											  <label class="control-label">Numero de documento</label>
-											  <input class="form-control" th:field="*{numeroDoc}" type="text" required>
+											  <input class="form-control" th:field="*{numeroDoc}" type="text" pattern="[0-9]{5,15}" title="Solo numeros Tamaño mínimo: 5. Tamaño máximo: 15" required>
 											</div>
 											<div class="form-group label-floating">
 											  <label class="control-label">Direccion</label>
@@ -94,7 +94,7 @@
 											</div>
 											<div class="form-group label-floating">
 											  <label class="control-label">Telefono</label>
-											  <input class="form-control" th:field="*{telefono}" type="text" required>
+											  <input class="form-control" th:field="*{telefono}" pattern="[0-9]{10}" title="Solo numeros Tamaño: 10" type="text" required>
 											</div>
 											<div class="form-group label-floating">
 											  <label class="control-label">Contraseña</label>
@@ -107,9 +107,7 @@
 										    <p class="text-center">
 										    	<button type="submit" class="btn btn-info btn-raised btn-sm"><i class="zmdi zmdi-floppy"></i> Registrarme</button>
 										    </p>
-										     <p class="text-center">
-										    	<a href="#" class="" th:onclick="goBack()">Cancelar</a>
-										    </p>
+										    <a href="#" th:onclick="goBack()" class="nav-link text-center">Cancelar</a>
 			    						</form>
 									</div>
 								</div>

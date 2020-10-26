@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 	<meta charset="UTF-8">
 	<title>BarberXsystem</title>
@@ -45,12 +46,36 @@
 				</div>
 			</div>
 		</div>
+		<!--  -->
 		<div class="container-fluid">
 			<div class="row my-3">
-				<div class="col">
-					<h1 class="text-title text-center">Dashboard</h1>
+				<div class="col" sec:authorize="hasRole('ROLE_ADMIN')">
+					<h1 class="text-titles text-center">Dashboard</h1>
 					<hr>
-					<img class="img-fluid" th:src="@{/img/fondoDashboard.jpeg}">
+					<h2 class="text-titles">Citas programadas</h2>
+					<table class="table table-borderless table-hover" >
+					  <thead>
+					    <tr>
+					      <th scope="col">ID</th>
+					      <th scope="col">Hora</th>
+					      <th scope="col">Estilista</th>
+					      <th scope="col">Cliente</th>
+					      <th scope="col">Servicio</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					    <tr th:each="c:${citasDeHoy}">
+					      <th scope="row" th:text="${c.idCita}"></th>
+					      <td th:text="${c.hora}"></td>
+					      <td th:text="${c.estilista.usuario.nombres+' '+c.estilista.usuario.apellidos}"></td>
+					      <td th:text="${c.usuario.nombres+' '+c.usuario.apellidos}"></td>
+					      <td th:text="${c.servicio.nombre}"></td>
+					    </tr>
+					  </tbody>
+					</table>
+				</div>
+				<div class="col" sec:authorize="hasRole('ROLE_USER') && !hasRole('ROLE_ADMIN')">
+					<div class="display-1 text-titles text-center">Bienvenido a BARBER X SYSTEM</div>
 				</div>
 			</div>
 		</div>

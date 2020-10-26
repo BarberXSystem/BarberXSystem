@@ -57,7 +57,7 @@
 					  	<li class="active"><a href="#list" data-toggle="tab">Seleccionar hora</a></li>
 					</ul>
 					<h1 class="text-titles text-center text-secondary" th:text="${cita.estilista.usuario.nombres+' '+cita.estilista.usuario.apellidos}"></h1>
-					<h1 class="text-titles text-center" th:text="${cita.fecha}"></h1>
+					<h1 class="text-titles text-center" th:text="${#calendars.format(cita.fecha, 'dd/MMM/yyyy')}"></h1>
 					<div id="myTabContent" class="tab-content">
 						<div class="tab-pane active in" id="new">
 							<div class="container-fluid">

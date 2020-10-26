@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Mi perfil | BarberXsystem</title>
+	<link rel="stylesheet" th:href="@{/css/bootstrap2.min.css}">
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/css/main.css}">
+	<link rel="shotcut icon" th:href="@{/img/logo.png}">
+	<script src="https://kit.fontawesome.com/eb1bb051d4.js"></script>
+</head>
+<body>
+	<section th:replace="plantilla/plantilla :: sidebar"></section>
+	<section class="full-box dashboard-contentPage">
+		<nav th:replace="plantilla/plantilla :: navbar"></nav>
+		<div class="container-fluid">
+			<div class="col px-0">
+				<div class="alert alert-success alert-dismissible show mt-2" role="alert" th:if="${success}">
+				  <i class="far fa-check-circle mr-1"></i>
+				  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				    <span aria-hidden="true">&times;</span>
+				  </button>
+				  <strong th:text="${success}"></strong>
+				</div>
+				<div class="alert alert-danger alert-dismissible show mt-2" role="alert" th:if="${error}">
+				  <i class="far fa-times-circle mr-1"></i>
+				  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				    <span aria-hidden="true">&times;</span>
+				  </button>
+				  <strong th:text="${error}"></strong>
+				</div>
+				<div class="alert alert-warning alert-dismissible show mt-2" role="alert" th:if="${warning}">
+				  <i class="fas fa-exclamation-circle mr-1"></i>
+				  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				    <span aria-hidden="true">&times;</span>
+				  </button>
+				  <strong th:text="${warning}"></strong>
+				</div>
+				<div class="alert alert-info alert-dismissible show mt-2" role="alert" th:if="${info}">
+				  <i class="fas fa-info-circle mr-1"></i>
+				  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				    <span aria-hidden="true">&times;</span>
+				  </button>
+				  <strong th:text="${info}"></strong>
+				</div>
+			</div>
+		</div>
+		<div class="container-fluid">
+			<div class="page-header">
+			  <h1 class="text-titles"><i class="zmdi zmdi-font zmdi-hc-fw"></i> Mi perfil <small>Editar datos basicos</small></h1>
+			</div>
+		</div>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-12">
+					<ul class="nav nav-tabs" style="margin-bottom: 15px;">
+					  	<li class="active"><a href="#list" data-toggle="tab">Datos basicos</a></li>
+					  	<li class=""><a href="#pass" data-toggle="tab">Contraseña</a></li>
+					</ul>
+					<div id="myTabContent" class="tab-content">
+					  	<div class="tab-pane active" id="list">
+							<form th:action="@{/usuario/editar-perfil}" th:object="${usuario}" method="post" class="mx-3">
+								<input type="hidden" th:field="*{idUsuario}">
+								<input type="hidden" th:field="*{numeroDoc}">
+								<input type="hidden" th:field="*{tipoDoc}">
+								<input type="hidden" th:field="*{nombres}">
+								<input type="hidden" th:field="*{apellidos}">
+								<input type="hidden" th:field="*{username}">
+								<input type="hidden" th:field="*{password}">
+								<input type="hidden" th:field="*{enabled}">
+								<div class="form-group">
+									<label>Direccion</label>
+									<input class="form-control" th:field="*{direccion}" type="text">
+								</div>
+								<div class="form-group">
+									<label>Telefono</label>
+									<input class="form-control" th:field="*{telefono}" type="text" pattern="[0-9]{10}">
+								</div>
+								<div class="form-group">
+									<label>Correo electronico</label>
+									<input class="form-control" th:field="*{email}" type="email">
+								</div>
+								<p class="text-center">
+									<a th:href="@{/dashboard/}" class="btn btn-raised btn-dark">Cancelar</a>
+									<button type="submit" class="btn btn-raised btn-primary">Guardar cambios</button>
+								</p>
+							</form>
+					  	</div>
+					  	<div class="tab-pane" id="pass">
+							<form th:action="@{/usuario/cambiar-password}" th:object="${usuario}" method="post" class="mx-3">
+								<input type="hidden" th:field="*{idUsuario}">
+								<input type="hidden" th:field="*{numeroDoc}">
+								<input type="hidden" th:field="*{tipoDoc}">
+								<input type="hidden" th:field="*{nombres}">
+								<input type="hidden" th:field="*{apellidos}">
+								<input type="hidden" th:field="*{username}">
+								<input type="hidden" th:field="*{direccion}">
+								<input type="hidden" th:field="*{email}">
+								<input type="hidden" th:field="*{telefono}">
+								<input type="hidden" th:field="*{enabled}">
+								<div class="form-group">
+									<label>Contraseña</label>
+									<input class="form-control" th:field="*{password}" type="password">
+								</div>
+								<div class="form-group">
+									<label>Confirmar contraseña</label>
+									<input class="form-control" th:field="*{confirmPassword}" type="password">
+								</div>
+								<p class="text-center">
+									<a th:href="@{/dashboard/}" class="btn btn-raised btn-dark">Cancelar</a>
+									<button type="submit" class="btn btn-raised btn-primary">Guardar contraseña</button>
+								</p>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<footer th:replace="plantilla/plantilla :: footer-scripts"></footer>
+	
+</body>
+</html>

@@ -1,6 +1,7 @@
 package com.barber_x_system.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,7 @@ import com.barber_x_system.service.IAdminServ;
 import com.barber_x_system.service.IRolServ;
 
 @Controller
+@Secured("ROLE_ADMIN")
 @RequestMapping("/admin")
 public class AdminController {
 	

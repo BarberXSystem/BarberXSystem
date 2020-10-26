@@ -1,6 +1,7 @@
 package com.barber_x_system.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +23,7 @@ public class EstilistaController {
 	@Autowired
 	private IRolServ rolService;
 	
+	@Secured("ROLE_ADMIN")
 	@GetMapping("/")
 	public String listar(Model model) {
 		model.addAttribute("estilistas", estilistaService.listar());

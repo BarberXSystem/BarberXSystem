@@ -10,9 +10,9 @@ public class HomeController {
 	
 	@GetMapping({"/", "/home", "/index"})
 	public String index(Principal principal) {
-		if (principal != null) {
-			return "redirect:/dashboard/";
-		}
+//		if (principal != null) {
+//			return "redirect:/dashboard/";
+//		}
 		return "index";
 	}
 

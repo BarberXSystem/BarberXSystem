@@ -51,4 +51,14 @@ public class ProductoServicioServImp implements IProductoServicioServ{
 		return prodServRepo.findByCategoria("SERVICIO");
 	}
 
+	@Override
+	public List<ProductoServicio> buscarProductoNombre(String nombre) {
+		return prodServRepo.findByNombreContainingAndCategoria(nombre, "PRODUCTO");
+	}
+
+	@Override
+	public List<ProductoServicio> buscarServicioNombre(String nombre) {
+		return prodServRepo.findByNombreContainingAndCategoria(nombre, "SERVICIO");
+	}
+
 }

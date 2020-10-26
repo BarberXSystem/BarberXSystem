@@ -31,6 +31,10 @@ public class ReciboPago implements Serializable{
 	@JoinColumn(name = "id_usuario")
 	private Usuario usuario;
 	
+	@ManyToOne
+	@JoinColumn(name = "id_estilista")
+	private Estilista estilista;
+	
 	@Column(name = "numero_recibo")
 	private String numeroRecibo;
 	
@@ -72,6 +76,14 @@ public class ReciboPago implements Serializable{
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public Estilista getEstilista() {
+		return estilista;
+	}
+
+	public void setEstilista(Estilista estilista) {
+		this.estilista = estilista;
 	}
 
 	public String getNumeroRecibo() {
@@ -124,10 +136,9 @@ public class ReciboPago implements Serializable{
 
 	@Override
 	public String toString() {
-		return "ReciboPago [idRecibo=" + idRecibo + ", cita=" + cita + ", usuario=" + usuario + ", numeroRecibo="
-				+ numeroRecibo + ", fecha=" + fecha + ", hora=" + hora + ", total=" + total + ", efectivo=" + efectivo
-				+ ", cambio=" + cambio + "]";
+		return "ReciboPago [idRecibo=" + idRecibo + ", cita=" + cita + ", usuario=" + usuario + ", estilista="
+				+ estilista + ", numeroRecibo=" + numeroRecibo + ", fecha=" + fecha + ", hora=" + hora + ", total="
+				+ total + ", efectivo=" + efectivo + ", cambio=" + cambio + "]";
 	}
-	
 	
 }

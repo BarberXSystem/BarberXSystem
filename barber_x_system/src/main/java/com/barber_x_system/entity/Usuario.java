@@ -30,8 +30,6 @@ public class Usuario implements Serializable{
 	
 	private String apellidos;
 	
-	private String foto;
-	
 	private String direccion;
 	
 	private String telefono;
@@ -89,14 +87,6 @@ public class Usuario implements Serializable{
 
 	public void setApellidos(String apellidos) {
 		this.apellidos = apellidos;
-	}
-
-	public String getFoto() {
-		return foto;
-	}
-
-	public void setFoto(String foto) {
-		this.foto = foto;
 	}
 
 	public String getDireccion() {
@@ -158,9 +148,9 @@ public class Usuario implements Serializable{
 	@Override
 	public String toString() {
 		return "Usuario [idUsuario=" + idUsuario + ", numeroDoc=" + numeroDoc + ", tipoDoc=" + tipoDoc + ", nombres="
-				+ nombres + ", apellidos=" + apellidos + ", foto=" + foto + ", direccion=" + direccion + ", telefono="
-				+ telefono + ", email=" + email + ", username=" + username + ", password=" + password
-				+ ", confirmPassword=" + confirmPassword + ", enabled=" + enabled + "]";
+				+ nombres + ", apellidos=" + apellidos + ", direccion=" + direccion + ", telefono=" + telefono
+				+ ", email=" + email + ", username=" + username + ", password=" + password + ", confirmPassword="
+				+ confirmPassword + ", enabled=" + enabled + "]";
 	}
 	
 }

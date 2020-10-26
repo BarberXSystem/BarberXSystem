@@ -1,5 +1,6 @@
 package com.barber_x_system.imp;
 
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -7,10 +8,10 @@ import org.springframework.stereotype.Service;
 import com.barber_x_system.entity.DetallePago;
 import com.barber_x_system.entity.ReciboPago;
 import com.barber_x_system.repository.ReciboPagoRepository;
-import com.barber_x_system.service.IReciboPago;
+import com.barber_x_system.service.IReciboPagoServ;
 
 @Service
-public class ReciboPagoServImp implements IReciboPago{
+public class ReciboPagoServImp implements IReciboPagoServ{
 	
 	@Autowired
 	private ReciboPagoRepository  reciboRepo;
@@ -44,6 +45,11 @@ public class ReciboPagoServImp implements IReciboPago{
 		}
 		
 		return total;
+	}
+
+	@Override
+	public List<ReciboPago> buscarPorFecha(Date fecha) {
+		return reciboRepo.findByFecha(fecha);
 	}
 
 }

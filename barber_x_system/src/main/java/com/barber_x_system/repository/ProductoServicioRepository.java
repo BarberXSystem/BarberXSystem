@@ -10,5 +10,6 @@ public interface ProductoServicioRepository extends CrudRepository<ProductoServi
 	
 	public boolean existsByNombre(String nombre);
 	public List<ProductoServicio> findByCategoria(String categoria);
+	public List<ProductoServicio> findByNombreContainingAndCategoria(String nombre, String categoria);
 
 }

@@ -13,5 +13,6 @@ public interface CitaRepository extends CrudRepository<Cita, Long> {
 	
 	public List<Cita> findByUsuario(Usuario usuario);
 	public List<Cita> findByFechaAndEstilista(Date fecha, Estilista estilista);
+	public List<Cita> findByFechaAndEstado(Date fecha, String estado);
 
 }

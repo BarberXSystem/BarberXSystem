@@ -63,6 +63,7 @@
 									<thead>
 										<tr>
 											<th class="text-center">ID</th>
+											<th class="text-center">Estilista</th>
 											<th class="text-center">Fecha</th>
 											<th class="text-center">Hora</th>
 											<th class="text-center">Total</th>
@@ -72,6 +73,7 @@
 									<tbody>
 										<tr th:each="i:${ingresos}">
 											<td th:text="${i.idRecibo}"></td>
+											<td th:text="${i.estilista.usuario.nombres+' '+i.estilista.usuario.apellidos}"></td>
 											<td th:text="${#calendars.format(i.fecha, 'dd/MMM/yyyy')}"></td>
 											<td th:text="${#dates.format(i.hora, 'HH:mm')}"></td>
 											<td th:text="${'$'+i.total}"></td>

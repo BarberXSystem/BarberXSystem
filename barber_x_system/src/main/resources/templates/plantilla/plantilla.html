@@ -33,7 +33,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 				</figure>
 				<ul class="full-box list-unstyled text-center">
 					<li>
-						<a href="#!">
+						<a th:href="@{/usuario/editar-perfil}">
 							<i class="zmdi zmdi-settings"></i>
 						</a>
 					</li>
@@ -46,16 +46,19 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 			</div>
 			<!-- SideBar Menu -->
 			<ul class="list-unstyled full-box dashboard-sideBar-Menu">
-				<li>
+				<li sec:authorize="hasRole('ROLE_ADMIN')">
 					<a th:href="@{/dashboard/}">
 						<i class="zmdi zmdi-view-dashboard zmdi-hc-fw"></i> Dashboard
 					</a>
 				</li>
-				<li>
-					<a href="#!" class="btn-sideBar-SubMenu">
+				<li sec:authorize="hasRole('ROLE_ADMIN')">
+					<a href="#" class="btn-sideBar-SubMenu">
 						<i class="zmdi zmdi-case zmdi-hc-fw"></i> Administración <i class="zmdi zmdi-caret-down pull-right"></i>
 					</a>
 					<ul class="list-unstyled full-box">
+						<li>
+							<a th:href="@{/ingreso/diario}"><i class="fas fa-dollar-sign mx-1"></i> Ingreso diario</a>
+						</li>
 						<li>
 							<a th:href="@{/producto/}"><i class="fas fa-shapes mx-1"></i> Productos</a>
 						</li>
@@ -73,8 +76,8 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 						</li>
 					</ul>
 				</li>
-				<li>
-					<a href="#!" class="btn-sideBar-SubMenu">
+				<li sec:authorize="hasRole('ROLE_ADMIN')">
+					<a href="#" class="btn-sideBar-SubMenu">
 						<i class="zmdi zmdi-account-add zmdi-hc-fw"></i> Usuarios <i class="zmdi zmdi-caret-down pull-right"></i>
 					</a>
 					<ul class="list-unstyled full-box">
@@ -92,8 +95,8 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 						</li>
 					</ul>
 				</li>
-				<li>
-					<a href="#!" class="btn-sideBar-SubMenu">
+				<li sec:authorize="hasRole('ROLE_ADMIN')">
+					<a href="#" class="btn-sideBar-SubMenu">
 						<i class="zmdi zmdi-card zmdi-hc-fw"></i> Ingresos <i class="zmdi zmdi-caret-down pull-right"></i>
 					</a>
 					<ul class="list-unstyled full-box">
@@ -105,8 +108,8 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 						</li>
 					</ul>
 				</li>
-				<li>
-					<a href="#!" class="btn-sideBar-SubMenu">
+				<li sec:authorize="hasRole('ROLE_USER')">
+					<a href="#" class="btn-sideBar-SubMenu">
 						<i class="far fa-calendar-alt mx-1"></i> Citas <i class="zmdi zmdi-caret-down pull-right"></i>
 					</a>
 					<ul class="list-unstyled full-box">
@@ -121,6 +124,19 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 						</li>
 					</ul>
 				</li>
+				<li sec:authorize="hasRole('ROLE_USER')">
+					<a href="#" class="btn-sideBar-SubMenu">
+						<i class="fas fa-capsules mx-1"></i> Productos y servicios <i class="zmdi zmdi-caret-down pull-right"></i>
+					</a>
+					<ul class="list-unstyled full-box">
+						<li>
+							<a th:href="@{/producto/cliente}"><i class="fas fa-shapes mx-1"></i> Productos</a>
+						</li>
+						<li>
+							<a th:href="@{/servicio/cliente}"><i class="fas fa-plug mx-1"></i> Servicios</a>
+						</li>
+					</ul>
+				</li>
 			</ul>
 		</div>
 	</section>
@@ -131,15 +147,15 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 		<nav class="full-box dashboard-Navbar" th:fragment="navbar">
 			<ul class="full-box list-unstyled text-right">
 				<li class="float-left">
-					<a href="#!" class="btn-menu-dashboard"><i class="zmdi zmdi-more-vert"></i></a>
+					<a href="#" class="btn-menu-dashboard"><i class="zmdi zmdi-more-vert"></i></a>
 				</li>
 				<li>
-					<a href="#!" class="btn-search">
+					<a href="#" class="btn-search">
 						<i class="zmdi zmdi-search"></i>
 					</a>
 				</li>
 				<li>
-					<a href="#!" class="btn-modal-help">
+					<a href="#" class="btn-modal-help">
 						<i class="zmdi zmdi-help-outline"></i>
 					</a>
 				</li>

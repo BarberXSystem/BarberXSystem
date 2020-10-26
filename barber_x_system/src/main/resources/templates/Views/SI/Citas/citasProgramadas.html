@@ -76,7 +76,7 @@
 											<td th:text="${p.estilista.usuario.nombres+' '+p.estilista.usuario.apellidos}"></td>
 											<td th:text="${p.usuario.nombres+' '+p.usuario.apellidos}"></td>
 											<td th:text="${p.servicio.nombre}"></td>
-											<td th:text="${p.fecha}"></td>
+											<td th:text="${#calendars.format(p.fecha, 'dd/MMM/yyyy')}"></td>
 											<td th:text="${p.hora}"></td>
 										</tr>
 									</tbody>

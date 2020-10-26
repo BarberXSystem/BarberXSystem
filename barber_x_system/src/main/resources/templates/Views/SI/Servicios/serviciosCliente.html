@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
-	<title>Citas | BarberXsystem</title>
+	<title>Servicios | BarberXsystem</title>
 	<link rel="stylesheet" th:href="@{/css/bootstrap2.min.css}">
 	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 	<link rel="stylesheet" th:href="@{/css/main.css}">
@@ -47,14 +47,26 @@
 		</div>
 		<div class="container-fluid">
 			<div class="page-header">
-			  <h1 class="text-titles"><i class="zmdi zmdi-font zmdi-hc-fw"></i> Citas <small>Todas la citas</small></h1>
+			  <h1 class="text-titles"><i class="zmdi zmdi-font zmdi-hc-fw"></i> Servicios <small>Servicios disponibles</small></h1>
 			</div>
 		</div>
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-xs-12">
+					<form th:action="@{/servicio/cliente}" method="post">
+						<div class="form-row">
+							<div class="col form-group">
+								<label for="nombre">Buscar por nombre</label>
+								<input class="form-control" id ="nombre" name="nombre" required>
+							</div>
+							<div class="col align-items-end d-flex form-group">
+								<button type="submit" class="btn btn-raised btn-primary">Enviar</button>
+								<a th:href="@{/servicio/cliente/limpiar}" class=" ml-2 btn btn-raised btn-dark">Limpiar</a>
+							</div>
+						</div>
+					</form>
 					<ul class="nav nav-tabs" style="margin-bottom: 15px;">
-					  	<li class="active"><a href="#list" data-toggle="tab">Todas las citas</a></li>
+					  	<li class="active"><a href="#list" data-toggle="tab">Servicios</a></li>
 					</ul>
 					<div id="myTabContent" class="tab-content">
 					  	<div class="tab-pane active" id="list">
@@ -63,19 +75,17 @@
 									<thead>
 										<tr>
 											<th class="text-center">ID</th>
-											<th class="text-center">Estilista</th>
-											<th class="text-center">Fecha</th>
-											<th class="text-center">Hora</th>
-											<th class="text-center">Estado</th>
+											<th class="text-center">Nombre</th>
+											<th class="text-center">Precio</th>
+											<th class="text-center">Descripcion</th>
 										</tr>
 									</thead>
 									<tbody>
-										<tr th:each="t:${todas}">
-											<td th:text="${t.idCita}"></td>
-											<td th:text="${t.estilista.usuario.nombres+' '+t.estilista.usuario.apellidos}"></td>
-											<td th:text="${#calendars.format(t.fecha, 'dd/MMM/yyyy')}"></td>
-											<td th:text="${t.hora}"></td>
-											<td th:text="${t.estado}"></td>
+										<tr th:each="s:${servicios}">
+											<td th:text="${s.idProductoServ}"></td>
+											<td th:text="${s.nombre}"></td>
+											<td th:text="${'$'+s.precioVenta}"></td>
+											<td th:text="${s.descripcion}"></td>
 										</tr>
 									</tbody>
 								</table>
@@ -87,19 +97,22 @@
 		</div>
 	</section>
 	<footer th:replace="plantilla/plantilla :: footer-scripts"></footer>
-	
-	<div th:include="Views/SI/Admin/modalDeleteAdmin.html" th:remove="tag"></div>
 
 	<script>
+		function goBack() {
+		  window.history.back();
+		}
+		
 		function confirmDelete(id){
-	    	$('#modal-delete-admin').modal('show');
-	    	$("#idAdminMD").val(id);
+	    	$('#modal-delete-prod-serv').modal('show');
+	    	$("#idProdServMD").val(id);
 	    }
 	    
-	    function deleteAdmin(){
-	    	var id = $("#idAdminMD").val();
-	        window.location = "/admin/eliminar/"+id;
+	    function deleteProdServ(){
+	    	var id = $("#idProdServMD").val();
+	        window.location = "/producto-servicio/eliminar/"+id;
 	    }
 	</script>
+	
 </body>
 </html>

@@ -71,11 +71,11 @@
 			    <form th:action="@{/registro/nuevo}" th:object="${usuario}" method="post">
 					<div class="form-group label-floating">
 					  <label class="control-label">Nombres</label>
-					  <input class="form-control" th:field="*{nombres}" type="text" required>
+					  <input class="form-control" th:field="*{nombres}" pattern="[A-Za-z]{5,50}" title="Solo letras. Tamaño mínimo: 5. Tamaño máximo: 50" type="text" required>
 					</div>
 					<div class="form-group label-floating">
 					  <label class="control-label">Apellidos</label>
-					  <input class="form-control" th:field="*{apellidos}" type="text" required>
+					  <input class="form-control" th:field="*{apellidos}" pattern="[A-Za-z]{5,50}" title="Solo letras. Tamaño mínimo: 5. Tamaño máximo: 50" type="text" required>
 					</div>
 					<div class="form-group label-floating">
 				        <label class="control-label">Tipo de documento</label>
@@ -88,7 +88,7 @@
 				    </div>
 					<div class="form-group label-floating">
 					  <label class="control-label">Numero de documento</label>
-					  <input class="form-control" th:field="*{numeroDoc}" type="text" required>
+					  <input class="form-control" th:field="*{numeroDoc}" type="text" pattern="[0-9]{5,15}" title="Solo numeros Tamaño mínimo: 5. Tamaño máximo: 15" required>
 					</div>
 					<div class="form-group label-floating">
 					  <label class="control-label">Direccion</label>
@@ -100,7 +100,7 @@
 					</div>
 					<div class="form-group label-floating">
 					  <label class="control-label">Telefono</label>
-					  <input class="form-control" th:field="*{telefono}" type="text" required>
+					  <input class="form-control" th:field="*{telefono}" pattern="[0-9]{10}" title="Solo numeros Tamaño: 10" type="text" required>
 					</div>
 					<div class="form-group label-floating">
 					  <label class="control-label">Contraseña</label>
@@ -129,6 +129,31 @@
 	<script th:src="@{/js/main.js}"></script>
 	<script>
 		$.material.init();
+	</script>
+	<script>
+		var myDate = $('#fechaInspeccion');
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth() + 1;
+		var yyyy = today.getFullYear();
+		if(dd < 10)
+		  dd = '0' + dd;
+	
+		if(mm < 10)
+		  mm = '0' + mm;
+	
+		today = yyyy + '-' + mm + '-' + dd;
+		myDate.attr("max", today);
+	
+		function myFunction(){
+		  var date = myDate.val();
+		  if(Date.parse(date)){
+		    if(date > today){
+		      alert('La fecha no puede ser mayor a la actual');
+		      myDate.val("");
+		    }
+		  }
+		}
 	</script>
 	<script>
 		function goBack() {

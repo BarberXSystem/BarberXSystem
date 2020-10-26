@@ -74,7 +74,7 @@
 											<td th:text="${c.idCita}"></td>
 											<td th:text="${c.estilista.usuario.nombres+' '+c.estilista.usuario.apellidos}"></td>
 											<td th:text="${c.usuario.nombres+' '+c.usuario.apellidos}"></td>
-											<td th:text="${c.fecha}"></td>
+											<td th:text="${#calendars.format(c.fecha, 'dd/MMM/yyyy')}"></td>
 											<td th:text="${c.hora}"></td>
 										</tr>
 									</tbody>

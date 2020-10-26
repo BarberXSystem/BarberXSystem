@@ -1,9 +1,15 @@
 package com.barber_x_system.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,14 +43,19 @@ public class CitaController {
 	@Autowired
 	private IProductoServicioServ prodServService;
 	
+	@Autowired
+	private JavaMailSender mailSender;
+	
 	private Cita cita = new Cita();
 
+	@Secured("ROLE_ADMIN")
 	@GetMapping("/")
 	public String citas(Model model) {
 		model.addAttribute("todas", citaService.listar());
 		return "/Views/SI/Citas/citas";
 	}
 	
+	@Secured("ROLE_ADMIN")
 	@GetMapping("/canceladas")
 	public String citasCanceladas(Model model) {
 		List<Cita> citas = citaService.listar();
@@ -60,6 +71,7 @@ public class CitaController {
 		return "/Views/SI/Citas/citasCanceladas";
 	}
 	
+	@Secured({"ROLE_ADMIN", "ROLE_ESTILISTA"})
 	@GetMapping("/programadas")
 	public String citasProgramadas(Model model) {
 		List<Cita> citas = citaService.listar();
@@ -74,6 +86,7 @@ public class CitaController {
 		return "/Views/SI/Citas/citasProgramadas";
 	}
 	
+	@Secured("ROLE_USER")
 	@GetMapping("/cliente/citas")
 	public String citasCliente(Model model, Principal principal) {
 		List<Cita> citas = citaService.buscarPorUsuario(usuarioService.buscarPorNumeroDoc(principal.getName()));
@@ -89,6 +102,7 @@ public class CitaController {
 		return "/Views/SI/Citas/citasCliente";
 	}
 	
+	@Secured("ROLE_USER")
 	@GetMapping("/cliente/")
 	public String nuevaCita(Model model, Principal principal) {
 		Usuario usuario = usuarioService.buscarPorNumeroDoc(principal.getName());
@@ -100,6 +114,7 @@ public class CitaController {
 		return "/Views/SI/Citas/solicitarCita";
 	}
 	
+	@Secured("ROLE_USER")
 	@PostMapping("/cliente/disponibilidad")
 	public String disponibilidad(@ModelAttribute Cita cita, RedirectAttributes attr, Model model) {
 		Estilista estilista = estilistaServ.buscarPorId(cita.getEstilista().getIdEstilista());
@@ -117,6 +132,7 @@ public class CitaController {
 		return "redirect:/cita/cliente/hora";
 	}
 	
+	@Secured("ROLE_USER")
 	@GetMapping("/cliente/hora")
 	public String hora(Model model) {
 		if (this.cita.getUsuario() == null) {
@@ -126,12 +142,14 @@ public class CitaController {
 		return "/Views/SI/Citas/horaCita";
 	}
 	
+	@Secured("ROLE_USER")
 	@PostMapping("/cliente/hora")
 	public String hora(@ModelAttribute Cita cita) {
 		this.cita.setHora(cita.getHora());;
 		return "redirect:/cita/cliente/servicios";
 	}
 	
+	@Secured("ROLE_USER")
 	@GetMapping("/cliente/servicios")
 	public String servicios(Model model) {
 		model.addAttribute("cita", this.cita);
@@ -145,28 +163,58 @@ public class CitaController {
 		return "/Views/SI/Citas/serviciosCita";
 	}
 	
+	@Secured("ROLE_USER")
+	@SuppressWarnings("deprecation")
 	@PostMapping("/cliente/solicitar")
-	public String servicios(@RequestParam("idServicio") Long idServicio, RedirectAttributes attr) {
+	public String servicios(@RequestParam("idServicio") Long idServicio, RedirectAttributes attr,
+			Model model) throws MessagingException, UnsupportedEncodingException {
 		ProductoServicio servicio = prodServService.buscarPorId(idServicio);
 		this.cita.setEstado("PROGRAMADA");
 		this.cita.setServicio(servicio);
 		
-		citaService.guardar(this.cita);
+		try {
+			citaService.guardar(this.cita);
+			
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper helper = new MimeMessageHelper(message, true);
+			
+			String mensaje = "<p><b>ESTILISTA: </b>"+this.cita.getEstilista().getUsuario().getNombres()+" "+this.cita.getEstilista().getUsuario().getApellidos()+"</p>";
+			mensaje += "<p><b>CITA NUMERO: </b>"+this.cita.getIdCita()+"</p>";
+			mensaje += "<p><b>SERVICIO: </b>"+this.cita.getServicio().getNombre()+"</p>";
+			mensaje += "<p><b>FECHA: </b>"+this.cita.getFecha().toLocaleString()+"</p>";
+			mensaje += "<p><b>HORA: </b>"+this.cita.getHora()+"</p>";
+			
+			helper.setTo(this.cita.getUsuario().getEmail().toLowerCase());
+			helper.setSubject("CITA ASIGNADA EXISTOSAMENTE");
+			helper.setText(mensaje, true);
+			
+			mailSender.send(message);
+		} catch (Exception e) {
+			model.addAttribute("servicios", prodServService.buscarServicios());
+			model.addAttribute("cita", this.cita);
+			model.addAttribute("error", e.getMessage());
+			return "/Views/SI/Citas/serviciosCita";
+		}
+		
+		
 		attr.addFlashAttribute("success", "Cita programada correctamente!");
 		return "redirect:/cita/cliente/citas";
 	}
 	
+	@Secured("ROLE_USER")
 	@GetMapping("/cliente/cancelar")
 	public String clienteCancelar() {
 		this.cita = new Cita();
 		return "redirect:/cita/cliente/";
 	}
 	
+	@Secured("ROLE_USER")
 	@GetMapping("/cancelar")
 	public String cancelarCita() {
 		return "/Views/SI/Citas/cancelarCita";
 	}
 	
+	@Secured("ROLE_USER")
 	@PostMapping("/cancelar")
 	public String cancelar(@RequestParam("idCita") Long idCita, Model model, Principal principal) {
 		Cita cita = citaService.buscarPorId(idCita);

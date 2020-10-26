@@ -17,6 +17,7 @@ public interface ICitaServ {
 	public Cita buscarPorId(Long idCita);
 	public List<Cita> buscarPorUsuario(Usuario usuario);
 	public List<Cita> buscarPorFechaAndEstilista(Date fecha, Estilista estilista);
+	public List<Cita> buscarPorFechaAndEstado(Date fecha, String estado);
 	
 	//METODOS LOGICOS DEL SISTEMA
 	public List<String> turnosDisponibles(Date fecha, Estilista estilista);
