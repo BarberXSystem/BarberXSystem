@@ -124,7 +124,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 						</li>
 					</ul>
 				</li>
-				<li sec:authorize="hasRole('ROLE_USER')">
+				<li sec:authorize="hasRole('ROLE_USER') || hasRole('ROLE_ESTILISTA')">
 					<a href="#" class="btn-sideBar-SubMenu">
 						<i class="fas fa-capsules mx-1"></i> Productos y servicios <i class="zmdi zmdi-caret-down pull-right"></i>
 					</a>
@@ -134,6 +134,16 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 						</li>
 						<li>
 							<a th:href="@{/servicio/cliente}"><i class="fas fa-plug mx-1"></i> Servicios</a>
+						</li>
+					</ul>
+				</li>
+				<li sec:authorize="hasRole('ROLE_ESTILISTA')">
+					<a href="#" class="btn-sideBar-SubMenu">
+						<i class="far fa-calendar-check mx-1"></i> Citas estilista <i class="zmdi zmdi-caret-down pull-right"></i>
+					</a>
+					<ul class="list-unstyled full-box">
+						<li>
+							<a th:href="@{/cita/estilista}"><i class="fas fa-bars mx-1"></i> Mis citas</a>
 						</li>
 					</ul>
 				</li>

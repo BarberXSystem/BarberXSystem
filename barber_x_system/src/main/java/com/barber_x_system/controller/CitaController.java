@@ -3,6 +3,7 @@ package com.barber_x_system.controller;
 import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -242,6 +243,23 @@ public class CitaController {
 		citaService.guardar(cita);
 		model.addAttribute("success", "Cita cancelada correctamente!");
 		return "/Views/SI/Citas/cancelarCita";
+	}
+	
+	@SuppressWarnings("deprecation")
+	@GetMapping("/estilista")
+	public String citasEstilista(Model model, Principal principal) {
+		Usuario usuario = usuarioService.buscarPorNumeroDoc(principal.getName());
+		Estilista estilista = estilistaServ.buscarPorUsuario(usuario);
+		
+		Date fechaActual = new Date();
+		
+		fechaActual.setHours(0);
+		fechaActual.setMinutes(0);
+		fechaActual.setSeconds(0);
+		
+		List<Cita> citasEstilista = citaService.buscarPorFechaAndEstilista(fechaActual, estilista);
+		model.addAttribute("citas", citasEstilista);
+		return "/Views/SI/Citas/citasEstilista";
 	}
 	
 }

@@ -65,11 +65,11 @@
 									    <form th:action="@{/usuario/nuevo}" th:object="${usuario}" method="post">
 											<div class="form-group label-floating">
 											  <label class="control-label">Nombres</label>
-											  <input class="form-control" th:field="*{nombres}" pattern="[A-Za-z]{5,50}" title="Solo letras. Tamaño mínimo: 5. Tamaño máximo: 50" type="text" required>
+											  <input class="form-control" th:field="*{nombres}" pattern="[A-Za-z ]{5,50}" maxlength="50" title="Solo letras. Tamaño mínimo: 5. Tamaño máximo: 50" type="text" required>
 											</div>
 											<div class="form-group label-floating">
 											  <label class="control-label">Apellidos</label>
-											  <input class="form-control" th:field="*{apellidos}" pattern="[A-Za-z]{5,50}" title="Solo letras. Tamaño mínimo: 5. Tamaño máximo: 50" type="text" required>
+											  <input class="form-control" th:field="*{apellidos}" pattern="[A-Za-z ]{5,50}" title="Solo letras. Tamaño mínimo: 5. Tamaño máximo: 50" type="text" required>
 											</div>
 											<div class="form-group label-floating">
 										        <label class="control-label">Tipo de documento</label>
