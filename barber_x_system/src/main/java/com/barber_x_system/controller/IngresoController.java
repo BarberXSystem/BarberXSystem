@@ -114,6 +114,15 @@ public class IngresoController extends AbstractXlsxView{
 			ingreso.getFechaFin().setSeconds(0);
 		}
 		
+		if ((estilista == null && ingreso.getFecha() != null && ingreso.getFechaFin() != null)
+				|| (estilista != null && ingreso.getFecha() != null && ingreso.getFechaFin() != null)){
+			
+			if (!validFechas(ingreso.getFecha(), ingreso.getFechaFin())) {
+				attr.addFlashAttribute("error", "Las fechas ingresadas son incorrectas!");
+				return "redirect:/ingreso/";
+			}
+		}
+		
 		if (estilista == null && ingreso.getFecha() == null && ingreso.getFechaFin() == null) {
 			this.ingresosX = null;
 			attr.addFlashAttribute("warning", "No se ha encontrado ningun criterio de busqueda!");
@@ -248,8 +257,13 @@ public class IngresoController extends AbstractXlsxView{
 	}
 	
 	@PostMapping("/agregar-producto-servicio")
-	public String agregarProductoServicio(@ModelAttribute DetallePago detalle) {
+	public String agregarProductoServicio(@ModelAttribute DetallePago detalle, RedirectAttributes attr) {
 		ProductoServicio prodServ = servProdServ.buscarPorId(detalle.getProdServ().getIdProductoServ());
+		
+		if (detalle.getCantidad() <= 0) {
+			attr.addFlashAttribute("error", "La cantidad ingresada es incorrecta!");
+			return "redirect:/ingreso/index";
+		}
 		
 		detalle.setProdServ(prodServ);
 		
@@ -330,7 +344,7 @@ public class IngresoController extends AbstractXlsxView{
 		detalle.setCantidad(1);
 		detalle.setSubtotal(detalle.getProdServ().getPrecioVenta() * detalle.getCantidad());
 		
-		agregarProductoServicio(detalle);
+		agregarProductoServicio(detalle, attr);
 		return "redirect:/ingreso/index";
 	}
 	
@@ -566,6 +580,31 @@ public class IngresoController extends AbstractXlsxView{
 			hoja.autoSizeColumn(6);
 			numFila++;
 		}
+	}
+	
+	@SuppressWarnings("deprecation")
+	public boolean validFechas(Date fechaInicial, Date fechaFinal) {
+		
+		int startDay = fechaInicial.getDate();
+		int startMonth = fechaInicial.getMonth();
+		int startYear = fechaInicial.getYear();
+		
+		int endDay = fechaFinal.getDate();
+		int endMonth = fechaFinal.getMonth();
+		int endYear = fechaFinal.getYear();
+		
+		if (startYear == endYear && startMonth == endMonth) {
+			if (startDay >= endDay) {
+				return false;
+			}
+		}
+		
+		if ((startYear == endYear && startMonth > endMonth)
+				|| startYear > endYear) {
+			return false;
+		}
+		
+		return true;
 	}
 	
 }
