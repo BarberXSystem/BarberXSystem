@@ -15,6 +15,7 @@ public interface ICitaServ {
 	
 	//METODOS AUXILIARES
 	public Cita buscarPorId(Long idCita);
+	public List<Cita> buscarPorEstado(String estado);
 	public List<Cita> buscarPorUsuario(Usuario usuario);
 	public List<Cita> buscarPorFechaAndEstilista(Date fecha, Estilista estilista);
 	public List<Cita> buscarPorFechaAndEstado(Date fecha, String estado);

@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -40,6 +42,10 @@ public class ReciboPago implements Serializable{
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date fecha;
+	
+	@Transient
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date fechaFin;
 
 	@DateTimeFormat(pattern = "HH:mm")
 	private Date hora;
@@ -102,6 +108,14 @@ public class ReciboPago implements Serializable{
 		this.fecha = fecha;
 	}
 
+	public Date getFechaFin() {
+		return fechaFin;
+	}
+
+	public void setFechaFin(Date fechaFin) {
+		this.fechaFin = fechaFin;
+	}
+
 	public Date getHora() {
 		return hora;
 	}
@@ -137,8 +151,8 @@ public class ReciboPago implements Serializable{
 	@Override
 	public String toString() {
 		return "ReciboPago [idRecibo=" + idRecibo + ", cita=" + cita + ", usuario=" + usuario + ", estilista="
-				+ estilista + ", numeroRecibo=" + numeroRecibo + ", fecha=" + fecha + ", hora=" + hora + ", total="
-				+ total + ", efectivo=" + efectivo + ", cambio=" + cambio + "]";
+				+ estilista + ", numeroRecibo=" + numeroRecibo + ", fecha=" + fecha + ", fechaFin=" + fechaFin
+				+ ", hora=" + hora + ", total=" + total + ", efectivo=" + efectivo + ", cambio=" + cambio + "]";
 	}
 	
 }

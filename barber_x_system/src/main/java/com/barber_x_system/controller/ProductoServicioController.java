@@ -144,7 +144,8 @@ public class ProductoServicioController {
 	@GetMapping("/producto/cliente")
 	public String productosCliente(Model model) {
 		if (this.productos.isEmpty()) {
-			this.productos = prodServService.buscarProductos();
+			model.addAttribute("productos", prodServService.buscarProductos());
+			return "/Views/SI/Producto/productosCliente";
 		}
 		model.addAttribute("productos", this.productos);
 		return "/Views/SI/Producto/productosCliente";
@@ -172,7 +173,8 @@ public class ProductoServicioController {
 	@GetMapping("/servicio/cliente")
 	public String serviciosCliente(Model model) {
 		if (this.servicios.isEmpty()) {
-			this.servicios = prodServService.buscarServicios();
+			model.addAttribute("servicios", prodServService.buscarServicios());
+			return "/Views/SI/Servicios/serviciosCliente";
 		}
 		model.addAttribute("servicios", this.servicios);
 		return "/Views/SI/Servicios/serviciosCliente";

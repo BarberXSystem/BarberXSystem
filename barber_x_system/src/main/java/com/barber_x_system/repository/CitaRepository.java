@@ -12,6 +12,7 @@ import com.barber_x_system.entity.Usuario;
 public interface CitaRepository extends CrudRepository<Cita, Long> {
 	
 	public List<Cita> findByUsuario(Usuario usuario);
+	public List<Cita> findByEstado(String estado);
 	public List<Cita> findByFechaAndEstilista(Date fecha, Estilista estilista);
 	public List<Cita> findByFechaAndEstado(Date fecha, String estado);
 

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
-	<title>Ingresos | BarberXsystem</title>
+	<title>Citas | BarberXsystem</title>
 	<link rel="stylesheet" th:href="@{/css/bootstrap2.min.css}">
 	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 	<link rel="stylesheet" th:href="@{/css/main.css}">
@@ -47,36 +47,25 @@
 		</div>
 		<div class="container-fluid">
 			<div class="page-header">
-			  <h1 class="text-titles"><i class="zmdi zmdi-font zmdi-hc-fw"></i> Ingresos <small>Todos los ingresos</small></h1>
+			  <h1 class="text-titles"><i class="zmdi zmdi-font zmdi-hc-fw"></i> Citas cliente<small> Historial de citas </small></h1>
 			</div>
 		</div>
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-xs-12">
-					<form th:action="@{/ingreso/}" th:object="${ingreso}" method="post" class="form-row">
+					<form th:action="@{/ingreso/historial/cliente}" method="post" class="form-row">
 						<div class="form-group col label-floating">
-							<label >Estilista</label>
-							<select class="form-control form-control-lg" th:field="*{estilista.idEstilista}">
-								<option th:text="''" th:value="''">
-								<option th:each="e:${estilistas}" th:text="${e.usuario.nombres+' '+e.usuario.apellidos}" th:value="${e.idEstilista}">
-							</select>
-						</div>
-						<div class="form-group col">
-							<label>Fecha Inicio</label>
-							<input type="date" class="form-control form-control-lg" th:field="*{fecha}" id="fechaInicio" name="fechaInicio">
-						</div>
-						<div class="form-group col">
-							<label>Fecha Fin</label>
-							<input type="date" class="form-control form-control-lg" th:field="*{fechaFin}" id="fechaFin" name="fechaFin">
+							<label >Numero de documento</label>
+							<input type="text" class="form-control form-control-lg" id="numeroDoc" name="numeroDoc">
 						</div>
 						<div class="form-group col align-items-end d-flex">
 							<button type="submit" class="btn btn-primary btn-raised">Buscar</button>
-							<a th:href="@{/ingreso/limpiar}" class="btn btn-dark btn-raised ml-2">Limpiar</a>
+							<a th:href="@{/ingreso/historial/cliente}" class="btn btn-dark btn-raised ml-2">Limpiar</a>
 						</div>
 					</form>
 					<ul class="nav nav-tabs" style="margin-bottom: 15px;">
-					  	<li class="active"><a href="#list" data-toggle="tab">Todos los ingresos</a></li>
-					  	<li><a th:href="@{/ingreso/(format=xlsx)}" class="nav-link">Reporte excel</a></li>
+					  	<li class="active"><a href="#list" data-toggle="tab">Todas las citas</a></li>
+					  	<li><a th:href="@{/cita/(format=xlsx)}">Reporte excel</a></li>
 					</ul>
 					<div id="myTabContent" class="tab-content">
 					  	<div class="tab-pane active" id="list">
@@ -88,22 +77,16 @@
 											<th class="text-center">Estilista</th>
 											<th class="text-center">Fecha</th>
 											<th class="text-center">Hora</th>
-											<th class="text-center">Total</th>
-											<th class="text-center">Detalles</th>
+											<th class="text-center">Estado</th>
 										</tr>
 									</thead>
 									<tbody>
-										<tr th:each="i:${ingresos}">
-											<td th:text="${i.idRecibo}"></td>
-											<td th:text="${i.estilista.usuario.nombres+' '+i.estilista.usuario.apellidos}"></td>
-											<td th:text="${#calendars.format(i.fecha, 'dd/MMM/yyyy')}"></td>
-											<td th:text="${#dates.format(i.hora, 'HH:mm')}"></td>
-											<td th:text="${'$'+i.total}"></td>
-											<td>
-												<a th:href="@{/ingreso/detalles/}+${i.idRecibo}">
-													<i class="fas fa-bars"></i>
-												</a>
-											</td>
+										<tr th:each="c:${citas}">
+											<td th:text="${c.idCita}"></td>
+											<td th:text="${c.estilista.usuario.nombres+' '+c.estilista.usuario.apellidos}"></td>
+											<td th:text="${#calendars.format(c.fecha, 'dd/MMM/yyyy')}"></td>
+											<td th:text="${c.hora}"></td>
+											<td th:text="${c.estado}"></td>
 										</tr>
 									</tbody>
 								</table>

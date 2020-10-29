@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.barber_x_system.entity.DetallePago;
+import com.barber_x_system.entity.Estilista;
 import com.barber_x_system.entity.ReciboPago;
 import com.barber_x_system.repository.ReciboPagoRepository;
 import com.barber_x_system.service.IReciboPagoServ;
@@ -50,6 +51,26 @@ public class ReciboPagoServImp implements IReciboPagoServ{
 	@Override
 	public List<ReciboPago> buscarPorFecha(Date fecha) {
 		return reciboRepo.findByFecha(fecha);
+	}
+
+	@Override
+	public List<ReciboPago> findByFechaBetween(Date fechaInicio, Date fechaFin) {
+		return reciboRepo.findByFechaBetween(fechaInicio, fechaFin);
+	}
+
+	@Override
+	public List<ReciboPago> findByFechaBetweenAndEstilista(Date fechaInicio, Date fechaFin, Estilista estilista) {
+		return reciboRepo.findByFechaBetweenAndEstilista(fechaInicio, fechaFin, estilista);
+	}
+
+	@Override
+	public List<ReciboPago> buscarPorEstilista(Estilista estilista) {
+		return reciboRepo.findByEstilista(estilista);
+	}
+
+	@Override
+	public List<ReciboPago> buscarPorEstilistaAndFecha(Estilista estilista, Date fecha) {
+		return reciboRepo.findByEstilistaAndFecha(estilista, fecha);
 	}
 
 }

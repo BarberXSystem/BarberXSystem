@@ -74,6 +74,9 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 						<li>
 							<a th:href="@{/cita/}"><i class="far fa-calendar-alt mx-1"></i> Todas las citas</a>
 						</li>
+						<li>
+							<a th:href="@{/ingreso/historial/cliente}"><i class="fas fa-search mx-1"></i> Historial de cliente</a>
+						</li>
 					</ul>
 				</li>
 				<li sec:authorize="hasRole('ROLE_ADMIN')">

@@ -5,12 +5,24 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +31,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.document.AbstractXlsxView;
+
 import com.barber_x_system.entity.Cita;
 import com.barber_x_system.entity.Estilista;
 import com.barber_x_system.entity.ProductoServicio;
@@ -30,7 +44,8 @@ import com.barber_x_system.service.IUsuarioServ;
 
 @Controller
 @RequestMapping("/cita")
-public class CitaController {
+@Component("/Views/SI/Citas/citas.xlsx")
+public class CitaController extends AbstractXlsxView{
 	
 	@Autowired
 	private IEstilistaServ estilistaServ;
@@ -48,12 +63,47 @@ public class CitaController {
 	private JavaMailSender mailSender;
 	
 	private Cita cita = new Cita();
+	
+	private List<Cita> citas = new ArrayList<>();
+	
+	private List<Cita> citasX;
 
 	@Secured("ROLE_ADMIN")
 	@GetMapping("/")
 	public String citas(Model model) {
-		model.addAttribute("todas", citaService.listar());
+		this.citas = citaService.listar();
+		model.addAttribute("todas", this.citas);
 		return "/Views/SI/Citas/citas";
+	}
+	
+	@Secured("ROLE_ADMIN")
+	@PostMapping("/")
+	public String buscar(@RequestParam("estado") String estado, Model model, RedirectAttributes attr) {
+		
+		if (estado.isEmpty()) {
+			this.citasX = null;
+			attr.addFlashAttribute("warning", "No se encontraron valores en la busqueda!");
+			return "redirect:/cita/";
+		}
+		
+		this.citas = citaService.buscarPorEstado(estado);
+		this.citasX = this.citas;
+		
+		if (this.citas.isEmpty()) {
+			this.citasX = null;
+			attr.addFlashAttribute("warning", "No se encontraron resultados!");
+			return "redirect:/cita/";
+		}
+		
+		model.addAttribute("todas", this.citas);
+		return "/Views/SI/Citas/citas";
+	}
+	
+	@Secured("ROLE_ADMIN")
+	@GetMapping("/limpiar")
+	public String limpiar() {
+		this.citasX = null;
+		return "redirect:/cita/";
 	}
 	
 	@Secured("ROLE_ADMIN")
@@ -260,6 +310,66 @@ public class CitaController {
 		List<Cita> citasEstilista = citaService.buscarPorFechaAndEstilista(fechaActual, estilista);
 		model.addAttribute("citas", citasEstilista);
 		return "/Views/SI/Citas/citasEstilista";
+	}
+
+	@SuppressWarnings("deprecation")
+	@Secured("ROLE_ADMIN")
+	@Override
+	protected void buildExcelDocument(Map<String, Object> model, Workbook workbook, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		
+			response.setHeader("Content-Disposition", "attachment; filename=\"citas.xlsx\"");
+			Sheet hoja = workbook.createSheet("Citas");
+			
+			CellStyle style = workbook.createCellStyle();
+			XSSFFont font = (XSSFFont) workbook.createFont();
+			font.setBold(true);
+			font.setFontHeight(16);
+			style.setFont(font);
+
+			Row filaTitulo = hoja.createRow(0);
+			Cell celda = filaTitulo.createCell(0);
+			celda.setCellValue("");
+			celda.setCellStyle(style);
+
+			Row filaData = hoja.createRow(0);
+			String[] columnas = { "ID", "Cedula cliente", "Cliente", "Estilista", "Servicio", 
+					"Fecha", "Hora", "Estado"};
+
+			for (int i = 0; i < columnas.length; i++) {
+				celda = filaData.createCell(i);
+				celda.setCellValue(columnas[i]);
+				celda.setCellStyle(style);
+			}
+
+			int numFila = 1;
+			
+			if (this.citasX == null) {
+				this.citasX = citaService.listar();
+			}
+
+			for (Cita cita : this.citasX) {
+				filaData = hoja.createRow(numFila);
+
+				filaData.createCell(0).setCellValue(cita.getIdCita());
+				hoja.autoSizeColumn(0);
+				filaData.createCell(1).setCellValue(cita.getUsuario().getNumeroDoc());
+				hoja.autoSizeColumn(1);
+				filaData.createCell(2).setCellValue(cita.getUsuario().getNombres()+" "+cita.getUsuario().getApellidos());
+				hoja.autoSizeColumn(2);
+				filaData.createCell(3).setCellValue(cita.getEstilista().getUsuario().getNombres()+" "+cita.getEstilista().getUsuario().getApellidos());
+				hoja.autoSizeColumn(3);
+				filaData.createCell(4).setCellValue(cita.getServicio().getNombre());
+				hoja.autoSizeColumn(4);
+				String fecha = cita.getFecha().getDate()+"-"+(cita.getFecha().getMonth()+1)+"-"+(cita.getFecha().getYear()+1900);
+				filaData.createCell(5).setCellValue(fecha);
+				hoja.autoSizeColumn(5);
+				filaData.createCell(6).setCellValue(cita.getHora());
+				hoja.autoSizeColumn(6);
+				filaData.createCell(7).setCellValue(cita.getEstado());
+				hoja.autoSizeColumn(7);
+				numFila++;
+			}
 	}
 	
 }

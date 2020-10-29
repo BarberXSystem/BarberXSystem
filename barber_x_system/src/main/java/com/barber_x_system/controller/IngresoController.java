@@ -3,15 +3,23 @@ package com.barber_x_system.controller;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+import java.util.Map;
 import javax.mail.internet.MimeMessage;
-
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +29,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.document.AbstractXlsxView;
 import com.barber_x_system.entity.Cita;
 import com.barber_x_system.entity.DetallePago;
 import com.barber_x_system.entity.Estilista;
@@ -37,7 +46,8 @@ import com.barber_x_system.service.IUsuarioServ;
 @Controller
 @Secured("ROLE_ADMIN")
 @RequestMapping("/ingreso")
-public class IngresoController {
+@Component("/Views/SI/Ingresos/ingresos.xlsx")
+public class IngresoController extends AbstractXlsxView{
 	
 	@Autowired
 	private IProductoServicioServ servProdServ;
@@ -68,12 +78,96 @@ public class IngresoController {
 	
 	private List<Estilista> estilistas = new ArrayList<>();
 	
+	private List<ReciboPago> ingresos = new ArrayList<>();
+	
+	private List<ReciboPago> ingresosX;
+	
 	private boolean mode = false;
 	
 	@GetMapping("/")
 	public String listar(Model model) {
-		model.addAttribute("ingresos", reciboService.listar());
+		this.ingresos = reciboService.listar();
+		model.addAttribute("ingresos", this.ingresos);
+		model.addAttribute("ingreso", new ReciboPago());
+		model.addAttribute("estilistas", estilistaService.listar());
 		return "/Views/SI/Ingresos/ingresos";
+	}
+	
+	@SuppressWarnings("deprecation")
+	@PostMapping("/")
+	public String buscar(@ModelAttribute ReciboPago ingreso, Model model, RedirectAttributes attr) {
+		Estilista estilista = null;		
+		
+		if (ingreso.getEstilista().getIdEstilista() != null) {
+			estilista = estilistaService.buscarPorId(ingreso.getEstilista().getIdEstilista());
+		}
+		
+		if (ingreso.getFecha() != null) {
+			ingreso.getFecha().setHours(0);
+			ingreso.getFecha().setMinutes(0);
+			ingreso.getFecha().setSeconds(0);
+		}
+		
+		if (ingreso.getFechaFin() != null) {
+			ingreso.getFechaFin().setHours(0);
+			ingreso.getFechaFin().setMinutes(0);
+			ingreso.getFechaFin().setSeconds(0);
+		}
+		
+		if (estilista == null && ingreso.getFecha() == null && ingreso.getFechaFin() == null) {
+			this.ingresosX = null;
+			attr.addFlashAttribute("warning", "No se ha encontrado ningun criterio de busqueda!");
+			return "redirect:/ingreso/";
+		}
+		
+		if ((estilista == null && ingreso.getFecha() == null && ingreso.getFechaFin() != null)
+				|| (estilista != null && ingreso.getFecha() == null && ingreso.getFechaFin() != null)) {
+			this.ingresosX = null;
+			attr.addFlashAttribute("warning", "No se se puede filtar por los criterios seleccionados!");
+			return "redirect:/ingreso/";
+		}
+		
+		if (estilista != null && ingreso.getFecha() != null && ingreso.getFechaFin() == null) {
+			this.ingresos = reciboService.buscarPorEstilistaAndFecha(estilista, ingreso.getFecha());
+			this.ingresosX = this.ingresos;
+		}
+		
+		if (estilista == null && ingreso.getFecha() != null && ingreso.getFechaFin() == null) {
+			this.ingresos = reciboService.buscarPorFecha(ingreso.getFecha());
+			this.ingresosX = this.ingresos;
+		}
+		
+		if (estilista != null && ingreso.getFecha() == null && ingreso.getFechaFin() == null) {
+			this.ingresos = reciboService.buscarPorEstilista(estilista);
+			this.ingresosX = this.ingresos;
+		} 
+		
+		if (estilista != null && ingreso.getFecha() != null && ingreso.getFechaFin() != null) {
+			this.ingresos = reciboService.findByFechaBetweenAndEstilista(ingreso.getFecha(), ingreso.getFechaFin(), estilista);
+			this.ingresosX = this.ingresos;
+		} 
+		
+		if (estilista == null && ingreso.getFecha() != null && ingreso.getFechaFin() != null) {
+			this.ingresos = reciboService.findByFechaBetween(ingreso.getFecha(), ingreso.getFechaFin());
+			this.ingresosX = this.ingresos; 
+		}
+		
+		if (this.ingresos.isEmpty()) {
+			this.ingresosX = null;
+			attr.addFlashAttribute("error", "No se ha encontrado ningun resultado!");
+			return "redirect:/ingreso/";
+		}
+		
+		model.addAttribute("ingresos", this.ingresos);
+		model.addAttribute("ingreso", new ReciboPago());
+		model.addAttribute("estilistas", estilistaService.listar());
+		return "/Views/SI/Ingresos/ingresos";
+	}
+	
+	@GetMapping("/limpiar")
+	public String limpiarFiltro() {
+		this.ingresosX = null;
+		return "redirect:/ingreso/";
 	}
 	
 	@GetMapping("/index")
@@ -106,7 +200,7 @@ public class IngresoController {
 		model.addAttribute("detalles", this.detallesAgregados);
 		model.addAttribute("estilistas", this.estilistas);
 		model.addAttribute("mode", this.mode);
-		return "/Views/SI/Ingresos/ingresoIndex";
+		return "/Views/SI/Ingresos/ingresoIndex";     
 	}
 	
 	@GetMapping("/preparar")
@@ -382,6 +476,96 @@ public class IngresoController {
 		model.addAttribute("ingresosDiarios", ingresosDiarios);
 		return "/Views/SI/Ingresos/ingresoDiario";
 	}
-	
 
+	@GetMapping("/historial/cliente")
+	public String historialCliente() {
+		return "/Views/SI/Citas/historialCliente";
+	}
+	
+	@PostMapping("/historial/cliente")
+	public String historialCliente(@RequestParam("numeroDoc") String numeroDoc, Model model) {
+		Usuario user = usuarioService.buscarPorNumeroDoc(numeroDoc);
+		List<Cita> citasAux = new ArrayList<>();
+		
+		if (user == null) {
+			model.addAttribute("error", "No se encontro ningun cliente!");
+			return "/Views/SI/Citas/historialCliente";
+		}
+		
+		citasAux = citaService.buscarPorUsuario(user); 
+		
+		if (citasAux.isEmpty()) {
+			model.addAttribute("error", "No se encontraron resulatdos!");
+			return "/Views/SI/Citas/historialCliente";
+		}
+		
+		model.addAttribute("citas", citasAux);
+		return "/Views/SI/Citas/historialCliente";
+	}
+	
+	@SuppressWarnings("deprecation")
+	@Override
+	protected void buildExcelDocument(Map<String, Object> model, Workbook workbook, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		response.setHeader("Content-Disposition", "attachment; filename=\"ingresos.xlsx\"");
+		Sheet hoja = workbook.createSheet("Ingresos");
+		
+		CellStyle style = workbook.createCellStyle();
+		XSSFFont font = (XSSFFont) workbook.createFont();
+		font.setBold(true);
+		font.setFontHeight(16);
+		style.setFont(font);
+
+		Row filaTitulo = hoja.createRow(0);
+		Cell celda = filaTitulo.createCell(0);
+		celda.setCellValue("");
+		celda.setCellStyle(style);
+
+		Row filaData = hoja.createRow(0);
+		String[] columnas = { "ID", "Cedula cliente", "Cliente", "Estilista", "Fecha", "Hora", "Total"};
+
+		for (int i = 0; i < columnas.length; i++) {
+			celda = filaData.createCell(i);
+			celda.setCellValue(columnas[i]);
+			celda.setCellStyle(style);
+		}
+
+		int numFila = 1;
+
+		if (this.ingresosX == null) {
+			this.ingresosX = reciboService.listar();
+		}
+
+		for (ReciboPago ingreso : this.ingresosX) {
+			filaData = hoja.createRow(numFila);
+
+			filaData.createCell(0).setCellValue(ingreso.getIdRecibo());
+			hoja.autoSizeColumn(0);
+			
+			if (ingreso.getUsuario() == null) {
+				filaData.createCell(1).setCellValue("SIN CLIENTE");
+				hoja.autoSizeColumn(1);
+				filaData.createCell(2).setCellValue("SIN CLIENTE");
+				hoja.autoSizeColumn(2);
+			} else {
+				filaData.createCell(1).setCellValue(ingreso.getUsuario().getNumeroDoc());
+				hoja.autoSizeColumn(1);
+				filaData.createCell(2).setCellValue(ingreso.getUsuario().getNombres()+" "+ingreso.getUsuario().getApellidos());
+				hoja.autoSizeColumn(2);
+			}
+			
+			filaData.createCell(3).setCellValue(ingreso.getEstilista().getUsuario().getNombres()+" "+ingreso.getEstilista().getUsuario().getApellidos());
+			hoja.autoSizeColumn(3);
+			String fecha = ingreso.getFecha().getDate()+"-"+(ingreso.getFecha().getMonth()+1)+"-"+(ingreso.getFecha().getYear()+1900);
+			filaData.createCell(4).setCellValue(fecha);
+			hoja.autoSizeColumn(4);
+			String hora = ingreso.getHora().getHours()+":"+ingreso.getHora().getMinutes();
+			filaData.createCell(5).setCellValue(hora);
+			hoja.autoSizeColumn(5);
+			filaData.createCell(6).setCellValue("$"+ingreso.getTotal());
+			hoja.autoSizeColumn(6);
+			numFila++;
+		}
+	}
+	
 }

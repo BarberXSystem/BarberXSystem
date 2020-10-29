@@ -356,4 +356,9 @@ public class CitaServImp implements ICitaServ{
 		return citaRepo.findByFechaAndEstado(fecha, estado);
 	}
 
+	@Override
+	public List<Cita> buscarPorEstado(String estado) {
+		return citaRepo.findByEstado(estado);
+	}
+
 }

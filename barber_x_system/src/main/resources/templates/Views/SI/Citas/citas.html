@@ -53,8 +53,24 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-xs-12">
+					<form th:action="@{/cita/}" method="post" class="form-row">
+						<div class="form-group col label-floating">
+							<label >Estado</label>
+							<select class="form-control form-control-lg" id="estado" name="estado">
+								<option th:text="''" th:value="''">
+								<option th:text="'Programada'" th:value="'PROGRAMADA'">
+								<option th:text="'Finalizada'" th:value="'FINALIZADA'">
+								<option th:text="'Cancelada'" th:value="'CANCELADA'">
+							</select>
+						</div>
+						<div class="form-group col align-items-end d-flex">
+							<button type="submit" class="btn btn-primary btn-raised">Buscar</button>
+							<a th:href="@{/cita/limpiar}" class="btn btn-dark btn-raised ml-2">Limpiar</a>
+						</div>
+					</form>
 					<ul class="nav nav-tabs" style="margin-bottom: 15px;">
 					  	<li class="active"><a href="#list" data-toggle="tab">Todas las citas</a></li>
+					  	<li><a th:href="@{/cita/(format=xlsx)}">Reporte excel</a></li>
 					</ul>
 					<div id="myTabContent" class="tab-content">
 					  	<div class="tab-pane active" id="list">
