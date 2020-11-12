@@ -39,7 +39,7 @@
 	</div>
 	<form th:action="@{/login}" method="post" autocomplete="off" class="full-box logInForm">
 		<p class="text-center text-muted"><i class="zmdi zmdi-account-circle zmdi-hc-5x"></i></p>
-		<p class="text-center text-muted text-uppercase">Inicia sesión con tu cuenta</p>
+		<p class="text-center text-muted text-uppercase">[[#{app.log.cuenta}]]</p>
 		<div class="form-group label-floating">
 		  <label class="control-label" for="username">Numero documento</label>
 		  <input class="form-control" id="username" name="username" type="text" required>

@@ -6,7 +6,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Barba</title>
+    <title>Barberia</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -43,7 +43,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                         <div class="col-xl-3 col-lg-3">
                             <div class="logo-img">
                                 <a href="index.html">
-                                    <img src="img/logo-barber.png" alt="" width="50px"><span style="color: aliceblue; font-weight: bold; font-size: larger;">Barber X Shop</span>
+                                    <img src="img/logo-barber.png" alt="" width="50px"><span style="color: aliceblue; font-weight: bold; font-size: larger;">Barber X System</span>
                                 </a>
                             </div>
                         </div>
@@ -63,11 +63,16 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                                         <div class="book_btn">
                                             <a class="" th:href="@{/login}">Ingresar a Sistema</a>
                                         </div>
+                                       <div class="book_room" sec:authorize="!isAuthenticated()">
+                                        <div class="book_btn">
+                                            <a class="" th:href="@{/nuevo}">Registrarse</a>
+                                        </div> 
                                     </div>
                                      <div class="book_room" sec:authorize="isAuthenticated()">
                                         <div class="book_btn">
-                                            <a class="" th:href="@{/dashboard/}">Dashboard</a>
+                                            <a class="" th:href="@{/dashboard/}">Ingresar</a>
                                         </div>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -90,9 +95,11 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                     <div class="row">
                         <div class="col-lg-6 col-md-8">
                             <div class="slider_text">
-                                <h3>Peluqueria moderna en el centro de la ciudad.</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                <a href="#" class="boxed-btn3">Reservar</a>
+                                <h3>BLACK & WHITE</h3>
+                                <p> Black & White, es un establecimiento de servicios estéticos dirigido y 
+                                diseñado principalmente al publico de sexo masculino, 
+                                Conformado por un grupo de estilistas y un administrador.</p>
+                               
                             </div>
                         </div>
                     </div>
@@ -103,24 +110,15 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                     <div class="row">
                         <div class="col-lg-6 col-md-8">
                             <div class="slider_text">
-                                <h3>Peluquería moderna en el norte de la ciudad.</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                <a href="#" class="boxed-btn3">Reservar</a>
+                                <h3>
+                                   </h3>
+                                <p></p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="single_slider d-flex align-items-center justify-content-center slider_bg_3 overlay">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-8">
-                            <div class="slider_text">
-                                <h3>Peluquería moderna en el occidente de la ciudad.</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                <a href="#" class="boxed-btn3">Reservar</a>
-                            </div>
-                        </div>
+            </div>
                     </div>
                 </div>
             </div>
@@ -145,15 +143,15 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                 <div class="col-xl-6 col-lg-6 col-md-6">
                     <div class="about_info">
                         <div class="section_title mb-20px">
-                            <h3>Acerca de Nosotros</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing eliteiusmod tempor incididunt ut labore et dolore magna aliqua. Qpsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. Quis ipsum
-                                suspendisse ultr.</p>
+                            <h3>Nuestros Horarios</h3>
+                            <p></p>
                         </div>
                         <p class="opening_hour">
-                            Horario de Atención
-                            <span>10:00 am - 10:00 pm</span>
+                            Lunes a sabado
+                            <span>10:00 am - 10:00 pm</span>                            
+                          
                         </p>
-                        <a href="about.html" class="boxed-btn3">Acerca de Nosotros</a>
+                        <a> </a>
                     </div>
                 </div>
             </div>
@@ -167,7 +165,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                 <div class="col-lg-6 col-md-10">
                     <div class="section_title text-center mb-55">
                         <h3>Nuestros Servicios</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+                        <p></p>
                     </div>
                 </div>
             </div>
@@ -182,7 +180,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                                 <i class="flaticon-shave"></i>
                             </div>
                             <h3>Afeitado Suave</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut</p>
+                            <p></p>
                         </div>
                     </div>
                 </div>
@@ -196,7 +194,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                                 <i class="flaticon-Barba"></i>
                             </div>
                             <h3>Recorte de Barba</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut</p>
+                            <p></p>
                         </div>
                     </div>
                 </div>
@@ -210,7 +208,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                                 <i class="flaticon-null"></i>
                             </div>
                             <h3>Corte de Cabello</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut</p>
+                            <p></p>
                         </div>
                     </div>
                 </div>
@@ -225,7 +223,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                 <div class="col-xl-6 col-md-6">
                     <div class="section_title mb-55">
                         <h3>Nuestros Precios</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+                        <p></p>
                     </div>
                 </div>
             </div>
@@ -286,8 +284,8 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
             <div class="row justify-content-center">
                 <div class="col-lg-6 col-md-10">
                     <div class="section_title text-center mb-55">
-                        <h3>Barba</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+                        <h3>Artistas</h3>
+                        <p></p>
                     </div>
                 </div>
             </div>
@@ -298,8 +296,8 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                             <img src="img/team/1.png" alt="">
                         </div>
                         <div class="member_info text-center">
-                            <h3>Jhon Smith</h3>
-                            <p>Junior Barba</p>
+                            <h3>Javier Moreno</h3>
+                            <p>Admin-Barbero</p>
                         </div>
                     </div>
                 </div>
@@ -309,8 +307,8 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                             <img src="img/team/2.png" alt="">
                         </div>
                         <div class="member_info text-center">
-                            <h3>Jems Smith</h3>
-                            <p>Junior Barba</p>
+                            <h3>Hector Rojas</h3>
+                            <p>Barbero</p>
                         </div>
                     </div>
                 </div>
@@ -320,8 +318,8 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                             <img src="img/team/3.png" alt="">
                         </div>
                         <div class="member_info text-center">
-                            <h3>Thomas J Watson</h3>
-                            <p>Junior Barba</p>
+                            <h3>Fernando Fernandez</h3>
+                            <p>Barbero</p>
                         </div>
                     </div>
                 </div>
@@ -336,9 +334,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
             <div class="row">
                 <div class="col-xl-12">
                     <div class="section_title mb-40 text-center">
-                        <h3>
-                            Testimonios
-                        </h3>
+                        <h3></h3>
                     </div>
                 </div>
             </div>
@@ -349,12 +345,12 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                             <div class="row justify-content-center">
                                 <div class="col-lg-7 col-md-10">
                                     <div class="single_testmonial text-center">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+                                        <p></p>
                                         <div class="testmonial_author">
                                             <div class="thumb">
-                                                <img src="img/testmonial/1.png" alt="" width="20px">
+                                                
                                             </div>
-                                            <h3>Watson, web developer</h3>
+                                            <h3></h3>
                                         </div>
                                     </div>
                                 </div>
@@ -364,12 +360,12 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                             <div class="row justify-content-center">
                                 <div class="col-lg-7 col-md-10">
                                     <div class="single_testmonial text-center">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+                                        <p></p>
                                         <div class="testmonial_author">
                                             <div class="thumb">
-                                                <img src="img/testmonial/1.png" alt="" width="20px">
+                                                
                                             </div>
-                                            <h3>Watson, web developer</h3>
+                                            <h3></h3>
                                         </div>
                                     </div>
                                 </div>
@@ -379,12 +375,11 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                             <div class="row justify-content-center">
                                 <div class="col-lg-7 col-md-10">
                                     <div class="single_testmonial text-center">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+                                        <p></p>
                                         <div class="testmonial_author">
-                                            <div class="thumb">
-                                                <img src="img/testmonial/1.png" alt="" width="20px">
+                                            <div class="thumb">                                               
                                             </div>
-                                            <h3>Watson, web developer</h3>
+                                            <h3></h3>
                                         </div>
                                     </div>
                                 </div>
@@ -405,10 +400,10 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                         <div class="footer_widget">
                             <div class="footer_logo">
                                 <a href="#">
-                                    <img src="img/logo-barber.png" alt="" width="50px"><span style="color: aliceblue; font-weight: bold; font-size: larger;">Barba X Shop</span>
+                                    <img src="img/logo-barber.png" alt="" width="50px"><span style="color: aliceblue; font-weight: bold; font-size: larger;">Barber X System</span>
                                 </a>
                             </div>
-                            <p class="address_text">Lorem ipsum dolor sit amet, consectetur <br> adipiscing elit, sed do eiusmod tempor <br> incididunt ut labore et dolore magna aliqua. <br> Quis ipsum suspendisse.
+                            <p class="address_text"> <br> <br>  <br> 
                             </p>
                             <div class="socail_links">
                                 <ul>
@@ -440,12 +435,12 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                     <div class="col-xl-3 col-md-6 col-lg-3">
                         <div class="footer_widget">
                             <h3 class="footer_title">
-                                Informacion
+                                
                             </h3>
                             <ul class="links">
-                                <li><a href="#">Acerca de nosotros</a></li>
-                                <li><a href="#">Servicios</a></li>
-                                <li><a href="#">Testimonios</a></li>
+                                <li><a href="#"></a></li>
+                                <li><a href="#"></a></li>
+                                <li><a href="#"></a></li>
                             </ul>
                         </div>
                     </div>
@@ -482,7 +477,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                     <div class="col-xl-12">
                         <p class="copy_right text-center">
                             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                            Copyright copy Barber X Shop
+                            Copyright copy BarberXSystem
                         </p>
                     </div>
                 </div>
@@ -496,7 +491,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <form id="test-form" class="white-popup-block mfp-hide">
         <div class="popup_box ">
             <div class="popup_inner">
-                <h3>Haga una cita</h3>
+                <h3>Agende una cita</h3>
                     <div class="row">
                         <div class="col-xl-6 col-md-6">
                             <input id="datepicker" placeholder="Date">
