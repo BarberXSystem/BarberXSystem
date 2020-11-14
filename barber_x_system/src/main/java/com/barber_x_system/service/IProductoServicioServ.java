@@ -1,6 +1,9 @@
 package com.barber_x_system.service;
 
 import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
+
 import com.barber_x_system.entity.ProductoServicio;
 
 public interface IProductoServicioServ {
@@ -9,6 +12,7 @@ public interface IProductoServicioServ {
 	public List<ProductoServicio> listar();
 	public void guardar(ProductoServicio productoServ);
 	public void eliminar(Long idProductoServ);
+	public boolean saveDataFromUploadFile(MultipartFile file);
 	
 	//METODOS AUXILIARES
 	public ProductoServicio buscarPorId(Long idProductoServ);

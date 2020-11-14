@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.barber_x_system.entity.ProductoServicio;
@@ -196,6 +197,33 @@ public class ProductoServicioController {
 	public String limpiarBusquedaServicio() {
 		this.servicios = new ArrayList<>();
 		return "redirect:/servicio/cliente";
+	}
+	
+	@Secured("ROLE_ADMIN")
+	@GetMapping("/productos-servicios/cargar-datos")
+	public String cargarDatos() {
+		return "/Views/SI/ProductoServicio/cargarDatos";
+	}
+	
+	@Secured("ROLE_ADMIN")
+	@PostMapping("/productos-servicios/cargar-datos")
+	public String cargarDatos(@RequestParam("file") MultipartFile file, RedirectAttributes attr) {
+		boolean isFlag = false;
+
+		try {
+			isFlag = prodServService.saveDataFromUploadFile(file);
+		} catch (Exception e) {
+			attr.addFlashAttribute("error", e.getMessage());
+		}
+
+		if (isFlag) {
+			attr.addFlashAttribute("success","Se ha cargado la informacion correctamente a la base de datos!");
+		} else {
+			attr.addFlashAttribute("error","Oh no!, algo ha ocurrido, por favor revise las recomendaciones.");
+			return "redirect:/productos-servicios/cargar-datos";
+		}
+
+		return "redirect:/producto/";
 	}
 
 }
