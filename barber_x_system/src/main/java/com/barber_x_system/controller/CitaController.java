@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -72,7 +73,20 @@ public class CitaController extends AbstractXlsxView{
 	@GetMapping("/")
 	public String citas(Model model) {
 		this.citas = citaService.listar();
+		List<Cita> programadas = citaService.buscarPorEstado("PROGRAMADA");
+		List<Cita> finalizadas = citaService.buscarPorEstado("FINALIZADA");
+		List<Cita> canceladas = citaService.buscarPorEstado("CANCELADA");
+		
+		Map<String, Integer> citasMap = new LinkedHashMap<>();
+		
+		citasMap.put("PROGRAMADAS", programadas.size());
+		citasMap.put("FINALIZADAS", finalizadas.size());
+		citasMap.put("CANCELADAS", canceladas.size());
+		
+		model.addAttribute("citasMap", citasMap);
+		model.addAttribute("totalCitas", this.citas.size());
 		model.addAttribute("todas", this.citas);
+		
 		return "/Views/SI/Citas/citas";
 	}
 	

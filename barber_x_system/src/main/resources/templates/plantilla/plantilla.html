@@ -131,6 +131,9 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 						<li>
 							<a th:href="@{/cita/cancelar}"><i class="fas fa-times mx-1"></i> Cancelar cita</a>
 						</li>
+						<li>
+							<a th:href="@{/cita/cancelar}"><i class="fas fa-chart-bar mx-1"></i> Estadisticas</a>
+						</li>
 					</ul>
 				</li>
 				<li sec:authorize="hasRole('ROLE_USER') || hasRole('ROLE_ESTILISTA')">

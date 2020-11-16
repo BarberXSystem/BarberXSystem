@@ -100,12 +100,23 @@
 					</div>
 				</div>
 			</div>
+			<hr>
+			<div class="row justify-content-center">
+				<div class="col-xs-10">
+					<div id="container">
+						
+					</div>
+				</div>
+			</div>
 		</div>
 	</section>
 	<footer th:replace="plantilla/plantilla :: footer-scripts"></footer>
 	
 	<div th:include="Views/SI/Admin/modalDeleteAdmin.html" th:remove="tag"></div>
-
+	
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+	<script src="https://code.highcharts.com/modules/exporting.js"></script>
+	
 	<script>
 		function confirmDelete(id){
 	    	$('#modal-delete-admin').modal('show');
@@ -116,6 +127,51 @@
 	    	var id = $("#idAdminMD").val();
 	        window.location = "/admin/eliminar/"+id;
 	    }
+	</script>
+	
+	<script th:inline="javascript">
+	    $(function(){
+	    Highcharts.chart('container', {
+	        chart: {
+	            type: 'column'
+	        },
+	        title: {
+	            text: 'Citas'
+	        },
+	        subtitle: {
+	            text: 'Citas'
+	        },
+	        xAxis: {
+	            categories: [[${citasMap.keySet()}]],
+	            crosshair: true
+	        },
+	        yAxis: {
+	            min: 0,
+	            max:[[${totalCitas}]],
+	            title: {
+	                text: 'Cantidad'
+	            }
+	        },
+	        tooltip: {
+	            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+	            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+	            '<td style="padding:0"><b>{point.y:.1f} K</b></td></tr>',
+	            footerFormat: '</table>',
+	            shared: true,
+	            useHTML: true
+	        },
+	        plotOptions: {
+	            column: {
+	                pointPadding: 0.2,
+	                borderWidth: 0
+	            }
+	        },
+	        series: [{
+	            name: 'Citas',
+	            data: [[${citasMap.values()}]]
+	        }]
+	    });
+	    });
 	</script>
 </body>
 </html>
